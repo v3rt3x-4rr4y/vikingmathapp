@@ -7,7 +7,7 @@
 //
 
 #import "VMAMainMenuScene.h"
-#import "MyScene.h"
+#import "VMAGroupsActivityBuildScene.h"
 
 @implementation VMAMainMenuScene
 
@@ -26,7 +26,7 @@
 {
     SKAction* block = [SKAction runBlock:^
                       {
-                          MyScene* myScene = [[MyScene alloc] initWithSize:self.size];
+                          VMAGroupsActivityBuildScene* myScene = [[VMAGroupsActivityBuildScene alloc] initWithSize:self.size];
                           SKTransition* reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
                           [self.view presentScene:myScene transition:reveal];
                       }];

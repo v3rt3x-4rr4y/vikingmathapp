@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "VMAMainMenuScene.h"
-#import "MyScene.h"
+#import "VMAGroupsActivityBuildScene.h"
 
 @implementation ViewController
 
