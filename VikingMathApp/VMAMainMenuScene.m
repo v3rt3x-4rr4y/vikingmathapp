@@ -17,7 +17,7 @@
     {
         SKSpriteNode *bg;
         bg = [SKSpriteNode spriteNodeWithImageNamed:@"LandingScreen_Background"];
-        bg.position = CGPointMake(self.size.width/2, self.size.height/2); [self addChild:bg];
+        bg.position = CGPointMake(self.size.width / 2, self.size.height / 2); [self addChild:bg];
     }
     return self;
 }
