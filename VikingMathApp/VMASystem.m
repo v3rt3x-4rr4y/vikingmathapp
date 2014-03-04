@@ -10,7 +10,7 @@
 
 @implementation VMASystem
 
-- (id)initWithEntityManager:(VMAEntityManager *)entityManager
+- (instancetype)initWithEntityManager:(VMAEntityManager *)entityManager
 {
     if ((self = [super init]))
     {

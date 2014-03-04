@@ -1,0 +1,705 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3E0F56E118C63C7100567714 /* VMAMoveableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */; };
+		3E0F56E418C63D2400567714 /* VMAMoveableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */; };
+		3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E618C64CE200567714 /* VMARenderableComponent.m */; };
+		3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */; };
+		3E45B11118C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */; };
+		3E45B11218C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */; };
+		3E45B11518C0FC8B0098A775 /* GroupActivity_BoatProw.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */; };
+		3E45B11618C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */; };
+		3E45B11D18C0FF590098A775 /* GroupActivity_BoatShed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */; };
+		3E45B11E18C0FF590098A775 /* GroupActivity_BoatShed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */; };
+		3E45B12918C122620098A775 /* VMAEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12818C122620098A775 /* VMAEntity.m */; };
+		3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12B18C122C50098A775 /* VMAEntityManager.m */; };
+		3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12E18C125F60098A775 /* VMAComponent.m */; };
+		3E45B13218C126830098A775 /* VMAEntityFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B13118C126830098A775 /* VMAEntityFactory.m */; };
+		3E45B13518C127980098A775 /* VMASystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B13418C127980098A775 /* VMASystem.m */; };
+		3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B13718C12AD10098A775 /* VMAHealthSystem.m */; };
+		3E886E7118C09692007FDE6A /* LandingScreen_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E6F18C09692007FDE6A /* LandingScreen_Background@2x.png */; };
+		3E886E7218C09692007FDE6A /* LandingScreen_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7018C09692007FDE6A /* LandingScreen_Background.png */; };
+		3E886E7718C097DA007FDE6A /* LoseScreen_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7318C097DA007FDE6A /* LoseScreen_Background.png */; };
+		3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7418C097DA007FDE6A /* LoseScreen_Background@2x.png */; };
+		3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7518C097DA007FDE6A /* WinScreen_Background.png */; };
+		3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */; };
+		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
+		3EEF884818BF787300A2E471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884718BF787300A2E471 /* Foundation.framework */; };
+		3EEF884A18BF787300A2E471 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884918BF787300A2E471 /* CoreGraphics.framework */; };
+		3EEF884C18BF787300A2E471 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884B18BF787300A2E471 /* UIKit.framework */; };
+		3EEF884E18BF787300A2E471 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884D18BF787300A2E471 /* SpriteKit.framework */; };
+		3EEF885418BF787300A2E471 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF885218BF787300A2E471 /* InfoPlist.strings */; };
+		3EEF885618BF787300A2E471 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF885518BF787300A2E471 /* main.m */; };
+		3EEF885A18BF787300A2E471 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF885918BF787300A2E471 /* AppDelegate.m */; };
+		3EEF885D18BF787300A2E471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF885B18BF787300A2E471 /* Main.storyboard */; };
+		3EEF886018BF787300A2E471 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF885F18BF787300A2E471 /* ViewController.m */; };
+		3EEF886318BF787300A2E471 /* VMAGroupsActivityBuildScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF886218BF787300A2E471 /* VMAGroupsActivityBuildScene.m */; };
+		3EEF886718BF787300A2E471 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF886618BF787300A2E471 /* Images.xcassets */; };
+		3EEF886E18BF787300A2E471 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF886D18BF787300A2E471 /* XCTest.framework */; };
+		3EEF886F18BF787300A2E471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884718BF787300A2E471 /* Foundation.framework */; };
+		3EEF887018BF787300A2E471 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884B18BF787300A2E471 /* UIKit.framework */; };
+		3EEF887818BF787300A2E471 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF887618BF787300A2E471 /* InfoPlist.strings */; };
+		3EEF887A18BF787300A2E471 /* VikingMathAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF887918BF787300A2E471 /* VikingMathAppTests.m */; };
+		3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */; };
+		3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */; };
+		3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */; };
+		3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */; };
+		3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */; };
+		3EEF889318BFAC5400A2E471 /* GroupActivity_Viking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3EEF887118BF787300A2E471 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3EEF883C18BF787300A2E471 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3EEF884318BF787300A2E471;
+			remoteInfo = VikingMathApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3E0F56D718C5FF4800567714 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
+		3E0F56D818C6049E00567714 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		3E0F56DF18C63C7100567714 /* VMAMoveableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMoveableComponent.h; sourceTree = "<group>"; };
+		3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMoveableComponent.m; sourceTree = "<group>"; };
+		3E0F56E218C63D2400567714 /* VMAMoveableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMoveableSystem.h; sourceTree = "<group>"; };
+		3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMoveableSystem.m; sourceTree = "<group>"; };
+		3E0F56E518C64CE200567714 /* VMARenderableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMARenderableComponent.h; sourceTree = "<group>"; };
+		3E0F56E618C64CE200567714 /* VMARenderableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMARenderableComponent.m; sourceTree = "<group>"; };
+		3E45B10C18C0E0CF0098A775 /* VMAMathUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMathUtility.h; sourceTree = "<group>"; };
+		3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMathUtility.m; sourceTree = "<group>"; };
+		3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatShedwBoat.png; sourceTree = "<group>"; };
+		3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatShedwBoat@2x.png"; sourceTree = "<group>"; };
+		3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatProw.png; sourceTree = "<group>"; };
+		3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatProw@2x.png"; sourceTree = "<group>"; };
+		3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatShed.png; sourceTree = "<group>"; };
+		3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatShed@2x.png"; sourceTree = "<group>"; };
+		3E45B12718C122620098A775 /* VMAEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAEntity.h; sourceTree = "<group>"; };
+		3E45B12818C122620098A775 /* VMAEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAEntity.m; sourceTree = "<group>"; };
+		3E45B12A18C122C50098A775 /* VMAEntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAEntityManager.h; sourceTree = "<group>"; };
+		3E45B12B18C122C50098A775 /* VMAEntityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAEntityManager.m; sourceTree = "<group>"; };
+		3E45B12D18C125F60098A775 /* VMAComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAComponent.h; sourceTree = "<group>"; };
+		3E45B12E18C125F60098A775 /* VMAComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAComponent.m; sourceTree = "<group>"; };
+		3E45B13018C126830098A775 /* VMAEntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAEntityFactory.h; sourceTree = "<group>"; };
+		3E45B13118C126830098A775 /* VMAEntityFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAEntityFactory.m; sourceTree = "<group>"; };
+		3E45B13318C127980098A775 /* VMASystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMASystem.h; sourceTree = "<group>"; };
+		3E45B13418C127980098A775 /* VMASystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMASystem.m; sourceTree = "<group>"; };
+		3E45B13618C12AD10098A775 /* VMAHealthSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAHealthSystem.h; sourceTree = "<group>"; };
+		3E45B13718C12AD10098A775 /* VMAHealthSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAHealthSystem.m; sourceTree = "<group>"; };
+		3E886E6F18C09692007FDE6A /* LandingScreen_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LandingScreen_Background@2x.png"; sourceTree = "<group>"; };
+		3E886E7018C09692007FDE6A /* LandingScreen_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LandingScreen_Background.png; sourceTree = "<group>"; };
+		3E886E7318C097DA007FDE6A /* LoseScreen_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoseScreen_Background.png; sourceTree = "<group>"; };
+		3E886E7418C097DA007FDE6A /* LoseScreen_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoseScreen_Background@2x.png"; sourceTree = "<group>"; };
+		3E886E7518C097DA007FDE6A /* WinScreen_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WinScreen_Background.png; sourceTree = "<group>"; };
+		3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WinScreen_Background@2x.png"; sourceTree = "<group>"; };
+		3E886E7B18C09A01007FDE6A /* VMAMainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMainMenuScene.h; sourceTree = "<group>"; };
+		3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMainMenuScene.m; sourceTree = "<group>"; };
+		3EEF884418BF787300A2E471 /* VikingMathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VikingMathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EEF884718BF787300A2E471 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3EEF884918BF787300A2E471 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3EEF884B18BF787300A2E471 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3EEF884D18BF787300A2E471 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		3EEF885118BF787300A2E471 /* VikingMathApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VikingMathApp-Info.plist"; sourceTree = "<group>"; };
+		3EEF885318BF787300A2E471 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3EEF885518BF787300A2E471 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3EEF885718BF787300A2E471 /* VikingMathApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VikingMathApp-Prefix.pch"; sourceTree = "<group>"; };
+		3EEF885818BF787300A2E471 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3EEF885918BF787300A2E471 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3EEF885C18BF787300A2E471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3EEF885E18BF787300A2E471 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3EEF885F18BF787300A2E471 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3EEF886118BF787300A2E471 /* VMAGroupsActivityBuildScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMAGroupsActivityBuildScene.h; sourceTree = "<group>"; };
+		3EEF886218BF787300A2E471 /* VMAGroupsActivityBuildScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAGroupsActivityBuildScene.m; sourceTree = "<group>"; };
+		3EEF886618BF787300A2E471 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3EEF886C18BF787300A2E471 /* VikingMathAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VikingMathAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EEF886D18BF787300A2E471 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		3EEF887518BF787300A2E471 /* VikingMathAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VikingMathAppTests-Info.plist"; sourceTree = "<group>"; };
+		3EEF887718BF787300A2E471 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3EEF887918BF787300A2E471 /* VikingMathAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VikingMathAppTests.m; sourceTree = "<group>"; };
+		3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupVikingsActivity_Background.png; sourceTree = "<group>"; };
+		3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupVikingsActivity_Background@2x.png"; sourceTree = "<group>"; };
+		3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Boat.png; sourceTree = "<group>"; };
+		3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Boat@2x.png"; sourceTree = "<group>"; };
+		3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Viking.png; sourceTree = "<group>"; };
+		3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Viking@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3EEF884118BF787300A2E471 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF884A18BF787300A2E471 /* CoreGraphics.framework in Frameworks */,
+				3EEF884C18BF787300A2E471 /* UIKit.framework in Frameworks */,
+				3EEF884E18BF787300A2E471 /* SpriteKit.framework in Frameworks */,
+				3EEF884818BF787300A2E471 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EEF886918BF787300A2E471 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF886E18BF787300A2E471 /* XCTest.framework in Frameworks */,
+				3EEF887018BF787300A2E471 /* UIKit.framework in Frameworks */,
+				3EEF886F18BF787300A2E471 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3E45B11F18C116290098A775 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				3E886E7B18C09A01007FDE6A /* VMAMainMenuScene.h */,
+				3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */,
+				3EEF886118BF787300A2E471 /* VMAGroupsActivityBuildScene.h */,
+				3EEF886218BF787300A2E471 /* VMAGroupsActivityBuildScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		3E45B12018C116390098A775 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B10C18C0E0CF0098A775 /* VMAMathUtility.h */,
+				3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */,
+				3E0F56D718C5FF4800567714 /* Physics.h */,
+				3E0F56D818C6049E00567714 /* Constants.h */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		3E45B12118C116440098A775 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF885B18BF787300A2E471 /* Main.storyboard */,
+				3EEF885818BF787300A2E471 /* AppDelegate.h */,
+				3EEF885918BF787300A2E471 /* AppDelegate.m */,
+				3EEF885E18BF787300A2E471 /* ViewController.h */,
+				3EEF885F18BF787300A2E471 /* ViewController.m */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
+		3E45B12218C1202E0098A775 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B12518C120540098A775 /* Component */,
+				3E45B12418C1204C0098A775 /* System */,
+				3E45B12318C120450098A775 /* Framework */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		3E45B12318C120450098A775 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B12718C122620098A775 /* VMAEntity.h */,
+				3E45B12818C122620098A775 /* VMAEntity.m */,
+				3E45B12A18C122C50098A775 /* VMAEntityManager.h */,
+				3E45B12B18C122C50098A775 /* VMAEntityManager.m */,
+				3E45B13018C126830098A775 /* VMAEntityFactory.h */,
+				3E45B13118C126830098A775 /* VMAEntityFactory.m */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		3E45B12418C1204C0098A775 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B13318C127980098A775 /* VMASystem.h */,
+				3E45B13418C127980098A775 /* VMASystem.m */,
+				3E45B13618C12AD10098A775 /* VMAHealthSystem.h */,
+				3E45B13718C12AD10098A775 /* VMAHealthSystem.m */,
+				3E0F56E218C63D2400567714 /* VMAMoveableSystem.h */,
+				3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */,
+			);
+			name = System;
+			sourceTree = "<group>";
+		};
+		3E45B12518C120540098A775 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B12D18C125F60098A775 /* VMAComponent.h */,
+				3E45B12E18C125F60098A775 /* VMAComponent.m */,
+				3E0F56DF18C63C7100567714 /* VMAMoveableComponent.h */,
+				3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */,
+				3E0F56E518C64CE200567714 /* VMARenderableComponent.h */,
+				3E0F56E618C64CE200567714 /* VMARenderableComponent.m */,
+			);
+			name = Component;
+			sourceTree = "<group>";
+		};
+		3E45B12618C1205F0098A775 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		3EEF883B18BF787300A2E471 = {
+			isa = PBXGroup;
+			children = (
+				3EEF884F18BF787300A2E471 /* VikingMathApp */,
+				3EEF887318BF787300A2E471 /* VikingMathAppTests */,
+				3EEF884618BF787300A2E471 /* Frameworks */,
+				3EEF884518BF787300A2E471 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3EEF884518BF787300A2E471 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF884418BF787300A2E471 /* VikingMathApp.app */,
+				3EEF886C18BF787300A2E471 /* VikingMathAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3EEF884618BF787300A2E471 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF884718BF787300A2E471 /* Foundation.framework */,
+				3EEF884918BF787300A2E471 /* CoreGraphics.framework */,
+				3EEF884B18BF787300A2E471 /* UIKit.framework */,
+				3EEF884D18BF787300A2E471 /* SpriteKit.framework */,
+				3EEF886D18BF787300A2E471 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3EEF884F18BF787300A2E471 /* VikingMathApp */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B12618C1205F0098A775 /* Audio */,
+				3E45B12218C1202E0098A775 /* Entity */,
+				3E45B12118C116440098A775 /* Infrastructure */,
+				3E45B12018C116390098A775 /* Utility */,
+				3E45B11F18C116290098A775 /* Scenes */,
+				3EEF888318BF9F5100A2E471 /* Art */,
+				3EEF886618BF787300A2E471 /* Images.xcassets */,
+				3EEF885018BF787300A2E471 /* Supporting Files */,
+			);
+			path = VikingMathApp;
+			sourceTree = "<group>";
+		};
+		3EEF885018BF787300A2E471 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF885118BF787300A2E471 /* VikingMathApp-Info.plist */,
+				3EEF885218BF787300A2E471 /* InfoPlist.strings */,
+				3EEF885518BF787300A2E471 /* main.m */,
+				3EEF885718BF787300A2E471 /* VikingMathApp-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3EEF887318BF787300A2E471 /* VikingMathAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF887918BF787300A2E471 /* VikingMathAppTests.m */,
+				3EEF887418BF787300A2E471 /* Supporting Files */,
+			);
+			path = VikingMathAppTests;
+			sourceTree = "<group>";
+		};
+		3EEF887418BF787300A2E471 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF887518BF787300A2E471 /* VikingMathAppTests-Info.plist */,
+				3EEF887618BF787300A2E471 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3EEF888318BF9F5100A2E471 /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */,
+				3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */,
+				3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */,
+				3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */,
+				3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */,
+				3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */,
+				3E886E7318C097DA007FDE6A /* LoseScreen_Background.png */,
+				3E886E7418C097DA007FDE6A /* LoseScreen_Background@2x.png */,
+				3E886E7518C097DA007FDE6A /* WinScreen_Background.png */,
+				3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */,
+				3E886E6F18C09692007FDE6A /* LandingScreen_Background@2x.png */,
+				3E886E7018C09692007FDE6A /* LandingScreen_Background.png */,
+				3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */,
+				3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */,
+				3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */,
+				3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */,
+				3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */,
+				3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */,
+			);
+			name = Art;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3EEF884318BF787300A2E471 /* VikingMathApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EEF887D18BF787300A2E471 /* Build configuration list for PBXNativeTarget "VikingMathApp" */;
+			buildPhases = (
+				3EEF884018BF787300A2E471 /* Sources */,
+				3EEF884118BF787300A2E471 /* Frameworks */,
+				3EEF884218BF787300A2E471 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VikingMathApp;
+			productName = VikingMathApp;
+			productReference = 3EEF884418BF787300A2E471 /* VikingMathApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3EEF886B18BF787300A2E471 /* VikingMathAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EEF888018BF787300A2E471 /* Build configuration list for PBXNativeTarget "VikingMathAppTests" */;
+			buildPhases = (
+				3EEF886818BF787300A2E471 /* Sources */,
+				3EEF886918BF787300A2E471 /* Frameworks */,
+				3EEF886A18BF787300A2E471 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3EEF887218BF787300A2E471 /* PBXTargetDependency */,
+			);
+			name = VikingMathAppTests;
+			productName = VikingMathAppTests;
+			productReference = 3EEF886C18BF787300A2E471 /* VikingMathAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3EEF883C18BF787300A2E471 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Spencer Drayton";
+				TargetAttributes = {
+					3EEF886B18BF787300A2E471 = {
+						TestTargetID = 3EEF884318BF787300A2E471;
+					};
+				};
+			};
+			buildConfigurationList = 3EEF883F18BF787300A2E471 /* Build configuration list for PBXProject "VikingMathApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3EEF883B18BF787300A2E471;
+			productRefGroup = 3EEF884518BF787300A2E471 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3EEF884318BF787300A2E471 /* VikingMathApp */,
+				3EEF886B18BF787300A2E471 /* VikingMathAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3EEF884218BF787300A2E471 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF885418BF787300A2E471 /* InfoPlist.strings in Resources */,
+				3EEF889318BFAC5400A2E471 /* GroupActivity_Viking@2x.png in Resources */,
+				3E886E7118C09692007FDE6A /* LandingScreen_Background@2x.png in Resources */,
+				3EEF886718BF787300A2E471 /* Images.xcassets in Resources */,
+				3E886E7718C097DA007FDE6A /* LoseScreen_Background.png in Resources */,
+				3E45B11D18C0FF590098A775 /* GroupActivity_BoatShed.png in Resources */,
+				3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */,
+				3E45B11218C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png in Resources */,
+				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
+				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,
+				3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */,
+				3EEF885D18BF787300A2E471 /* Main.storyboard in Resources */,
+				3E45B11E18C0FF590098A775 /* GroupActivity_BoatShed@2x.png in Resources */,
+				3E45B11118C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png in Resources */,
+				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
+				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,
+				3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */,
+				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
+				3E45B11618C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png in Resources */,
+				3E45B11518C0FC8B0098A775 /* GroupActivity_BoatProw.png in Resources */,
+				3E886E7218C09692007FDE6A /* LandingScreen_Background.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EEF886A18BF787300A2E471 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF887818BF787300A2E471 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3EEF884018BF787300A2E471 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF886318BF787300A2E471 /* VMAGroupsActivityBuildScene.m in Sources */,
+				3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */,
+				3E45B13518C127980098A775 /* VMASystem.m in Sources */,
+				3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */,
+				3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */,
+				3E0F56E418C63D2400567714 /* VMAMoveableSystem.m in Sources */,
+				3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */,
+				3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */,
+				3EEF886018BF787300A2E471 /* ViewController.m in Sources */,
+				3EEF885A18BF787300A2E471 /* AppDelegate.m in Sources */,
+				3E0F56E118C63C7100567714 /* VMAMoveableComponent.m in Sources */,
+				3E45B12918C122620098A775 /* VMAEntity.m in Sources */,
+				3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */,
+				3E45B13218C126830098A775 /* VMAEntityFactory.m in Sources */,
+				3EEF885618BF787300A2E471 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EEF886818BF787300A2E471 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EEF887A18BF787300A2E471 /* VikingMathAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3EEF887218BF787300A2E471 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3EEF884318BF787300A2E471 /* VikingMathApp */;
+			targetProxy = 3EEF887118BF787300A2E471 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3EEF885218BF787300A2E471 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EEF885318BF787300A2E471 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3EEF885B18BF787300A2E471 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EEF885C18BF787300A2E471 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3EEF887618BF787300A2E471 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EEF887718BF787300A2E471 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3EEF887B18BF787300A2E471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		3EEF887C18BF787300A2E471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3EEF887E18BF787300A2E471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VikingMathApp/VikingMathApp-Prefix.pch";
+				INFOPLIST_FILE = "VikingMathApp/VikingMathApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3EEF887F18BF787300A2E471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VikingMathApp/VikingMathApp-Prefix.pch";
+				INFOPLIST_FILE = "VikingMathApp/VikingMathApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3EEF888118BF787300A2E471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VikingMathApp.app/VikingMathApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VikingMathApp/VikingMathApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "VikingMathAppTests/VikingMathAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		3EEF888218BF787300A2E471 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VikingMathApp.app/VikingMathApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VikingMathApp/VikingMathApp-Prefix.pch";
+				INFOPLIST_FILE = "VikingMathAppTests/VikingMathAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3EEF883F18BF787300A2E471 /* Build configuration list for PBXProject "VikingMathApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EEF887B18BF787300A2E471 /* Debug */,
+				3EEF887C18BF787300A2E471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EEF887D18BF787300A2E471 /* Build configuration list for PBXNativeTarget "VikingMathApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EEF887E18BF787300A2E471 /* Debug */,
+				3EEF887F18BF787300A2E471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EEF888018BF787300A2E471 /* Build configuration list for PBXNativeTarget "VikingMathAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EEF888118BF787300A2E471 /* Debug */,
+				3EEF888218BF787300A2E471 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3EEF883C18BF787300A2E471 /* Project object */;
+}

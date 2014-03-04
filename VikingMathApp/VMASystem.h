@@ -11,17 +11,20 @@
 @class VMAEntityManager;
 
 @protocol VMAEntitySystem
-- (void)update:(float)dt;
+- (void)update:(double)dt;
 @end
 
 @protocol VMAEntityHealthSystem <VMAEntitySystem>
 -(void)doHealthStuff;
 @end
 
+@protocol VMAEntityMoveableSystem <VMAEntitySystem>
+@end
+
 @interface VMASystem : NSObject
 
 @property (strong) VMAEntityManager* entityManager;
 
-- (id)initWithEntityManager:(VMAEntityManager*)entityManager;
+- (instancetype)initWithEntityManager:(VMAEntityManager*)entityManager;
 
 @end

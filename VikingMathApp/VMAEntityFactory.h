@@ -9,10 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @class SKNode;
+@class SKSpriteNode;
+@class VMAEntity;
 @class VMAEntityManager;
 
 @interface VMAEntityFactory : NSObject
 
 - (id)initWithEntityManager:(VMAEntityManager *)entityManager parentNode:(SKNode*)parentNode;
+
+-(VMAEntity*)createLongshipAtLocation:(CGPoint)location;
+-(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode;
+-(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode;
 
 @end
