@@ -24,10 +24,12 @@
  allows us to do this is with bitwise logic operations, which are very fast (compared to, say,
  looping through lists, etc).
  */
-typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
+typedef NS_OPTIONS(uint32_t, VMAPhysicsCategory)
 {
     VMAPhysicsCategoryLongship = 1 << 0, // 0001 = 1
     VMAPhysicsCategoryViking = 1 << 1, // 0010 = 2
 };
+
+
 
 #endif
