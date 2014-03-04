@@ -16,7 +16,7 @@
 
 @implementation VMAGroupsActivityBuildScene
 
-#pragma mark PRIVATE INSTANCE VARIABLES
+#pragma mark PRIVATE INSTANCE VARS
 {
     SKNode* _backgroundLayer;
     SKSpriteNode* _boatShedNode;
@@ -65,7 +65,32 @@
     return self;
 }
 
+-(void)update:(CFTimeInterval)currentTime
+{
+    [_moveableSystem update:currentTime];
+}
+
+#pragma mark TOUCH EVENT HANDLERS
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [self handleTouches:touches withEvent:event eventType:VMATouchEventTypeBegan];
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesMoved:touches withEvent:event];
+    [self handleTouches:touches withEvent:event eventType:VMATouchEventTypeMoved];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    [self handleTouches:touches withEvent:event eventType:VMATouchEventTypeEnded];
+}
+
+-(void)handleTouches:(NSSet *)touches withEvent:(UIEvent *)event eventType:(VMATouchEventType)type
 {
     [super touchesBegan:touches withEvent:event];
 
@@ -74,38 +99,52 @@
     NSArray* nodes = [self nodesAtPoint:location];
     for (SKNode* skNode in nodes)
     {
-        if (!_mobileLongship && [skNode.name hasPrefix:BOATPROWNODENAME])
+        switch (type)
         {
-            _mobileLongship = [_entityFactory createLongshipAtLocation:location];
-        }
-    }
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesMoved:touches withEvent:event];
-
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    NSArray* nodes = [self nodesAtPoint:location];
-    for (SKNode* skNode in nodes)
-    {
-        if (_mobileLongship)
-        {
-            // update location of mobile longship
-            VMAComponent* comp = [_entityManager getComponentOfClass:[VMAMoveableComponent class] forEntity:_mobileLongship];
-            if (comp)
+            case VMATouchEventTypeBegan:
             {
-                VMAMoveableComponent* mcomp = (VMAMoveableComponent*)comp;
-                [mcomp updateLocation:location];
+                if (!_mobileLongship && [skNode.name hasPrefix:BOATPROWNODENAME])
+                {
+                    _mobileLongship = [_entityFactory createLongshipAtLocation:location];
+                }
             }
+            break;
+
+            case VMATouchEventTypeMoved:
+            {
+                if (_mobileLongship)
+                {
+                    // update location of mobile longship
+                    VMAComponent* comp = [_entityManager getComponentOfClass:[VMAMoveableComponent class] forEntity:_mobileLongship];
+                    if (comp)
+                    {
+                        VMAMoveableComponent* mcomp = (VMAMoveableComponent*)comp;
+                        [mcomp updateLocation:location];
+                    }
+                }
+            }
+            break;
+
+            case VMATouchEventTypeCancelled:
+            {
+
+            }
+            break;
+
+            case VMATouchEventTypeEnded:
+            {
+
+            }
+            break;
+
+            default:
+            {
+
+            }
+            break;
         }
     }
 }
 
--(void)update:(CFTimeInterval)currentTime
-{
-    [_moveableSystem update:currentTime];
-}
 
 @end

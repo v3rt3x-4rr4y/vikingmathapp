@@ -9,6 +9,14 @@
 #ifndef VikingMathApp_Constants_h
 #define VikingMathApp_Constants_h
 
+typedef NS_OPTIONS(int, VMATouchEventType)
+{
+    VMATouchEventTypeBegan,
+    VMATouchEventTypeMoved,
+    VMATouchEventTypeCancelled,
+    VMATouchEventTypeEnded
+};
+
 static NSString* BOATPROWNODENAME = @"GroupActivity_BoatProw";
 static NSString* BOATNODENAME = @"GroupActivity_Boat";
 
