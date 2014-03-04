@@ -36,6 +36,12 @@
  */
 - (VMAComponent *)getComponentOfClass:(Class)class forEntity:(VMAEntity*)entity;
 
+/** Get a collection of all component objects of the specified class
+ @param class the class of the required component object
+ @return the requested collection.
+ */
+-(NSArray*)getAllComponentsOfClass:(Class)class;
+
 /** Remove the specified entity.
  @param entity the entity to retrieve the component object from
  @return void
@@ -47,5 +53,13 @@
  @return the array of entities
  */
 - (NSArray*)getAllEntitiesPosessingComponentOfClass:(Class)class;
+
+/** Get an array of entities from the supplied set which all have a component of
+ the specified class.
+ @param class the class to retrieve entities for
+ @param set the set to retrieve the entities from
+ @return the array of entities
+ */
+- (NSArray *)getAllEntitiesPosessingComponentOfClass:(Class)class fromArray:(NSArray*)array;
 
 @end

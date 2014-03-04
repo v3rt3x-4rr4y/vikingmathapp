@@ -10,7 +10,7 @@
 
 @implementation VMAHealthSystem
 
-- (void)update:(float)dt
+- (void)update:(double)dt
 {
 
 }

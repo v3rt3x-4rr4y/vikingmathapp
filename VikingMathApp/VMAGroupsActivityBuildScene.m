@@ -7,16 +7,27 @@
 //
 
 #import "VMAGroupsActivityBuildScene.h"
+#import "Constants.h"
+#import "Physics.h"
+#import "VMAEntityManager.h"
+#import "VMAEntityFactory.h"
+#import "VMAMoveableComponent.h"
+#import "VMAMoveableSystem.h"
 
 @implementation VMAGroupsActivityBuildScene
 
 #pragma mark PRIVATE INSTANCE VARIABLES
 {
     SKNode* _backgroundLayer;
-    SKNode* _boatShedNode;
-    SKNode* _boatProwNode;
-    NSArray* _boats;
+    SKSpriteNode* _boatShedNode;
+    SKSpriteNode* _backgroundNode;
+    NSArray* _staticLongships;
+    VMAEntity* _mobileLongship;
 
+    VMAEntityManager* _entityManager;
+    VMAEntityFactory* _entityFactory;
+
+    VMAMoveableSystem* _moveableSystem;
 }
 
 #pragma mark SCENE LIFE CYCLE
@@ -29,26 +40,26 @@
         _backgroundLayer = [SKNode node];
         [self addChild:_backgroundLayer];
 
+        // Entity management
+        _entityManager = [[VMAEntityManager alloc] init];
+        _entityFactory = [[VMAEntityFactory alloc] initWithEntityManager:_entityManager parentNode:self];
+        _moveableSystem = [[VMAMoveableSystem alloc] initWithEntityManager:_entityManager];
+
         // Background sprite
         self.backgroundColor = [SKColor whiteColor];
-        SKSpriteNode* bground = [SKSpriteNode spriteNodeWithImageNamed:@"GroupVikingsActivity_Background"];
-        bground.anchorPoint = CGPointZero; // set anchor point to lower left corner of sprite
-        bground.position = CGPointMake(0, 0);
-        [_backgroundLayer addChild:bground];
+        _backgroundNode = [SKSpriteNode spriteNodeWithImageNamed:@"GroupVikingsActivity_Background"];
+        _backgroundNode.anchorPoint = CGPointZero; // set anchor point to lower left corner of sprite
+        _backgroundNode.position = CGPointMake(0, 0);
+        [_backgroundLayer addChild:_backgroundNode];
 
-        // Add the boat house
-        _boatShedNode = [SKNode node];
-        SKSpriteNode* boatShed = [SKSpriteNode spriteNodeWithImageNamed:@"GroupActivity_BoatShed"];
-        boatShed.anchorPoint = CGPointMake(0, 0);
-        boatShed.position = CGPointMake(bground.size.width - boatShed.size.width - 10, 10);
-        [_backgroundLayer addChild:boatShed];
+        // Add the boat house and the first boat
+        _boatShedNode = [SKSpriteNode spriteNodeWithImageNamed:@"GroupActivity_BoatShed"];
+        _boatShedNode.anchorPoint = CGPointMake(0, 0);
+        _boatShedNode.position = CGPointMake(_backgroundNode.size.width - _boatShedNode.size.width - 10, 10);
+        [_backgroundLayer addChild:_boatShedNode];
 
         // Add the boat prow (drag source)
-        _boatProwNode = [SKNode node];
-        SKSpriteNode* boatProw = [SKSpriteNode spriteNodeWithImageNamed:@"GroupActivity_BoatProw"];
-        boatProw.anchorPoint = CGPointMake(0, 0);
-        boatProw.position = CGPointMake(boatShed.position.x - boatProw.size.width, (boatShed.position.y + (boatShed.size.height / 2)) - boatProw.size.height / 2);
-        [_backgroundLayer addChild:boatProw];
+        [_entityFactory createShipProwForShipShed:_boatShedNode];
 
     }
     return self;
@@ -56,12 +67,45 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
 
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    NSArray* nodes = [self nodesAtPoint:location];
+    for (SKNode* skNode in nodes)
+    {
+        if (!_mobileLongship && [skNode.name hasPrefix:BOATPROWNODENAME])
+        {
+            _mobileLongship = [_entityFactory createLongshipAtLocation:location];
+        }
+    }
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesMoved:touches withEvent:event];
+
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    NSArray* nodes = [self nodesAtPoint:location];
+    for (SKNode* skNode in nodes)
+    {
+        if (_mobileLongship)
+        {
+            // update location of mobile longship
+            VMAComponent* comp = [_entityManager getComponentOfClass:[VMAMoveableComponent class] forEntity:_mobileLongship];
+            if (comp)
+            {
+                VMAMoveableComponent* mcomp = (VMAMoveableComponent*)comp;
+                [mcomp updateLocation:location];
+            }
+        }
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime
 {
-    /* Called before each frame is rendered */
+    [_moveableSystem update:currentTime];
 }
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Spencer Drayton. All rights reserved.
 //
 
+#import <SpriteKit/SpriteKit.h>
 #import "VMAEntityManager.h"
 
 @implementation VMAEntityManager
@@ -59,7 +60,7 @@
 - (void)addComponent:(VMAComponent *)component toEntity:(VMAEntity *)entity
 {
     // from the dictionary which keys component class names to a dictionary of entity IDs keyed
-    // to componenty objects, get the dictionary for the supplied component object's class
+    // to component objects, get the dictionary for the supplied component object's class
     NSMutableDictionary * components = _componentsByClass[NSStringFromClass([component class])];
     // or create it if it doesn't yet exist
     if (!components)
@@ -74,6 +75,11 @@
 - (VMAComponent *)getComponentOfClass:(Class)class forEntity:(VMAEntity *)entity
 {
     return _componentsByClass[NSStringFromClass(class)][@(entity.eid)];
+}
+
+-(NSArray*)getAllComponentsOfClass:(Class)class
+{
+    return [_componentsByClass[NSStringFromClass(class)] allValues];
 }
 
 - (void)removeEntity:(VMAEntity *)entity
@@ -99,6 +105,32 @@
         for (NSNumber * eid in components.allKeys)
         {
             [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.integerValue]];
+        }
+        return retval;
+    }
+    else
+    {
+        return [NSArray array];
+    }
+}
+
+- (NSArray *)getAllEntitiesPosessingComponentOfClass:(Class)class fromArray:(NSArray*)array;
+{
+    NSMutableDictionary * components = _componentsByClass[NSStringFromClass(class)];
+    if (components)
+    {
+        __block NSMutableArray * retval = [NSMutableArray arrayWithCapacity:components.allKeys.count];
+        for (NSNumber * eid in components.allKeys)
+        {
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+            {
+                SKNode* skNode = (SKNode*)obj;
+                if ([skNode.name isEqualToString:[NSString stringWithFormat:@"%d", [eid intValue]]])
+                 {
+                     [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.integerValue]];
+                     *stop = YES;
+                 }
+             }];
         }
         return retval;
     }
