@@ -15,10 +15,12 @@
 @end
 
 @protocol VMAEntityHealthSystem <VMAEntitySystem>
--(void)doHealthStuff;
 @end
 
-@protocol VMAEntityMoveableSystem <VMAEntitySystem>
+@protocol VMAEntityTransformableSystem <VMAEntitySystem>
+@end
+
+@protocol VMAEntityAnimatableSystem <VMAEntitySystem>
 @end
 
 @interface VMASystem : NSObject

@@ -8,10 +8,14 @@
 
 #import "VMAComponent.h"
 @class SKSpriteNode;
+@class SKShapeNode;
 
 @interface VMARenderableComponent : VMAComponent
 
 -(instancetype)initWithSprite:(SKSpriteNode*)spriteNode;
+-(instancetype)initWithShape:(SKShapeNode*)shapeNode;
 -(void)updateSpriteNode:(CGPoint)location;
+-(SKSpriteNode*)getSprite;
+-(SKShapeNode*)getShape;
 
 @end

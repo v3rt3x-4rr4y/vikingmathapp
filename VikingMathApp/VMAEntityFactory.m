@@ -11,8 +11,9 @@
 #import "Physics.h"
 #import "VMAEntityFactory.h"
 #import "VMAEntityManager.h"
-#import "VMAMoveableComponent.h"
+#import "VMATransformableComponent.h"
 #import "VMARenderableComponent.h"
+#import "VMAAnimatableComponent.h"
 
 @implementation VMAEntityFactory
 {
@@ -35,9 +36,10 @@
     SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
     VMAEntity* shipEntity = [_entityManager createEntity];
 
-    // make it moveable, renderable
-    [_entityManager addComponent:[[VMAMoveableComponent alloc] initWithLocation:location] toEntity:shipEntity];
+    // make it moveable, renderable, animatable
+    [_entityManager addComponent:[[VMATransformableComponent alloc] initWithLocation:location] toEntity:shipEntity];
     [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipNode] toEntity:shipEntity];
+    [_entityManager addComponent:[[VMAAnimatableComponent alloc] initWithAction:nil blocksUpdates:NO] toEntity:shipEntity];
 
     // sprite node name is set to its entity id
     shipNode.name = [NSString stringWithFormat:@"%@_%d", BOATNODENAME, shipEntity.eid];
@@ -126,6 +128,18 @@
     return shipProwEntity;
 }
 
-
+-(VMAEntity*)createHighlightForRect:(CGRect)rect
+{
+    CGPathRef bodyPath = CGPathCreateWithRect(rect, nil);
+    SKShapeNode* shape = [SKShapeNode node];
+    shape.path = bodyPath;
+    shape.strokeColor = [SKColor colorWithRed:1.0 green:0 blue:0 alpha:0.5];
+    shape.lineWidth = 1.0;
+    [_parentNode addChild:shape];
+    CGPathRelease(bodyPath);
+    VMAEntity* highlightEntity = [_entityManager createEntity];
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithShape:shape] toEntity:highlightEntity];
+    return highlightEntity;
+}
 
 @end

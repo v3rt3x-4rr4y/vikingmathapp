@@ -30,6 +30,6 @@ typedef NS_OPTIONS(uint32_t, VMAPhysicsCategory)
     VMAPhysicsCategoryViking = 1 << 1, // 0010 = 2
 };
 
-
+static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC = 5000;
 
 #endif
