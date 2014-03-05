@@ -89,6 +89,8 @@
     {
         if (components[@(entity.eid)])
         {
+            VMAComponent* comp = [components objectForKey:@(entity.eid)];
+            [comp tearDown];
             [components removeObjectForKey:@(entity.eid)];
         }
     }
@@ -104,7 +106,7 @@
         NSMutableArray * retval = [NSMutableArray arrayWithCapacity:components.allKeys.count];
         for (NSNumber * eid in components.allKeys)
         {
-            [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.integerValue]];
+            [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.longValue]];
         }
         return retval;
     }
@@ -127,7 +129,7 @@
                 SKNode* skNode = (SKNode*)obj;
                 if ([skNode.name isEqualToString:[NSString stringWithFormat:@"%d", [eid intValue]]])
                  {
-                     [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.integerValue]];
+                     [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.longValue]];
                      *stop = YES;
                  }
              }];

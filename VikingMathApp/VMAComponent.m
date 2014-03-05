@@ -10,4 +10,9 @@
 
 @implementation VMAComponent
 
+-(void)tearDown
+{
+
+}
+
 @end

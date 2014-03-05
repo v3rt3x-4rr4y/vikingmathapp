@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E0F56E118C63C7100567714 /* VMAMoveableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */; };
-		3E0F56E418C63D2400567714 /* VMAMoveableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */; };
+		3E0F56E118C63C7100567714 /* VMATransformableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E018C63C7100567714 /* VMATransformableComponent.m */; };
+		3E0F56E418C63D2400567714 /* VMATransformableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E318C63D2400567714 /* VMATransformableSystem.m */; };
 		3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E618C64CE200567714 /* VMARenderableComponent.m */; };
 		3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */; };
 		3E45B11118C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */; };
@@ -30,6 +30,8 @@
 		3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7518C097DA007FDE6A /* WinScreen_Background.png */; };
 		3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */; };
 		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
+		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
+		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
 		3EEF884818BF787300A2E471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884718BF787300A2E471 /* Foundation.framework */; };
 		3EEF884A18BF787300A2E471 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884918BF787300A2E471 /* CoreGraphics.framework */; };
 		3EEF884C18BF787300A2E471 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884B18BF787300A2E471 /* UIKit.framework */; };
@@ -67,10 +69,10 @@
 /* Begin PBXFileReference section */
 		3E0F56D718C5FF4800567714 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		3E0F56D818C6049E00567714 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		3E0F56DF18C63C7100567714 /* VMAMoveableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMoveableComponent.h; sourceTree = "<group>"; };
-		3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMoveableComponent.m; sourceTree = "<group>"; };
-		3E0F56E218C63D2400567714 /* VMAMoveableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMoveableSystem.h; sourceTree = "<group>"; };
-		3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMoveableSystem.m; sourceTree = "<group>"; };
+		3E0F56DF18C63C7100567714 /* VMATransformableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMATransformableComponent.h; sourceTree = "<group>"; };
+		3E0F56E018C63C7100567714 /* VMATransformableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMATransformableComponent.m; sourceTree = "<group>"; };
+		3E0F56E218C63D2400567714 /* VMATransformableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMATransformableSystem.h; sourceTree = "<group>"; };
+		3E0F56E318C63D2400567714 /* VMATransformableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMATransformableSystem.m; sourceTree = "<group>"; };
 		3E0F56E518C64CE200567714 /* VMARenderableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMARenderableComponent.h; sourceTree = "<group>"; };
 		3E0F56E618C64CE200567714 /* VMARenderableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMARenderableComponent.m; sourceTree = "<group>"; };
 		3E45B10C18C0E0CF0098A775 /* VMAMathUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMathUtility.h; sourceTree = "<group>"; };
@@ -101,6 +103,10 @@
 		3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WinScreen_Background@2x.png"; sourceTree = "<group>"; };
 		3E886E7B18C09A01007FDE6A /* VMAMainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMainMenuScene.h; sourceTree = "<group>"; };
 		3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMainMenuScene.m; sourceTree = "<group>"; };
+		3EE4182F18C7316100D78A64 /* VMAAnimatableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableSystem.h; sourceTree = "<group>"; };
+		3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableSystem.m; sourceTree = "<group>"; };
+		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
+		3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableComponent.m; sourceTree = "<group>"; };
 		3EEF884418BF787300A2E471 /* VikingMathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VikingMathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEF884718BF787300A2E471 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3EEF884918BF787300A2E471 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -220,8 +226,10 @@
 				3E45B13418C127980098A775 /* VMASystem.m */,
 				3E45B13618C12AD10098A775 /* VMAHealthSystem.h */,
 				3E45B13718C12AD10098A775 /* VMAHealthSystem.m */,
-				3E0F56E218C63D2400567714 /* VMAMoveableSystem.h */,
-				3E0F56E318C63D2400567714 /* VMAMoveableSystem.m */,
+				3E0F56E218C63D2400567714 /* VMATransformableSystem.h */,
+				3E0F56E318C63D2400567714 /* VMATransformableSystem.m */,
+				3EE4182F18C7316100D78A64 /* VMAAnimatableSystem.h */,
+				3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -231,10 +239,12 @@
 			children = (
 				3E45B12D18C125F60098A775 /* VMAComponent.h */,
 				3E45B12E18C125F60098A775 /* VMAComponent.m */,
-				3E0F56DF18C63C7100567714 /* VMAMoveableComponent.h */,
-				3E0F56E018C63C7100567714 /* VMAMoveableComponent.m */,
+				3E0F56DF18C63C7100567714 /* VMATransformableComponent.h */,
+				3E0F56E018C63C7100567714 /* VMATransformableComponent.m */,
 				3E0F56E518C64CE200567714 /* VMARenderableComponent.h */,
 				3E0F56E618C64CE200567714 /* VMARenderableComponent.m */,
+				3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */,
+				3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -464,14 +474,16 @@
 				3EEF886318BF787300A2E471 /* VMAGroupsActivityBuildScene.m in Sources */,
 				3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */,
 				3E45B13518C127980098A775 /* VMASystem.m in Sources */,
+				3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */,
 				3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */,
 				3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */,
-				3E0F56E418C63D2400567714 /* VMAMoveableSystem.m in Sources */,
+				3E0F56E418C63D2400567714 /* VMATransformableSystem.m in Sources */,
 				3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */,
+				3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */,
 				3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */,
 				3EEF886018BF787300A2E471 /* ViewController.m in Sources */,
 				3EEF885A18BF787300A2E471 /* AppDelegate.m in Sources */,
-				3E0F56E118C63C7100567714 /* VMAMoveableComponent.m in Sources */,
+				3E0F56E118C63C7100567714 /* VMATransformableComponent.m in Sources */,
 				3E45B12918C122620098A775 /* VMAEntity.m in Sources */,
 				3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */,
 				3E45B13218C126830098A775 /* VMAEntityFactory.m in Sources */,

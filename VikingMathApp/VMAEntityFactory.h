@@ -20,5 +20,6 @@
 -(VMAEntity*)createLongshipAtLocation:(CGPoint)location;
 -(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode;
 -(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode;
+-(VMAEntity*)createHighlightForRect:(CGRect)rect;
 
 @end

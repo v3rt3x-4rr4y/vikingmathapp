@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VMAComponent : NSObject
+@protocol VMAComponent
+- (void)tearDown;
+@end
+
+@interface VMAComponent : NSObject <VMAComponent>
 
 @end
