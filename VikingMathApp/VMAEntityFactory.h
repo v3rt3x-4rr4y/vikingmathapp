@@ -15,11 +15,11 @@
 
 @interface VMAEntityFactory : NSObject
 
-- (id)initWithEntityManager:(VMAEntityManager *)entityManager parentNode:(SKNode*)parentNode;
+- (id)initWithEntityManager:(VMAEntityManager *)entityManager;
 
--(VMAEntity*)createLongshipAtLocation:(CGPoint)location;
--(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode;
--(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode;
--(VMAEntity*)createHighlightForRect:(CGRect)rect;
+-(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode withParent:(SKNode*)parentNode;
+-(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode withParent:(SKNode*)parentNode;
+-(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parentNode name:(NSString*)name debug:(BOOL)debug;
+-(VMAEntity*)createHighlightForRect:(CGRect)rect withParent:(SKNode*)parentNode;
 
 @end

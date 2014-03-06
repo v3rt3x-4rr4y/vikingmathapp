@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class VMAEntityManager;
+@class VMAEntityFactory;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong) VMAEntityManager* entityManager;
+@property (strong) VMAEntityFactory* entityFactory;
 
 @end

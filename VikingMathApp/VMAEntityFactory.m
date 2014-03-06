@@ -18,22 +18,21 @@
 @implementation VMAEntityFactory
 {
     VMAEntityManager* _entityManager;
-    SKNode* _parentNode;
 }
 
-- (id)initWithEntityManager:(VMAEntityManager*)entityManager parentNode:(SKNode*)parentNode
+- (id)initWithEntityManager:(VMAEntityManager*)entityManager
 {
     if ((self = [super init]))
     {
         _entityManager = entityManager;
-        _parentNode = parentNode;
     }
     return self;
 }
 
--(VMAEntity*)createLongshipAtLocation:(CGPoint)location
+-(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parentNode name:(NSString*)name debug:(BOOL)debug;
 {
-    SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
+    NSString* sprName = debug ? BOATNODENAMEDEBUG: BOATNODENAME;
+    SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:sprName];
     VMAEntity* shipEntity = [_entityManager createEntity];
 
     // make it moveable, renderable, animatable
@@ -42,7 +41,10 @@
     [_entityManager addComponent:[[VMAAnimatableComponent alloc] initWithAction:nil blocksUpdates:NO] toEntity:shipEntity];
 
     // sprite node name is set to its entity id
-    shipNode.name = [NSString stringWithFormat:@"%@_%d", BOATNODENAME, shipEntity.eid];
+    shipNode.name = [NSString stringWithFormat:@"%@%@_%d", name, BOATNODENAME, shipEntity.eid];
+    shipNode.userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:shipEntity, USERDATAENTITYIDKEY, @(NO), USERDATAENTITYISDRAGGINGKEY, nil];
+    //shipNode.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:shipEntity.eid]
+    //                                                               forKey:@"eid"];
     shipNode.anchorPoint = CGPointMake(0.5, 0.5);
     shipNode.position = location;
 
@@ -61,12 +63,12 @@
     // set the object categories which should trigger callbacks (begin, end) if they make contact with the cat
     shipNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryViking;
 
-    [_parentNode addChild:shipNode ];
+    [parentNode addChild:shipNode ];
 
     return shipEntity;
 }
 
--(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode
+-(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode withParent:(SKNode*)parentNode
 {
     SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
     VMAEntity* shipProwEntity = [_entityManager createEntity];
@@ -92,12 +94,12 @@
     // set the object categories which should trigger callbacks (begin, end) if they make contact with the cat
     shipNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryViking;
 
-    [_parentNode addChild:shipNode ];
+    [parentNode addChild:shipNode ];
 
     return shipProwEntity;
 }
 
--(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode
+-(VMAEntity*)createShipProwForShipShed:(SKSpriteNode*)shipShedNode  withParent:(SKNode*)parentNode
 {
     SKSpriteNode* shipProwNode = [SKSpriteNode spriteNodeWithImageNamed:BOATPROWNODENAME];
     VMAEntity* shipProwEntity = [_entityManager createEntity];
@@ -123,19 +125,19 @@
     // set the object categories which should trigger callbacks (begin, end) if they make contact with the cat
     shipProwNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryViking;
 
-    [_parentNode addChild:shipProwNode ];
+    [parentNode addChild:shipProwNode ];
 
     return shipProwEntity;
 }
 
--(VMAEntity*)createHighlightForRect:(CGRect)rect
+-(VMAEntity*)createHighlightForRect:(CGRect)rect  withParent:(SKNode*)parentNode
 {
     CGPathRef bodyPath = CGPathCreateWithRect(rect, nil);
     SKShapeNode* shape = [SKShapeNode node];
     shape.path = bodyPath;
     shape.strokeColor = [SKColor colorWithRed:1.0 green:0 blue:0 alpha:0.5];
     shape.lineWidth = 1.0;
-    [_parentNode addChild:shape];
+    [parentNode addChild:shape];
     CGPathRelease(bodyPath);
     VMAEntity* highlightEntity = [_entityManager createEntity];
     [_entityManager addComponent:[[VMARenderableComponent alloc] initWithShape:shape] toEntity:highlightEntity];

@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C753218C871C800B4351C /* GroupActivity_mBoat.png */; };
+		3E0C753518C8725400B4351C /* GroupActivity_mBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C753418C8725400B4351C /* GroupActivity_mBoat@2x.png */; };
+		3E0C753818C877A300B4351C /* VMALongshipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C753718C877A300B4351C /* VMALongshipManager.m */; };
 		3E0F56E118C63C7100567714 /* VMATransformableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E018C63C7100567714 /* VMATransformableComponent.m */; };
 		3E0F56E418C63D2400567714 /* VMATransformableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E318C63D2400567714 /* VMATransformableSystem.m */; };
 		3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E618C64CE200567714 /* VMARenderableComponent.m */; };
 		3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */; };
-		3E45B11118C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */; };
-		3E45B11218C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */; };
-		3E45B11518C0FC8B0098A775 /* GroupActivity_BoatProw.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */; };
-		3E45B11618C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */; };
-		3E45B11D18C0FF590098A775 /* GroupActivity_BoatShed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */; };
-		3E45B11E18C0FF590098A775 /* GroupActivity_BoatShed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */; };
+		3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B10F18C0FAFF0098A775 /* GroupActivity_ShedwBoat.png */; };
+		3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11018C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png */; };
+		3E45B11518C0FC8B0098A775 /* GroupActivity_Prow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11318C0FC8B0098A775 /* GroupActivity_Prow.png */; };
+		3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11418C0FC8B0098A775 /* GroupActivity_Prow@2x.png */; };
+		3E45B11D18C0FF590098A775 /* GroupActivity_Shed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11B18C0FF590098A775 /* GroupActivity_Shed.png */; };
+		3E45B11E18C0FF590098A775 /* GroupActivity_Shed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E45B11C18C0FF590098A775 /* GroupActivity_Shed@2x.png */; };
 		3E45B12918C122620098A775 /* VMAEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12818C122620098A775 /* VMAEntity.m */; };
 		3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12B18C122C50098A775 /* VMAEntityManager.m */; };
 		3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E45B12E18C125F60098A775 /* VMAComponent.m */; };
@@ -67,6 +70,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E0C753218C871C800B4351C /* GroupActivity_mBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_mBoat.png; sourceTree = "<group>"; };
+		3E0C753418C8725400B4351C /* GroupActivity_mBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_mBoat@2x.png"; sourceTree = "<group>"; };
+		3E0C753618C877A300B4351C /* VMALongshipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMALongshipManager.h; sourceTree = "<group>"; };
+		3E0C753718C877A300B4351C /* VMALongshipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMALongshipManager.m; sourceTree = "<group>"; };
 		3E0F56D718C5FF4800567714 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		3E0F56D818C6049E00567714 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3E0F56DF18C63C7100567714 /* VMATransformableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMATransformableComponent.h; sourceTree = "<group>"; };
@@ -77,12 +84,12 @@
 		3E0F56E618C64CE200567714 /* VMARenderableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMARenderableComponent.m; sourceTree = "<group>"; };
 		3E45B10C18C0E0CF0098A775 /* VMAMathUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMathUtility.h; sourceTree = "<group>"; };
 		3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMathUtility.m; sourceTree = "<group>"; };
-		3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatShedwBoat.png; sourceTree = "<group>"; };
-		3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatShedwBoat@2x.png"; sourceTree = "<group>"; };
-		3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatProw.png; sourceTree = "<group>"; };
-		3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatProw@2x.png"; sourceTree = "<group>"; };
-		3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_BoatShed.png; sourceTree = "<group>"; };
-		3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_BoatShed@2x.png"; sourceTree = "<group>"; };
+		3E45B10F18C0FAFF0098A775 /* GroupActivity_ShedwBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_ShedwBoat.png; sourceTree = "<group>"; };
+		3E45B11018C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_ShedwBoat@2x.png"; sourceTree = "<group>"; };
+		3E45B11318C0FC8B0098A775 /* GroupActivity_Prow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Prow.png; sourceTree = "<group>"; };
+		3E45B11418C0FC8B0098A775 /* GroupActivity_Prow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Prow@2x.png"; sourceTree = "<group>"; };
+		3E45B11B18C0FF590098A775 /* GroupActivity_Shed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Shed.png; sourceTree = "<group>"; };
+		3E45B11C18C0FF590098A775 /* GroupActivity_Shed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Shed@2x.png"; sourceTree = "<group>"; };
 		3E45B12718C122620098A775 /* VMAEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAEntity.h; sourceTree = "<group>"; };
 		3E45B12818C122620098A775 /* VMAEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAEntity.m; sourceTree = "<group>"; };
 		3E45B12A18C122C50098A775 /* VMAEntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAEntityManager.h; sourceTree = "<group>"; };
@@ -180,6 +187,8 @@
 				3E45B10D18C0E0CF0098A775 /* VMAMathUtility.m */,
 				3E0F56D718C5FF4800567714 /* Physics.h */,
 				3E0F56D818C6049E00567714 /* Constants.h */,
+				3E0C753618C877A300B4351C /* VMALongshipManager.h */,
+				3E0C753718C877A300B4351C /* VMALongshipManager.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -334,12 +343,14 @@
 		3EEF888318BF9F5100A2E471 /* Art */ = {
 			isa = PBXGroup;
 			children = (
-				3E45B11B18C0FF590098A775 /* GroupActivity_BoatShed.png */,
-				3E45B11C18C0FF590098A775 /* GroupActivity_BoatShed@2x.png */,
-				3E45B11318C0FC8B0098A775 /* GroupActivity_BoatProw.png */,
-				3E45B11418C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png */,
-				3E45B10F18C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png */,
-				3E45B11018C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png */,
+				3E0C753418C8725400B4351C /* GroupActivity_mBoat@2x.png */,
+				3E0C753218C871C800B4351C /* GroupActivity_mBoat.png */,
+				3E45B11B18C0FF590098A775 /* GroupActivity_Shed.png */,
+				3E45B11C18C0FF590098A775 /* GroupActivity_Shed@2x.png */,
+				3E45B11318C0FC8B0098A775 /* GroupActivity_Prow.png */,
+				3E45B11418C0FC8B0098A775 /* GroupActivity_Prow@2x.png */,
+				3E45B10F18C0FAFF0098A775 /* GroupActivity_ShedwBoat.png */,
+				3E45B11018C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png */,
 				3E886E7318C097DA007FDE6A /* LoseScreen_Background.png */,
 				3E886E7418C097DA007FDE6A /* LoseScreen_Background@2x.png */,
 				3E886E7518C097DA007FDE6A /* WinScreen_Background.png */,
@@ -433,25 +444,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EEF885418BF787300A2E471 /* InfoPlist.strings in Resources */,
+				3E0C753518C8725400B4351C /* GroupActivity_mBoat@2x.png in Resources */,
 				3EEF889318BFAC5400A2E471 /* GroupActivity_Viking@2x.png in Resources */,
 				3E886E7118C09692007FDE6A /* LandingScreen_Background@2x.png in Resources */,
 				3EEF886718BF787300A2E471 /* Images.xcassets in Resources */,
 				3E886E7718C097DA007FDE6A /* LoseScreen_Background.png in Resources */,
-				3E45B11D18C0FF590098A775 /* GroupActivity_BoatShed.png in Resources */,
+				3E45B11D18C0FF590098A775 /* GroupActivity_Shed.png in Resources */,
 				3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */,
-				3E45B11218C0FAFF0098A775 /* GroupActivity_BoatShedwBoat@2x.png in Resources */,
+				3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */,
 				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
 				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,
 				3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */,
 				3EEF885D18BF787300A2E471 /* Main.storyboard in Resources */,
-				3E45B11E18C0FF590098A775 /* GroupActivity_BoatShed@2x.png in Resources */,
-				3E45B11118C0FAFF0098A775 /* GroupActivity_BoatShedwBoat.png in Resources */,
+				3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */,
+				3E45B11E18C0FF590098A775 /* GroupActivity_Shed@2x.png in Resources */,
+				3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */,
 				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
 				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,
 				3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */,
 				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
-				3E45B11618C0FC8B0098A775 /* GroupActivity_BoatProw@2x.png in Resources */,
-				3E45B11518C0FC8B0098A775 /* GroupActivity_BoatProw.png in Resources */,
+				3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */,
+				3E45B11518C0FC8B0098A775 /* GroupActivity_Prow.png in Resources */,
 				3E886E7218C09692007FDE6A /* LandingScreen_Background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,6 +496,7 @@
 				3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */,
 				3EEF886018BF787300A2E471 /* ViewController.m in Sources */,
 				3EEF885A18BF787300A2E471 /* AppDelegate.m in Sources */,
+				3E0C753818C877A300B4351C /* VMALongshipManager.m in Sources */,
 				3E0F56E118C63C7100567714 /* VMATransformableComponent.m in Sources */,
 				3E45B12918C122620098A775 /* VMAEntity.m in Sources */,
 				3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */,

@@ -10,6 +10,6 @@
 
 @interface VMAGroupsActivityBuildScene : SKScene
 
--(void)removeMobileLongship;
+-(void)despawnMobileLongship;
 
 @end
