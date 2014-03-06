@@ -34,7 +34,9 @@
 {
     if (_lowestUnassignedEid < UINT32_MAX)
     {
-        return _lowestUnassignedEid++;
+        uint32_t retVal = _lowestUnassignedEid++;
+        //NSLog(@"Generated id: %d", retVal);
+        return retVal;
     }
     else
     {

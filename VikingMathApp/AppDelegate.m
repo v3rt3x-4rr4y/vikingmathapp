@@ -7,12 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "VMAEntityManager.h"
+#import "VMAEntityFactory.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    _entityManager = [[VMAEntityManager alloc] init];
+    _entityFactory = [[VMAEntityFactory alloc] initWithEntityManager:_entityManager];
+
     return YES;
 }
 							
