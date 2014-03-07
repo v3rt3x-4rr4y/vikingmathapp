@@ -130,7 +130,8 @@
                 }
                 else if([skNode.name hasPrefix:BOATNODENAME] && [skNode userData])
                 {
-                    [_longshipManager longshipDragStart:[skNode userData][USERDATAENTITYIDKEY]];
+                    [_longshipManager longshipDragStart:[skNode userData][USERDATAENTITYIDKEY]
+                                               location:[skNode position]];
                 }
             }
             break;
@@ -157,10 +158,13 @@
             {
                 if ([_longshipManager mobileLongshipIsActive])
                 {
+                    [self handleDropZoneHighlight];
                     [self dropMobileLongship:(CGPoint)location];
                 }
-                else if([skNode.name hasPrefix:BOATNODENAME] && [skNode userData])
+                else
                 {
+                    [self handleDropZoneHighlight];
+                    [self dropLongship:(CGPoint)location];
                     [_longshipManager longshipDragStop];
                 }
             }
@@ -207,53 +211,52 @@
 
 -(void)dropMobileLongship:(CGPoint)location
 {
-    if ([_longshipManager mobileLongshipHasBlockingAnimation])
-    {
-        // mobile longship is already being animated so do nothing 
-        return;
-    }
+    // If mobile longship intersects drop zone, animate to there, else animate it back to shed
+    CGRect mobileRect = [_longshipManager mobileLongshipFrame];
+    CGPoint targetLoc1 = CGPointMake(_longshipDropZone.origin.x + (_longshipDropZone.size.width / 2),
+                                     _longshipDropZone.origin.y + (_longshipDropZone.size.height / 2));
+    CGPoint targetLoc2 = CGPointMake(_boatShedNode.position.x + BOATSHEDOFFSET,
+                                     (_boatShedNode.position.y + (_boatShedNode.size.height / 2)));
 
-    CGRect mobileRect = CGRectNull;
-    CGPoint targetLoc = CGPointZero;
-    SKAction* dropAction = nil;
+    SKAction* appendAction = [SKAction performSelector:@selector(despawnMobileLongship) onTarget:self];
 
-    mobileRect = [_longshipManager mobileLongshipFrame];
-    if (CGRectIntersectsRect(_longshipDropZone, mobileRect))
+    if ([_longshipManager dropLongship:[_longshipManager mobileLongship]
+                                 rect1:_longshipDropZone
+                                 rect2:mobileRect
+                                  drop:location
+                                point1:targetLoc1
+                                point2:targetLoc2
+                            withAction:appendAction])
     {
-        // mobile longship will be dropped in current dropzone
-        targetLoc = CGPointMake(_longshipDropZone.origin.x + (_longshipDropZone.size.width / 2),
-                                _longshipDropZone.origin.y + (_longshipDropZone.size.height / 2));
+        // return value of YES means longship was dropped in drop zone
+        [self updateDropZoneWithIncrement:YES];
 
         // spawn a 'real' longship at this location
-        [_longshipManager createLongshipAtLocation:targetLoc withParent:self debug:NO];
-
-        // this drop slot is now filled - update drop zone to next slot
-        [self updateDropZoneWithIncrement:YES];
+        [_longshipManager createLongshipAtLocation:targetLoc1 withParent:self debug:NO];
     }
-    else
-    {
-        // mobile longship will be dropped back to boat shed
-        targetLoc = CGPointMake(_boatShedNode.position.x + BOATSHEDOFFSET,
-                                (_boatShedNode.position.y + (_boatShedNode.size.height / 2)));
-    }
+}
 
-    // detemine action velocity based on distance
-    double distance = sqrt(pow((targetLoc.x - location.x), 2.0) + pow((targetLoc.y - location.y), 2.0));
+-(void)dropLongship:(CGPoint)location
+{
+    // Make boat shed rect
+    CGRect boatShedRect = _boatShedNode.frame;
 
-    // build move and despawn actions
-    SKAction* moveAction = [SKAction moveTo:targetLoc duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
-    dropAction = [SKAction sequence:@[moveAction,
-                                      [SKAction waitForDuration:DESPAWN_DELAY],
-                                      [SKAction performSelector:@selector(despawnMobileLongship)
-                                                       onTarget:self]]];
+    CGPoint targetLoc2 = [_longshipManager dragStart];
 
-    // animate the mobile longship to its destination and despawn
-    [_longshipManager setAction:dropAction
-                    forLongship:_longshipManager.mobileLongship
-               withBlockingMode:YES];
+    CGPoint targetLoc1 = CGPointMake(_boatShedNode.position.x + BOATSHEDOFFSET,
+                                     (_boatShedNode.position.y + (_boatShedNode.size.height / 2)));
 
-    // update the drop zone highlight state
-    [self handleDropZoneHighlight];
+    // TODO: build an action which deletes the longship entity
+    SKAction* appendAction = nil;
+
+    // If dragged longship intersects boat shed rect, animate to there, else animate it back to the drop zone
+    [_longshipManager dropLongship:[_longshipManager draggedEntity]
+                             rect1:boatShedRect
+                             rect2:[_longshipManager draggedLongshipFrame]
+                              drop:location
+                            point1:targetLoc1
+                            point2:targetLoc2
+                        withAction:appendAction];
 }
 
 -(void)despawnMobileLongship
@@ -264,6 +267,8 @@
 
 -(void)updateDropZoneWithIncrement:(BOOL)increment
 {
+    [self handleDropZoneHighlight];
+
     CGFloat delta = increment ? -_longshipHeight : _longshipHeight;
     _longshipDropZone = CGRectMake(_longshipDropZone.origin.x,
                                    _longshipDropZone.origin.y + delta - 2 * DROPZONEOFFSET,
@@ -271,6 +276,5 @@
                                    _longshipDropZone.size.height);
 
 }
-
 
 @end

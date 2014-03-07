@@ -17,12 +17,12 @@
 #import "VMAEntity.h"
 #import "AppDelegate.h"
 #import "Constants.h"
+#import "Physics.h"
 
 @implementation VMALongshipManager
 {
     NSMutableSet* _longships;
     AppDelegate* _appDelegate;
-    VMAEntity* _draggedEntity;
 }
 
 -(instancetype)init
@@ -31,9 +31,54 @@
     {
         _longships = [NSMutableSet set];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        _draggedEntity = nil;
     }
     return self;
+}
+
+-(BOOL)dropLongship:(VMAEntity*)longshipEntity
+              rect1:(CGRect)intersectRect1
+              rect2:(CGRect)intersectRect2
+               drop:(CGPoint)dropPoint
+             point1:(CGPoint)targetPoint1
+             point2:(CGPoint)targetPoint2
+         withAction:(SKAction*)action;
+{
+    BOOL success = NO;
+    if ([self longshipHasBlockingAnimation:longshipEntity])
+    {
+        // longship is already being animated so do nothing
+        return success;
+    }
+
+    CGPoint targetLoc = CGPointZero;
+    SKAction* dropAction = nil;
+
+    if (CGRectIntersectsRect(intersectRect1, intersectRect2))
+    {
+        // longship will be dropped at targetPoint1
+        targetLoc = targetPoint1;
+        success = YES;
+    }
+    else
+    {
+        // longship will be dropped at targetPoint2
+        targetLoc = targetPoint2;
+        success = NO;
+    }
+
+    // determine action velocity based on distance
+    double distance = sqrt(pow((targetLoc.x - dropPoint.x), 2.0) + pow((targetLoc.y - dropPoint.y), 2.0));
+
+    // build move and despawn actions
+    SKAction* moveAction = [SKAction moveTo:targetLoc duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
+    moveAction.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
+    dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
+
+    // animate the mobile longship to its destination and despawn
+    [self setAction:dropAction forLongship:longshipEntity withBlockingMode:YES];
+
+    return success;
 }
 
 -(BOOL)mobileLongshipIsActive
@@ -43,9 +88,19 @@
 
 -(CGRect)mobileLongshipFrame
 {
+    return [self longshipFrameForEntity:_mobileLongship];
+}
+
+-(CGRect)draggedLongshipFrame
+{
+    return [self longshipFrameForEntity:_draggedEntity];
+}
+
+-(CGRect)longshipFrameForEntity:(VMAEntity*)entity
+{
     CGRect retVal = CGRectZero;
     VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
-                                                                   forEntity:_mobileLongship];
+                                                                   forEntity:entity];
     if (vrcomp)
     {
         VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
@@ -59,6 +114,12 @@
     [[_appDelegate entityManager] removeEntity:_mobileLongship];
     _mobileLongship = nil;
 }
+
+-(void)removeLongship:(VMAEntity*)longshipEntity
+{
+    [[_appDelegate entityManager] removeEntity:longshipEntity];
+}
+
 
 -(void)createMobileLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
 {
@@ -79,46 +140,60 @@
 
 -(void)handleLongshipMove:(CGPoint)location withEntity:(VMAEntity*)longship
 {
+/*
+    if ([self longshipHasBlockingAnimation:longship])
+    {
+        return;
+    }
+*/
     VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
                                                                    forEntity:longship];
     if (vtcomp)
     {
         VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
         [tcomp setLocation:location];
+        //NSLog(@"Set location: %@, %f, %f", longship, location.x, location.y);
     }
 }
 
--(void)longshipDragStart:(VMAEntity*)dragEntity
+-(void)longshipDragStart:(VMAEntity*)dragEntity location:(CGPoint)location;
 {
     _draggedEntity = dragEntity;
+    _dragStart = location;
+    //NSLog(@"Drag Start:%@, %f, %f", dragEntity, location.x, location.y);
 }
 
 -(void)longshipDragStop
 {
-    _draggedEntity = nil;
-}
-
--(void)handleLongshipDrag:(CGPoint)location
-{
+/*
     if (_draggedEntity)
     {
-
         VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
                                                                        forEntity:_draggedEntity];
         if (vtcomp)
         {
             VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
-            [tcomp setLocation:location];
+            // TODO: if (the longship being dragged intersects the boat shed, animate to there and despawn)
+
+            // else (animate it back to its original location)
+            [tcomp setLocation:_dragStart];
         }
     }
+*/
+    _dragStart = CGPointZero;
+    _draggedEntity = nil;
 }
 
+-(void)handleLongshipDrag:(CGPoint)location
+{
+    [self handleLongshipMove:location withEntity:_draggedEntity];
+}
 
--(BOOL)mobileLongshipHasBlockingAnimation
+-(BOOL)longshipHasBlockingAnimation:(VMAEntity*)entity
 {
     BOOL retVal = NO;
     VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
-                                                                   forEntity:_mobileLongship];
+                                                                   forEntity:entity];
     if (vacomp)
     {
         VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;

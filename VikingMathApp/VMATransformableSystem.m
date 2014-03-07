@@ -25,14 +25,14 @@
         // only update if entity isn't currently being animated.
         if (![animComp hasBlockingAnimation])
         {
-            VMATransformableComponent * moveComp =
+            VMATransformableComponent * xformComp =
                 (VMATransformableComponent *) [self.entityManager getComponentOfClass:[VMATransformableComponent class]
                                                                             forEntity:entity];
             VMARenderableComponent * renComp =
-            (VMARenderableComponent*) [self.entityManager getComponentOfClass:[VMARenderableComponent class]
+                (VMARenderableComponent*) [self.entityManager getComponentOfClass:[VMARenderableComponent class]
                                                                         forEntity:entity];
 
-            [renComp updateSpriteNode:[moveComp location]];
+            [renComp updateSpriteNode:[xformComp location]];
         }
     }
 }
