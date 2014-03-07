@@ -35,6 +35,7 @@
 		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
+		3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */; };
 		3EEF884818BF787300A2E471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884718BF787300A2E471 /* Foundation.framework */; };
 		3EEF884A18BF787300A2E471 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884918BF787300A2E471 /* CoreGraphics.framework */; };
 		3EEF884C18BF787300A2E471 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884B18BF787300A2E471 /* UIKit.framework */; };
@@ -114,6 +115,7 @@
 		3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableSystem.m; sourceTree = "<group>"; };
 		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
 		3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableComponent.m; sourceTree = "<group>"; };
+		3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
 		3EEF884418BF787300A2E471 /* VikingMathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VikingMathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEF884718BF787300A2E471 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3EEF884918BF787300A2E471 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -314,6 +316,7 @@
 		3EEF885018BF787300A2E471 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */,
 				3EEF885118BF787300A2E471 /* VikingMathApp-Info.plist */,
 				3EEF885218BF787300A2E471 /* InfoPlist.strings */,
 				3EEF885518BF787300A2E471 /* main.m */,
@@ -451,6 +454,7 @@
 				3E886E7718C097DA007FDE6A /* LoseScreen_Background.png in Resources */,
 				3E45B11D18C0FF590098A775 /* GroupActivity_Shed.png in Resources */,
 				3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */,
+				3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */,
 				3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */,
 				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
 				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,

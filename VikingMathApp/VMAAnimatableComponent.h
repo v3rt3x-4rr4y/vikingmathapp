@@ -15,5 +15,6 @@
 -(BOOL)hasBlockingAnimation;
 -(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking;
 -(SKAction*)getAction;
+-(void)actionsDidComplete;
 
 @end

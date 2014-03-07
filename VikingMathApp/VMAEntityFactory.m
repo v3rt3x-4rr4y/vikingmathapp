@@ -43,8 +43,7 @@
     // sprite node name is set to its entity id
     shipNode.name = [NSString stringWithFormat:@"%@%@_%d", name, BOATNODENAME, shipEntity.eid];
     shipNode.userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:shipEntity, USERDATAENTITYIDKEY, @(NO), USERDATAENTITYISDRAGGINGKEY, nil];
-    //shipNode.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:shipEntity.eid]
-    //                                                               forKey:@"eid"];
+
     shipNode.anchorPoint = CGPointMake(0.5, 0.5);
     shipNode.position = location;
 
@@ -62,6 +61,13 @@
 
     // set the object categories which should trigger callbacks (begin, end) if they make contact with the cat
     shipNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryViking;
+
+#pragma mark DEBUG CODE
+    SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    label.text = shipNode.name;
+    label.fontSize = 10.0f;
+    [shipNode addChild:label];
+#pragma mark -
 
     [parentNode addChild:shipNode ];
 

@@ -10,7 +10,12 @@
 #import "VMAAnimatableSystem.h"
 #import "VMAAnimatableComponent.h"
 #import "VMARenderableComponent.h"
+#import "VMATransformableComponent.h"
 #import "VMAEntityManager.h"
+
+#pragma mark PRIVATE METHODS
+
+#pragma mark -
 
 @implementation VMAAnimatableSystem
 
@@ -24,16 +29,39 @@
         VMAAnimatableComponent * animComp = (VMAAnimatableComponent*) [self.entityManager getComponentOfClass:[VMAAnimatableComponent class]
                                                                                                      forEntity:entity];
         VMARenderableComponent * renComp = (VMARenderableComponent*) [self.entityManager getComponentOfClass:[VMARenderableComponent class]
-                                                                                                     forEntity:entity];
+                                                                                                   forEntity:entity];
 
         // only update if entity isn't currently being animated.
-        SKAction* action = [animComp getAction];
-        if (action)
+        SKAction* componentAction = [animComp getAction];
+        if (componentAction)
         {
+            // if the entity already has actions running, don't interfere with them.
+            if ([[renComp getSprite] hasActions])
+            {
+                continue;
+            }
+
+            // build an action to update the TransformableComponent (position, rotation, scale, etc) on completion, as these may
+            // have been changed by the animation actions that are being applied here.
+            SKAction* updateXformAction = [SKAction runBlock:^
+            {
+                VMATransformableComponent * xformComp =
+                    (VMATransformableComponent*) [self.entityManager getComponentOfClass:[VMATransformableComponent class]
+                                                                               forEntity:entity];
+                xformComp.location = [renComp getSprite].position;
+                //NSLog(@"Setting target loc to: %@, %f, %f", entity, xformComp.location.x, xformComp.location.y);
+            }];
+
+            // build an action to update the AnimatableComponent so it knows its animations have finished running.
+            SKAction* finaliseAction = [SKAction runBlock:^
+            {
+                [animComp actionsDidComplete];
+            }];
+
+            SKAction* action = [SKAction sequence:@[componentAction, updateXformAction, finaliseAction]];
             [[renComp getSprite] runAction:action];
         }
     }
 }
-
 
 @end

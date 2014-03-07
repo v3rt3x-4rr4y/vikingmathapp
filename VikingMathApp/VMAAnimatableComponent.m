@@ -40,6 +40,13 @@
     return _currentAction;
 }
 
+-(void)actionsDidComplete
+{
+    _currentAction = nil;
+    _isBlocking = NO;
+    //NSLog(@"Action completed");
+}
+
 -(void)tearDown
 {
     
