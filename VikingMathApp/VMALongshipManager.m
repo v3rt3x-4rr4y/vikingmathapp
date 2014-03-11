@@ -149,6 +149,7 @@
 -(void)longshipDragStop:(CGPoint)location;
 {
     SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedLongship) onTarget:self];
+    SKAction* updateHiliteAction = [SKAction performSelector:@selector(handleHighlights) onTarget:_scene];
     CGRect boatShedRect = [_scene getBoatShedRect];
     CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
@@ -169,7 +170,9 @@
         }
         else
         {
-            [self animateLongshipFromLocation:location toLocation:targetLocBoatShed withAction:despawnAction];
+            [self animateLongshipFromLocation:location
+                                   toLocation:targetLocBoatShed
+                                   withAction:[SKAction sequence:@[despawnAction, updateHiliteAction]]];
         }
     }
 
@@ -178,7 +181,9 @@
     {
         if (CGRectIntersectsRect(boatShedRect, [self longshipFrameForEntity:_draggedEntity]))
         {
-            [self animateLongshipFromLocation:location toLocation:targetLocBoatShed withAction:despawnAction];
+            [self animateLongshipFromLocation:location
+                                   toLocation:targetLocBoatShed
+                                   withAction:[SKAction sequence:@[despawnAction, updateHiliteAction]]];
         }
         else
         {

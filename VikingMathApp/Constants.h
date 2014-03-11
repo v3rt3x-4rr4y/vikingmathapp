@@ -22,6 +22,7 @@ static NSString* BOATNODENAME = @"GroupActivity_Boat";
 static NSString* BOATNODENAMEDEBUG = @"GroupActivity_mBoat";
 static NSString* BOATMASKNODENAME = @"GroupActivity_Mask-Boat";
 static NSString* BOATHILITENODENAME = @"GroupActivity_Hilite-Boat";
+static NSString* SHEDHILITENODENAME = @"GroupActivity_Hilite-Shed";
 static NSString* BACKGROUND = @"GroupVikingsActivity_Background";
 static NSString* BOATSHEDNODENAME = @"GroupActivity_Shed";
 static NSString* MOBILEBOATNODENAMEPREFIX = @"MOBILE";

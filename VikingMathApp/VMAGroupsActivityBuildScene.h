@@ -13,5 +13,6 @@
 -(CGRect)getDropZoneRect;
 -(CGRect)getBoatShedRect;
 -(CGRect)getBoatProwRect;
+-(void)handleHighlights;
 
 @end
