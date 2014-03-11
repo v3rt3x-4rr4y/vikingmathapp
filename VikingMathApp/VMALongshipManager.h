@@ -13,7 +13,6 @@
 
 @interface VMALongshipManager : NSObject
 
-//@property (strong) VMAEntity* mobileLongship;
 @property (strong) VMAEntity* draggedEntity;
 @property (assign) CGPoint dragStart;
 

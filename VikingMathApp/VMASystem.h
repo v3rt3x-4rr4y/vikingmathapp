@@ -23,6 +23,9 @@
 @protocol VMAEntityAnimatableSystem <VMAEntitySystem>
 @end
 
+@protocol VMAEntityRenderableSystem <VMAEntitySystem>
+@end
+
 @interface VMASystem : NSObject
 
 @property (strong) VMAEntityManager* entityManager;
