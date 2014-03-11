@@ -110,6 +110,8 @@
     SKSpriteNode* shipProwNode = [SKSpriteNode spriteNodeWithImageNamed:BOATPROWNODENAME];
     VMAEntity* shipProwEntity = [_entityManager createEntity];
 
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipProwNode] toEntity:shipProwEntity];
+
     // sprite node name is set to its entity id
     shipProwNode.name = [NSString stringWithFormat:@"%@_%d", BOATPROWNODENAME, shipProwEntity.eid];
     shipProwNode.anchorPoint = CGPointMake(0, 0);
