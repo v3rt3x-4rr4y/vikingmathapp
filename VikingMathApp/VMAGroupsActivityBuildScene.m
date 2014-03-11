@@ -29,8 +29,6 @@
     SKSpriteNode* _backgroundNode;
 
     VMAEntity* _dropZoneHighlight;
-    //VMAEntityManager* _entityManager;
-    //VMAEntityFactory* _entityFactory;
     VMALongshipManager* _longshipManager;
 
     VMATransformableSystem* _transformableSystem;
@@ -50,10 +48,6 @@
         // Create layer to act as parent
         _backgroundLayer = [SKNode node];
         [self addChild:_backgroundLayer];
-
-        // Entity management
-        //_entityManager = [[VMAEntityManager alloc] init];
-        //_entityFactory = [[VMAEntityFactory alloc] initWithEntityManager:_entityManager];
 
         _transformableSystem = [[VMATransformableSystem alloc] initWithEntityManager:[_appDelegate entityManager]];
         _animatableSystem = [[VMAAnimatableSystem alloc] initWithEntityManager:[_appDelegate entityManager]];
@@ -75,7 +69,7 @@
         // Add the ship prow (drag source)
         [[_appDelegate entityFactory] createShipProwForShipShed:_boatShedNode withParent:self];
 
-        // initialise long ship drop zone (use a temp longship sprite for dimensions)
+        // Initialise long ship drop zone (use a temp longship sprite for dimensions)
         SKSpriteNode* tempShip = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
         _longshipHeight = tempShip.size.height;
         _longshipDropZone = CGRectMake(DROPZONEOFFSET, _backgroundNode.size.height - _longshipHeight - 2 * DROPZONEOFFSET,
@@ -172,7 +166,6 @@
 
             default:
             {
-
             }
             break;
         }
@@ -193,7 +186,6 @@
         {
             if (!_dropZoneHighlight)
             {
-                //NSLog(@"highlight ON");
                 _dropZoneHighlight = [[_appDelegate entityFactory] createHighlightForRect:_longshipDropZone
                                                                                withParent:self];
                 return;
@@ -203,7 +195,6 @@
 
     if (_dropZoneHighlight)
     {
-        //NSLog(@"highlight OFF");
         [[_appDelegate entityManager] removeEntity:_dropZoneHighlight];
         _dropZoneHighlight = nil;
     }
@@ -246,17 +237,17 @@
     CGPoint targetLoc1 = CGPointMake(_boatShedNode.position.x + BOATSHEDOFFSET,
                                      (_boatShedNode.position.y + (_boatShedNode.size.height / 2)));
 
-    // TODO: build an action which deletes the longship entity
-    SKAction* appendAction = nil;
-
-    // If dragged longship intersects boat shed rect, animate to there, else animate it back to the drop zone
-    [_longshipManager dropLongship:[_longshipManager draggedEntity]
-                             rect1:boatShedRect
-                             rect2:[_longshipManager draggedLongshipFrame]
-                              drop:location
-                            point1:targetLoc1
-                            point2:targetLoc2
-                        withAction:appendAction];
+    // If dragged longship intersects boat shed rect, animate to there and remove it, else animate it back to the drop zone
+    if ([_longshipManager dropLongship:[_longshipManager draggedEntity]
+                                 rect1:boatShedRect
+                                 rect2:[_longshipManager draggedLongshipFrame]
+                                  drop:location
+                                point1:targetLoc1
+                                point2:targetLoc2
+                            withAction:nil])
+    {
+        [_longshipManager removeDraggedLongship];
+    }
 }
 
 -(void)despawnMobileLongship

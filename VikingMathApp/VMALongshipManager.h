@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class VMAEntity;
 
 @interface VMALongshipManager : NSObject
@@ -20,6 +21,7 @@
 -(CGRect)mobileLongshipFrame;
 -(CGRect)draggedLongshipFrame;
 -(void)removeMobileLongship;
+-(void)removeDraggedLongship;
 -(void)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug;
 -(void)createMobileLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug;
 -(void)handleLongshipMove:(CGPoint)location withEntity:(VMAEntity*)longship;
@@ -28,12 +30,10 @@
 -(void)longshipDragStop;
 -(BOOL)longshipHasBlockingAnimation:(VMAEntity*)entity;
 -(void)setAction:(SKAction*)action forLongship:(VMAEntity*)longship withBlockingMode:(BOOL)blockMode;
--(VMAEntity*)longshipWithId:(uint32_t)eid;
 
 /**
  Tests whether the supplied entity intersects with the supplied test area. If is does, the entity is animated to
- target point 1. If it does not, the entity is animated to target point 2.
-
+ target point 1. If it does not, the entity is animated to target point 2. Returns boolean indicating success/failure.
  @param longshipEntity the entity to be handled
  @param intersectRect1 rectangle of area to test for intersection
  @param intersectRect2 rectangle of entity
