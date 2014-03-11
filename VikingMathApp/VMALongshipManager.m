@@ -8,6 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "VMALongshipManager.h"
+#import "VMAGroupsActivityBuildScene.h"
 #import "VMAEntityManager.h"
 #import "VMAEntityfactory.h"
 #import "VMAComponent.h"
@@ -32,12 +33,14 @@
 {
     NSMutableDictionary* _longships;
     AppDelegate* _appDelegate;
+    VMAGroupsActivityBuildScene* _scene;
 }
 
--(instancetype)init
+-(instancetype)initWithScene:(VMAGroupsActivityBuildScene*)invokingScene
 {
     if (self = [super init])
     {
+        _scene = invokingScene;
         _longships = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     }
@@ -54,60 +57,32 @@
 
 }
 
--(BOOL)dropLongship:(VMAEntity*)longshipEntity
-              rect1:(CGRect)intersectRect1
-              rect2:(CGRect)intersectRect2
-               drop:(CGPoint)dropPoint
-             point1:(CGPoint)targetPoint1
-             point2:(CGPoint)targetPoint2
-         withAction:(SKAction*)action;
+-(void)animateLongshipFromLocation:(CGPoint)dropPoint
+                        toLocation:(CGPoint)targetPoint
+                        withAction:(SKAction*)action;
 {
-    BOOL success = NO;
-    if ([self longshipHasBlockingAnimation:longshipEntity])
+    if ([self longshipHasBlockingAnimation:_draggedEntity])
     {
         // longship is already being animated so do nothing
-        return success;
-    }
-
-    CGPoint targetLoc = CGPointZero;
-    SKAction* dropAction = nil;
-
-    if (CGRectIntersectsRect(intersectRect1, intersectRect2))
-    {
-        // longship will be dropped at targetPoint1
-        targetLoc = targetPoint1;
-        success = YES;
-    }
-    else
-    {
-        // longship will be dropped at targetPoint2
-        targetLoc = targetPoint2;
-        success = NO;
+        return;
     }
 
     // determine action velocity based on distance
-    double distance = sqrt(pow((targetLoc.x - dropPoint.x), 2.0) + pow((targetLoc.y - dropPoint.y), 2.0));
+    double distance = sqrt(pow((targetPoint.x - dropPoint.x), 2.0) + pow((targetPoint.y - dropPoint.y), 2.0));
 
     // build move and despawn actions
-    SKAction* moveAction = [SKAction moveTo:targetLoc duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
+    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
     moveAction.timingMode = SKActionTimingEaseInEaseOut;
     SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
-    dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
+    SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
 
     // animate the mobile longship to its destination and despawn
-    [self setAction:dropAction forLongship:longshipEntity withBlockingMode:YES];
-
-    return success;
+    [self setAction:dropAction forLongship:_draggedEntity withBlockingMode:YES];
 }
 
--(BOOL)mobileLongshipIsActive
+-(BOOL)draggingLongship
 {
-    return _mobileLongship != nil;
-}
-
--(CGRect)mobileLongshipFrame
-{
-    return [self longshipFrameForEntity:_mobileLongship];
+    return _draggedEntity != nil;
 }
 
 -(CGRect)draggedLongshipFrame
@@ -128,35 +103,30 @@
     return retVal;
 }
 
--(void)removeMobileLongship
-{
-    [[_appDelegate entityManager] removeEntity:_mobileLongship];
-    _mobileLongship = nil;
-}
-
 -(void)removeDraggedLongship
 {
     [_longships removeObjectForKey:@(_draggedEntity.eid)];
     [[_appDelegate entityManager] removeEntity:_draggedEntity];
     NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
+    _dragStart = CGPointZero;
+    _draggedEntity = nil;
 }
 
--(void)createMobileLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
+-(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
 {
-    _mobileLongship = [[_appDelegate entityFactory] createLongshipAtLocation:location
-                                                                  withParent:parent
-                                                                        name:MOBILEBOATNODENAMEPREFIX
-                                                                       debug:debug];
-}
+    // can only create a new longship if we've finished dragging the current longship
+    if (_draggedEntity)
+    {
+        return nil;
+    }
 
--(void)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
-{
     VMAEntity* longship = [[_appDelegate entityFactory] createLongshipAtLocation:location
                                                                       withParent:parent
                                                                             name:@""
                                                                            debug:debug];
     [_longships setObject:[NSArray array] forKey:@(longship.eid)];
     NSLog(@"Created longship with ID: %d", longship.eid);
+    return longship;
 }
 
 -(void)handleLongshipMove:(CGPoint)location withEntity:(VMAEntity*)longship
@@ -176,10 +146,47 @@
     _dragStart = location;
 }
 
--(void)longshipDragStop
+-(void)longshipDragStop:(CGPoint)location;
 {
-    _dragStart = CGPointZero;
-    _draggedEntity = nil;
+    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedLongship) onTarget:self];
+    CGRect boatShedRect = [_scene getBoatShedRect];
+    CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
+                                            (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
+
+    // if dragstart location intersects the boat shed, then test for intersections with drop zones - if fail, animate back to boat shed
+    // and despawn
+    if (CGRectContainsPoint([_scene getBoatProwRect], _dragStart))
+    {
+        CGRect dropZoneRect = [_scene getDropZoneRect];
+        if (CGRectIntersectsRect(dropZoneRect, [self longshipFrameForEntity:_draggedEntity]))
+        {
+            CGPoint targetLocDropZone = CGPointMake(dropZoneRect.origin.x + (dropZoneRect.size.width / 2),
+                                                    dropZoneRect.origin.y + (dropZoneRect.size.height / 2));
+
+            [self animateLongshipFromLocation:location toLocation:targetLocDropZone withAction:nil];
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+        else
+        {
+            [self animateLongshipFromLocation:location toLocation:targetLocBoatShed withAction:despawnAction];
+        }
+    }
+
+    // else if drag began at a drop zone, test for intersections with (a) boat shed (b) drop zone(s) - if fail, animate back to drag start
+    else if (CGRectContainsPoint([_scene getDropZoneRect], _dragStart))
+    {
+        if (CGRectIntersectsRect(boatShedRect, [self longshipFrameForEntity:_draggedEntity]))
+        {
+            [self animateLongshipFromLocation:location toLocation:targetLocBoatShed withAction:despawnAction];
+        }
+        else
+        {
+            [self animateLongshipFromLocation:location toLocation:_dragStart withAction:nil];
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+    }
 }
 
 -(void)handleLongshipDrag:(CGPoint)location

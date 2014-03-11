@@ -10,6 +10,8 @@
 
 @interface VMAGroupsActivityBuildScene : SKScene
 
--(void)despawnMobileLongship;
+-(CGRect)getDropZoneRect;
+-(CGRect)getBoatShedRect;
+-(CGRect)getBoatProwRect;
 
 @end
