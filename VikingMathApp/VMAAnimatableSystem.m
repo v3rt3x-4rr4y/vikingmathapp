@@ -17,7 +17,7 @@
 
 -(void)update:(double)dt
 {
-    // get all moveable components
+    // get all animatable components
     NSArray * entities = [self.entityManager getAllEntitiesPosessingComponentOfClass:[VMAAnimatableComponent class]];
     for (VMAEntity * entity in entities)
     {

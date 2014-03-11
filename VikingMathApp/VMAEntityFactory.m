@@ -37,7 +37,7 @@
 
     // make it moveable, renderable, animatable
     [_entityManager addComponent:[[VMATransformableComponent alloc] initWithLocation:location] toEntity:shipEntity];
-    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipNode] toEntity:shipEntity];
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipNode isVisible:YES] toEntity:shipEntity];
     [_entityManager addComponent:[[VMAAnimatableComponent alloc] initWithAction:nil blocksUpdates:NO] toEntity:shipEntity];
 
     // sprite node name is set to its entity id
@@ -110,7 +110,7 @@
     SKSpriteNode* shipProwNode = [SKSpriteNode spriteNodeWithImageNamed:BOATPROWNODENAME];
     VMAEntity* shipProwEntity = [_entityManager createEntity];
 
-    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipProwNode] toEntity:shipProwEntity];
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:shipProwNode isVisible:YES] toEntity:shipProwEntity];
 
     // sprite node name is set to its entity id
     shipProwNode.name = [NSString stringWithFormat:@"%@_%d", BOATPROWNODENAME, shipProwEntity.eid];
@@ -152,4 +152,17 @@
     return highlightEntity;
 }
 
+-(VMAEntity*)createHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode
+{
+    SKSpriteNode* hiliteSprite = [SKSpriteNode spriteNodeWithImageNamed:BOATHILITENODENAME];
+    hiliteSprite.physicsBody.dynamic = NO;
+    hiliteSprite.anchorPoint = CGPointMake(0.5, 0.5);
+    hiliteSprite.position = CGPointMake(rect.origin.x + (rect.size.width / 2), rect.origin.y + (rect.size.height  / 2));
+     VMAEntity* highlightEntity = [_entityManager createEntity];
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:hiliteSprite isVisible:NO] toEntity:highlightEntity];
+    
+    hiliteSprite.name = [NSString stringWithFormat:@"%@_%d", BOATHILITENODENAME, highlightEntity.eid];
+    [parentNode addChild:hiliteSprite];
+    return highlightEntity;
+}
 @end

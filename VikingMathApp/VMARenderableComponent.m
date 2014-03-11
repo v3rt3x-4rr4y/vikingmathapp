@@ -15,12 +15,13 @@
     SKShapeNode* _skShapeNode;
 }
 
--(instancetype)initWithSprite:(SKSpriteNode*)spriteNode
+-(instancetype)initWithSprite:(SKSpriteNode*)spriteNode isVisible:(BOOL)visible;
 {
     if ((self = [super init]))
     {
         _skSpriteNode = spriteNode;
         _skShapeNode = nil;
+        _isVisible = visible;
     }
     return self;
 }

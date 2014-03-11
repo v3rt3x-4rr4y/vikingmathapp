@@ -12,7 +12,9 @@
 
 @interface VMARenderableComponent : VMAComponent
 
--(instancetype)initWithSprite:(SKSpriteNode*)spriteNode;
+@property (assign) BOOL isVisible;
+
+-(instancetype)initWithSprite:(SKSpriteNode*)spriteNode isVisible:(BOOL)visible;
 -(instancetype)initWithShape:(SKShapeNode*)shapeNode;
 -(void)updateSpriteNode:(CGPoint)location;
 -(SKSpriteNode*)getSprite;
