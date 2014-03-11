@@ -13,15 +13,10 @@
 #import "VMATransformableComponent.h"
 #import "VMAEntityManager.h"
 
-#pragma mark PRIVATE METHODS
-
-#pragma mark -
-
 @implementation VMAAnimatableSystem
 
 -(void)update:(double)dt
 {
-    // run the current action
     // get all moveable components
     NSArray * entities = [self.entityManager getAllEntitiesPosessingComponentOfClass:[VMAAnimatableComponent class]];
     for (VMAEntity * entity in entities)
@@ -30,8 +25,6 @@
                                                                                                      forEntity:entity];
         VMARenderableComponent * renComp = (VMARenderableComponent*) [self.entityManager getComponentOfClass:[VMARenderableComponent class]
                                                                                                    forEntity:entity];
-
-        // only update if entity isn't currently being animated.
         SKAction* componentAction = [animComp getAction];
         if (componentAction)
         {
@@ -49,14 +42,10 @@
                     (VMATransformableComponent*) [self.entityManager getComponentOfClass:[VMATransformableComponent class]
                                                                                forEntity:entity];
                 xformComp.location = [renComp getSprite].position;
-                //NSLog(@"Setting target loc to: %@, %f, %f", entity, xformComp.location.x, xformComp.location.y);
             }];
 
             // build an action to update the AnimatableComponent so it knows its animations have finished running.
-            SKAction* finaliseAction = [SKAction runBlock:^
-            {
-                [animComp actionsDidComplete];
-            }];
+            SKAction* finaliseAction = [SKAction runBlock:^{[animComp actionsDidComplete];}];
 
             SKAction* action = [SKAction sequence:@[componentAction, updateXformAction, finaliseAction]];
             [[renComp getSprite] runAction:action];

@@ -108,7 +108,7 @@
         NSMutableArray * retval = [NSMutableArray arrayWithCapacity:components.allKeys.count];
         for (NSNumber * eid in components.allKeys)
         {
-            [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.longValue]];
+            [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.unsignedIntValue]];
         }
         return retval;
     }
@@ -131,7 +131,7 @@
                 SKNode* skNode = (SKNode*)obj;
                 if ([skNode.name isEqualToString:[NSString stringWithFormat:@"%d", [eid intValue]]])
                  {
-                     [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.longValue]];
+                     [retval addObject:[[VMAEntity alloc] initWithEntityId:eid.unsignedIntValue]];
                      *stop = YES;
                  }
              }];

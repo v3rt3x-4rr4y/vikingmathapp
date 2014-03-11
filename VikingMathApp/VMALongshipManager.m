@@ -19,9 +19,18 @@
 #import "Constants.h"
 #import "Physics.h"
 
+#pragma mark PRIVATE METHODS
+
+@interface VMALongshipManager()
+-(void)addVikingWithId:(uint32_t)vikingId toLongshipWithId:(uint32_t)longshipId;
+-(void)removeVikingWithId:(uint32_t)vikingId;
+@end
+
+#pragma mark -
+
 @implementation VMALongshipManager
 {
-    NSMutableSet* _longships;
+    NSMutableDictionary* _longships;
     AppDelegate* _appDelegate;
 }
 
@@ -29,10 +38,20 @@
 {
     if (self = [super init])
     {
-        _longships = [NSMutableSet set];
+        _longships = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     }
     return self;
+}
+
+-(void)addVikingWithId:(uint32_t)vikingId toLongshipWithId:(uint32_t)longshipId
+{
+
+}
+
+-(void)removeVikingWithId:(uint32_t)vikingId
+{
+
 }
 
 -(BOOL)dropLongship:(VMAEntity*)longshipEntity
@@ -115,11 +134,12 @@
     _mobileLongship = nil;
 }
 
--(void)removeLongship:(VMAEntity*)longshipEntity
+-(void)removeDraggedLongship
 {
-    [[_appDelegate entityManager] removeEntity:longshipEntity];
+    [_longships removeObjectForKey:@(_draggedEntity.eid)];
+    [[_appDelegate entityManager] removeEntity:_draggedEntity];
+    NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
 }
-
 
 -(void)createMobileLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
 {
@@ -135,24 +155,18 @@
                                                                       withParent:parent
                                                                             name:@""
                                                                            debug:debug];
-    [_longships addObject:longship];
+    [_longships setObject:[NSArray array] forKey:@(longship.eid)];
+    NSLog(@"Created longship with ID: %d", longship.eid);
 }
 
 -(void)handleLongshipMove:(CGPoint)location withEntity:(VMAEntity*)longship
 {
-/*
-    if ([self longshipHasBlockingAnimation:longship])
-    {
-        return;
-    }
-*/
     VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
                                                                    forEntity:longship];
     if (vtcomp)
     {
         VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
         [tcomp setLocation:location];
-        //NSLog(@"Set location: %@, %f, %f", longship, location.x, location.y);
     }
 }
 
@@ -160,26 +174,10 @@
 {
     _draggedEntity = dragEntity;
     _dragStart = location;
-    //NSLog(@"Drag Start:%@, %f, %f", dragEntity, location.x, location.y);
 }
 
 -(void)longshipDragStop
 {
-/*
-    if (_draggedEntity)
-    {
-        VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
-                                                                       forEntity:_draggedEntity];
-        if (vtcomp)
-        {
-            VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
-            // TODO: if (the longship being dragged intersects the boat shed, animate to there and despawn)
-
-            // else (animate it back to its original location)
-            [tcomp setLocation:_dragStart];
-        }
-    }
-*/
     _dragStart = CGPointZero;
     _draggedEntity = nil;
 }
@@ -211,20 +209,6 @@
         VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
         [acomp setAction:action withBlockingMode:YES];
     }
-}
-
--(VMAEntity*)longshipWithId:(uint32_t)entityId
-{
-    VMAEntity* retVal = nil;
-    for (VMAEntity* entity in _longships)
-    {
-        if (entity.eid == entityId)
-        {
-            retVal = entity;
-            break;
-        }
-    }
-    return retVal;
 }
 
 @end

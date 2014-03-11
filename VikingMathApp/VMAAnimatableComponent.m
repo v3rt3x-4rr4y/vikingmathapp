@@ -44,12 +44,11 @@
 {
     _currentAction = nil;
     _isBlocking = NO;
-    //NSLog(@"Action completed");
 }
 
 -(void)tearDown
 {
-    
+
 }
 
 @end
