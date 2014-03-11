@@ -152,17 +152,28 @@
     return highlightEntity;
 }
 
--(VMAEntity*)createHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode
+-(VMAEntity*)createDropzoneHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode
 {
-    SKSpriteNode* hiliteSprite = [SKSpriteNode spriteNodeWithImageNamed:BOATHILITENODENAME];
+    return [self createHighlightMaskForRect:rect withImage:BOATHILITENODENAME withParent:parentNode];
+}
+
+-(VMAEntity*)createBoatshedHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode
+{
+    return [self createHighlightMaskForRect:rect withImage:SHEDHILITENODENAME withParent:parentNode];
+}
+
+-(VMAEntity*)createHighlightMaskForRect:(CGRect)rect withImage:(NSString*)spriteImage withParent:(SKNode*)parentNode
+{
+    SKSpriteNode* hiliteSprite = [SKSpriteNode spriteNodeWithImageNamed:spriteImage];
     hiliteSprite.physicsBody.dynamic = NO;
     hiliteSprite.anchorPoint = CGPointMake(0.5, 0.5);
     hiliteSprite.position = CGPointMake(rect.origin.x + (rect.size.width / 2), rect.origin.y + (rect.size.height  / 2));
-     VMAEntity* highlightEntity = [_entityManager createEntity];
+    VMAEntity* highlightEntity = [_entityManager createEntity];
     [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:hiliteSprite isVisible:NO] toEntity:highlightEntity];
-    
-    hiliteSprite.name = [NSString stringWithFormat:@"%@_%d", BOATHILITENODENAME, highlightEntity.eid];
+
+    hiliteSprite.name = [NSString stringWithFormat:@"%@_%d", spriteImage, highlightEntity.eid];
     [parentNode addChild:hiliteSprite];
     return highlightEntity;
 }
+
 @end

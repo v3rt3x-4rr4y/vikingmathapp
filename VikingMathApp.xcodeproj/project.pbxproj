@@ -41,6 +41,8 @@
 		3EEF6C3D18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C3B18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png */; };
 		3EEF6C3E18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C3C18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png */; };
 		3EEF6C4718CF83F300765D7A /* VMARenderableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF6C4618CF83F300765D7A /* VMARenderableSystem.m */; };
+		3EEF6C4A18CF9A5300765D7A /* GroupActivity_Hilite-Shed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */; };
+		3EEF6C4B18CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C4918CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png */; };
 		3EEF884818BF787300A2E471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884718BF787300A2E471 /* Foundation.framework */; };
 		3EEF884A18BF787300A2E471 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884918BF787300A2E471 /* CoreGraphics.framework */; };
 		3EEF884C18BF787300A2E471 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEF884B18BF787300A2E471 /* UIKit.framework */; };
@@ -127,6 +129,8 @@
 		3EEF6C3C18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Mask-Boat@2x.png"; sourceTree = "<group>"; };
 		3EEF6C4518CF83F300765D7A /* VMARenderableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMARenderableSystem.h; sourceTree = "<group>"; };
 		3EEF6C4618CF83F300765D7A /* VMARenderableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMARenderableSystem.m; sourceTree = "<group>"; };
+		3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Hilite-Shed.png"; sourceTree = "<group>"; };
+		3EEF6C4918CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Hilite-Shed@2x.png"; sourceTree = "<group>"; };
 		3EEF884418BF787300A2E471 /* VikingMathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VikingMathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEF884718BF787300A2E471 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3EEF884918BF787300A2E471 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -359,6 +363,8 @@
 		3EEF888318BF9F5100A2E471 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */,
+				3EEF6C4918CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png */,
 				3EEF6C3B18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png */,
 				3EEF6C3C18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png */,
 				3EEF6C3718CF687100765D7A /* GroupActivity_Hilite-Boat.png */,
@@ -476,6 +482,7 @@
 				3EEF6C3918CF687100765D7A /* GroupActivity_Hilite-Boat.png in Resources */,
 				3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */,
 				3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */,
+				3EEF6C4A18CF9A5300765D7A /* GroupActivity_Hilite-Shed.png in Resources */,
 				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
 				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,
 				3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */,
@@ -486,6 +493,7 @@
 				3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */,
 				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
 				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,
+				3EEF6C4B18CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png in Resources */,
 				3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */,
 				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
 				3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */,
