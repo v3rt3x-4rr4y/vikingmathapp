@@ -110,6 +110,7 @@
     NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
     _dragStart = CGPointZero;
     _draggedEntity = nil;
+    [_scene handleHighlights];
 }
 
 -(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
@@ -149,7 +150,6 @@
 -(void)longshipDragStop:(CGPoint)location;
 {
     SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedLongship) onTarget:self];
-    SKAction* updateHiliteAction = [SKAction performSelector:@selector(handleHighlights) onTarget:_scene];
     CGRect boatShedRect = [_scene getBoatShedRect];
     CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
@@ -172,7 +172,7 @@
         {
             [self animateLongshipFromLocation:location
                                    toLocation:targetLocBoatShed
-                                   withAction:[SKAction sequence:@[despawnAction, updateHiliteAction]]];
+                                   withAction:despawnAction];
         }
     }
 
@@ -183,7 +183,7 @@
         {
             [self animateLongshipFromLocation:location
                                    toLocation:targetLocBoatShed
-                                   withAction:[SKAction sequence:@[despawnAction, updateHiliteAction]]];
+                                   withAction:despawnAction];
         }
         else
         {
