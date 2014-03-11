@@ -31,6 +31,6 @@ typedef NS_OPTIONS(uint32_t, VMAPhysicsCategory)
 };
 
 static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC = 3500;
-static const NSTimeInterval DESPAWN_DELAY = 0.2;
+static const NSTimeInterval DESPAWN_DELAY = 0.1;
 
 #endif

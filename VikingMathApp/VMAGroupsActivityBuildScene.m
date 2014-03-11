@@ -215,7 +215,7 @@
 
         VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
                                                                   forEntity:_longshipManager.draggedEntity];
-        if ((vrcomp) && [_longshipManager draggingLongship])
+        if (vrcomp)
         {
             VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
             rdzcomp.isVisible = CGRectIntersectsRect([rcomp getSprite].frame, _longshipDropZone);
