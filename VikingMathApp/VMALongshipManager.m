@@ -10,6 +10,8 @@
 #import "VMALongshipManager.h"
 #import "VMAGroupsActivityBuildScene.h"
 #import "VMAEntityManager.h"
+#import "VMADropZone.h"
+#import "VMADropZoneManager.h"
 #import "VMAEntityfactory.h"
 #import "VMAComponent.h"
 #import "VMARenderableComponent.h"
@@ -29,11 +31,15 @@
 
 #pragma mark -
 
+static const NSString* DROP_ZONE_SLOT_INDEX_KEY = @"dzSlotIndex";
+static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
+
 @implementation VMALongshipManager
 {
     NSMutableDictionary* _longships;
     AppDelegate* _appDelegate;
     VMAGroupsActivityBuildScene* _scene;
+    BOOL _actionsCompleted;
 }
 
 -(instancetype)initWithScene:(VMAGroupsActivityBuildScene*)invokingScene
@@ -43,6 +49,7 @@
         _scene = invokingScene;
         _longships = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        _actionsCompleted = YES;
     }
     return self;
 }
@@ -105,9 +112,12 @@
 
 -(void)removeDraggedLongship
 {
+    // TODO: check for vikings assigned to this longship and despawn them (return to the pool)
+
     [_longships removeObjectForKey:@(_draggedEntity.eid)];
     [[_appDelegate entityManager] removeEntity:_draggedEntity];
-    NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
+    //NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
+    _actionsCompleted = YES;
     _dragStart = CGPointZero;
     _draggedEntity = nil;
     [_scene handleHighlights];
@@ -125,8 +135,13 @@
                                                                       withParent:parent
                                                                             name:@""
                                                                            debug:debug];
-    [_longships setObject:[NSArray array] forKey:@(longship.eid)];
-    NSLog(@"Created longship with ID: %d", longship.eid);
+
+    // TODO: replace [NSNumber numberWithInt:0] below with index of drop zone index
+    NSMutableDictionary* value = [NSMutableDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:0], [NSArray array]]
+                                                                    forKeys:@[DROP_ZONE_SLOT_INDEX_KEY, ASSIGNED_VIKINGS_KEY]];
+
+
+    [_longships setObject:value forKey:@(longship.eid)];
     return longship;
 }
 
@@ -143,53 +158,89 @@
 
 -(void)longshipDragStart:(VMAEntity*)dragEntity location:(CGPoint)location;
 {
-    _draggedEntity = dragEntity;
-    _dragStart = location;
+    // suppress scene updates until entity animations have completed
+    if (_actionsCompleted)
+    {
+        _draggedEntity = dragEntity;
+        _dragStart = location;
+    }
+}
+
+-(void)actionCompleted
+{
+    _actionsCompleted = YES;
 }
 
 -(void)longshipDragStop:(CGPoint)location;
 {
+    _actionsCompleted = NO;
     SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedLongship) onTarget:self];
     CGRect boatShedRect = [_scene getBoatShedRect];
     CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
-
-    // if dragstart location intersects the boat shed, then test for intersections with drop zones - if fail, animate back to boat shed
-    // and despawn
-    if (CGRectContainsPoint([_scene getBoatProwRect], _dragStart))
+    // if drag began at a drop zone...
+    __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByOccupiedDropZoneSlot:_dragStart];
+    VMADropZone* dzUnocc = [[_scene getDropZoneManager] rectIntersectsUnoccupiedDropZoneSlot:[self longshipFrameForEntity:_draggedEntity]];
+    __weak VMALongshipManager* weakSelf = self;
+    if (dzOcc != nil)
     {
-        CGRect dropZoneRect = [_scene getDropZoneRect];
-        if (CGRectIntersectsRect(dropZoneRect, [self longshipFrameForEntity:_draggedEntity]))
-        {
-            CGPoint targetLocDropZone = CGPointMake(dropZoneRect.origin.x + (dropZoneRect.size.width / 2),
-                                                    dropZoneRect.origin.y + (dropZoneRect.size.height / 2));
-
-            [self animateLongshipFromLocation:location toLocation:targetLocDropZone withAction:nil];
-            _dragStart = CGPointZero;
-            _draggedEntity = nil;
-        }
-        else
-        {
-            [self animateLongshipFromLocation:location
-                                   toLocation:targetLocBoatShed
-                                   withAction:despawnAction];
-        }
-    }
-
-    // else if drag began at a drop zone, test for intersections with (a) boat shed (b) drop zone(s) - if fail, animate back to drag start
-    else if (CGRectContainsPoint([_scene getDropZoneRect], _dragStart))
-    {
+        // ...test for intersections with boat shed...
         if (CGRectIntersectsRect(boatShedRect, [self longshipFrameForEntity:_draggedEntity]))
         {
             [self animateLongshipFromLocation:location
                                    toLocation:targetLocBoatShed
-                                   withAction:despawnAction];
+                                   withAction:[SKAction runBlock:^
+                                               {
+                                                   [weakSelf removeDraggedLongship];
+                                                   dzOcc.occupied = NO;
+                                                   [weakSelf actionCompleted];
+                                               }]];
         }
-        else
+
+        // ... and unoccupied drop zones...
+        else if (dzUnocc != nil)
         {
-            [self animateLongshipFromLocation:location toLocation:_dragStart withAction:nil];
+            CGPoint targetLocDropZone = CGPointMake(dzUnocc.rect.origin.x + (dzUnocc.rect.size.width / 2),
+                                                    dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
+            [self animateLongshipFromLocation:location
+                                   toLocation:targetLocDropZone
+                                   withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+
+             dzOcc.occupied = NO;
+             dzUnocc.occupied = YES;
             _dragStart = CGPointZero;
             _draggedEntity = nil;
+        }
+
+        // ... otherwise animate back to drag start location
+        else
+        {
+            [self animateLongshipFromLocation:location toLocation:_dragStart withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+    }
+
+    // else if dragstart location intersects the boat shed...
+    else if (CGRectContainsPoint([_scene getBoatProwRect], _dragStart))
+    {
+        // ...test for intersections with unoccupied drop zones
+        if (dzUnocc != nil)
+        {
+            CGPoint targetLocDropZone = CGPointMake(dzUnocc.rect.origin.x + (dzUnocc.rect.size.width / 2),
+                                                    dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
+            dzUnocc.occupied = YES;
+            [self animateLongshipFromLocation:location toLocation:targetLocDropZone withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+
+        // ... otherwise animate back to boat shed and despawn
+        else
+        {
+            [self animateLongshipFromLocation:location
+                                   toLocation:targetLocBoatShed
+                                   withAction:despawnAction];
         }
     }
 }

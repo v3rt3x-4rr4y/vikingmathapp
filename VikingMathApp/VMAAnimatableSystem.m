@@ -36,10 +36,11 @@
 
             // build an action to update the TransformableComponent (position, rotation, scale, etc) on completion, as these may
             // have been changed by the animation actions that are being applied here.
+             __weak VMAAnimatableSystem* weakSelf = self;
             SKAction* updateXformAction = [SKAction runBlock:^
             {
                 VMATransformableComponent * xformComp =
-                    (VMATransformableComponent*) [self.entityManager getComponentOfClass:[VMATransformableComponent class]
+                    (VMATransformableComponent*) [weakSelf.entityManager getComponentOfClass:[VMATransformableComponent class]
                                                                                forEntity:entity];
                 xformComp.location = [renComp getSprite].position;
             }];

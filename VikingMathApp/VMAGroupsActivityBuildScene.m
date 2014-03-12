@@ -19,6 +19,7 @@
 #import "VMATransformableSystem.h"
 #import "VMAAnimatableSystem.h"
 #import "VMARenderableSystem.h"
+#import "VMADropZoneManager.h"
 
 @implementation VMAGroupsActivityBuildScene
 {
@@ -31,9 +32,9 @@
     SKSpriteNode* _boatProwNode;
     SKSpriteNode* _backgroundNode;
 
-    VMAEntity* _dropZoneHighlight;
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
+    VMADropZoneManager* _dropZoneManager;
 
     VMATransformableSystem* _transformableSystem;
     VMAAnimatableSystem* _animatableSystem;
@@ -78,7 +79,6 @@
 
         // Add the ship prow (drag source)
         VMAEntity* boatProwEntity = [[_appDelegate entityFactory] createShipProwForShipShed:_boatShedNode withParent:self];
-        //_boatProwNode =
         VMARenderableComponent * renComp =
             (VMARenderableComponent*) [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
                                                                               forEntity:boatProwEntity];
@@ -87,11 +87,11 @@
         // Initialise long ship drop zone (use a temp longship sprite for dimensions)
         SKSpriteNode* tempShip = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
         _longshipHeight = tempShip.size.height;
-        _longshipDropZone = CGRectMake(DROPZONEOFFSET, _backgroundNode.size.height - _longshipHeight - 2 * DROPZONEOFFSET,
-                                       tempShip.size.width + DROPZONEOFFSET, _longshipHeight + DROPZONEOFFSET);
 
-        // Initialise drop zone highlight entity (invisible initially)
-        _dropZoneHighlight = [[_appDelegate entityFactory] createDropzoneHighlightMaskForRect:_longshipDropZone withParent:self];
+        _dropZoneManager = [[VMADropZoneManager alloc] initWithScene:self
+                                                          spriteSize:CGSizeMake(tempShip.size.width, tempShip.size.height)];
+        _longshipDropZone = CGRectZero;
+
         [self handleHighlights];
     }
     return self;
@@ -170,8 +170,11 @@
 
             case VMATouchEventTypeEnded:
             {
-                [_longshipManager longshipDragStop:(CGPoint)location];
-                [self handleHighlights];
+                if ([_longshipManager draggingLongship])
+                {
+                    [_longshipManager longshipDragStop:(CGPoint)location];
+                    [self handleHighlights];
+                }
             }
             break;
 
@@ -184,6 +187,10 @@
 }
 
 #pragma mark UTILITY METHODS
+-(VMADropZoneManager*)getDropZoneManager
+{
+    return _dropZoneManager;
+}
 
 -(CGRect)getDropZoneRect
 {
@@ -202,15 +209,10 @@
 
 -(void)handleHighlights
 {
-    // see if drop zone or boat shed needs highlighting
-    VMAComponent* vrdzcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
-                                                                     forEntity:_dropZoneHighlight];
     VMAComponent* vrbscomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
                                                                      forEntity:_boatshedHighlight];
-
-    if ((vrdzcomp) && (vrbscomp))
+    if (vrbscomp)
     {
-        VMARenderableComponent* rdzcomp = (VMARenderableComponent*)vrdzcomp;
         VMARenderableComponent* rbscomp = (VMARenderableComponent*)vrbscomp;
 
         VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
@@ -218,27 +220,15 @@
         if (vrcomp)
         {
             VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
-            rdzcomp.isVisible = CGRectIntersectsRect([rcomp getSprite].frame, _longshipDropZone);
+            [_dropZoneManager dropzoneRectIntersectedByRect:[rcomp getSprite].frame];
             rbscomp.isVisible = CGRectIntersectsRect([rcomp getSprite].frame, _boatShedZone);
         }
         else
         {
-            rdzcomp.isVisible = NO;
+            [_dropZoneManager resetAllHighlights];
             rbscomp.isVisible = NO;
         }
     }
-}
-
--(void)updateDropZoneWithIncrement:(BOOL)increment
-{
-    [self handleHighlights];
-
-    CGFloat delta = increment ? -_longshipHeight : _longshipHeight;
-    _longshipDropZone = CGRectMake(_longshipDropZone.origin.x,
-                                   _longshipDropZone.origin.y + delta - 2 * DROPZONEOFFSET,
-                                   _longshipDropZone.size.width,
-                                   _longshipDropZone.size.height);
-
 }
 
 @end
