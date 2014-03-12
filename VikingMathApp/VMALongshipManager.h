@@ -10,6 +10,7 @@
 
 @class VMAEntity;
 @class VMAGroupsActivityBuildScene;
+@class VMADropZoneManager;
 
 @interface VMALongshipManager : NSObject
 

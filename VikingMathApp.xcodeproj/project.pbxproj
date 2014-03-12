@@ -36,6 +36,8 @@
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
 		3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */; };
+		3EE753C618D07E430019E7FA /* VMADropZoneManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE753C518D07E430019E7FA /* VMADropZoneManager.m */; };
+		3EE753C918D0825F0019E7FA /* VMADropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE753C818D0825F0019E7FA /* VMADropZone.m */; };
 		3EEF6C3918CF687100765D7A /* GroupActivity_Hilite-Boat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C3718CF687100765D7A /* GroupActivity_Hilite-Boat.png */; };
 		3EEF6C3A18CF687100765D7A /* GroupActivity_Mask-Boat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C3818CF687100765D7A /* GroupActivity_Mask-Boat.png */; };
 		3EEF6C3D18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF6C3B18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png */; };
@@ -123,6 +125,10 @@
 		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
 		3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableComponent.m; sourceTree = "<group>"; };
 		3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
+		3EE753C418D07E430019E7FA /* VMADropZoneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMADropZoneManager.h; sourceTree = "<group>"; };
+		3EE753C518D07E430019E7FA /* VMADropZoneManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMADropZoneManager.m; sourceTree = "<group>"; };
+		3EE753C718D0825F0019E7FA /* VMADropZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMADropZone.h; sourceTree = "<group>"; };
+		3EE753C818D0825F0019E7FA /* VMADropZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMADropZone.m; sourceTree = "<group>"; };
 		3EEF6C3718CF687100765D7A /* GroupActivity_Hilite-Boat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Hilite-Boat.png"; sourceTree = "<group>"; };
 		3EEF6C3818CF687100765D7A /* GroupActivity_Mask-Boat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Mask-Boat.png"; sourceTree = "<group>"; };
 		3EEF6C3B18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Hilite-Boat@2x.png"; sourceTree = "<group>"; };
@@ -206,6 +212,10 @@
 				3E0F56D818C6049E00567714 /* Constants.h */,
 				3E0C753618C877A300B4351C /* VMALongshipManager.h */,
 				3E0C753718C877A300B4351C /* VMALongshipManager.m */,
+				3EE753C418D07E430019E7FA /* VMADropZoneManager.h */,
+				3EE753C518D07E430019E7FA /* VMADropZoneManager.m */,
+				3EE753C718D0825F0019E7FA /* VMADropZone.h */,
+				3EE753C818D0825F0019E7FA /* VMADropZone.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -518,12 +528,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EEF886318BF787300A2E471 /* VMAGroupsActivityBuildScene.m in Sources */,
+				3EE753C918D0825F0019E7FA /* VMADropZone.m in Sources */,
 				3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */,
 				3E45B13518C127980098A775 /* VMASystem.m in Sources */,
 				3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */,
 				3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */,
 				3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */,
 				3E0F56E418C63D2400567714 /* VMATransformableSystem.m in Sources */,
+				3EE753C618D07E430019E7FA /* VMADropZoneManager.m in Sources */,
 				3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */,
 				3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */,
 				3E45B12F18C125F60098A775 /* VMAComponent.m in Sources */,

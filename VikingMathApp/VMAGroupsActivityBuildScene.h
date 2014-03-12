@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+@class VMADropZoneManager;
 
 @interface VMAGroupsActivityBuildScene : SKScene
 
@@ -14,5 +15,6 @@
 -(CGRect)getBoatShedRect;
 -(CGRect)getBoatProwRect;
 -(void)handleHighlights;
+-(VMADropZoneManager*)getDropZoneManager;
 
 @end

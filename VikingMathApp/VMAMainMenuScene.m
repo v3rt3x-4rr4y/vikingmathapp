@@ -24,11 +24,12 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    __weak VMAMainMenuScene* weakSelf = self;
     SKAction* block = [SKAction runBlock:^
                       {
-                          VMAGroupsActivityBuildScene* myScene = [[VMAGroupsActivityBuildScene alloc] initWithSize:self.size];
+                          VMAGroupsActivityBuildScene* myScene = [[VMAGroupsActivityBuildScene alloc] initWithSize:weakSelf.size];
                           SKTransition* reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
-                          [self.view presentScene:myScene transition:reveal];
+                          [weakSelf.view presentScene:myScene transition:reveal];
                       }];
     [self runAction:block];
 }
