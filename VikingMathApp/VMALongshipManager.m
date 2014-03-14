@@ -136,10 +136,8 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                                                             name:@""
                                                                            debug:debug];
 
-    // TODO: replace [NSNumber numberWithInt:0] below with index of drop zone index
     NSMutableDictionary* value = [NSMutableDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:0], [NSArray array]]
                                                                     forKeys:@[DROP_ZONE_SLOT_INDEX_KEY, ASSIGNED_VIKINGS_KEY]];
-
 
     [_longships setObject:value forKey:@(longship.eid)];
     return longship;
@@ -163,12 +161,16 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     {
         _draggedEntity = dragEntity;
         _dragStart = location;
+
+        // TODO: this longship no longer occupies a drop zone slot - reset its index to -1 in _lonships
+
     }
 }
 
 -(void)actionCompleted
 {
     _actionsCompleted = YES;
+    [self printDebugInfo];
 }
 
 -(void)longshipDragStop:(CGPoint)location;
@@ -206,8 +208,16 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                    toLocation:targetLocDropZone
                                    withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
 
-             dzOcc.occupied = NO;
-             dzUnocc.occupied = YES;
+            dzOcc.occupied = NO;
+            dzUnocc.occupied = YES;
+
+            // Update dragged longship's drop zone slot index
+            NSMutableDictionary* lsDict = [_longships objectForKey:@(_draggedEntity.eid)];
+            if (lsDict)
+            {
+                lsDict[DROP_ZONE_SLOT_INDEX_KEY] = [NSNumber numberWithInt:dzUnocc.index];
+            }
+
             _dragStart = CGPointZero;
             _draggedEntity = nil;
         }
@@ -231,6 +241,14 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                                     dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
             dzUnocc.occupied = YES;
             [self animateLongshipFromLocation:location toLocation:targetLocDropZone withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+
+            // Update dragged longship's drop zone slot index
+            NSMutableDictionary* lsDict = [_longships objectForKey:@(_draggedEntity.eid)];
+            if (lsDict)
+            {
+                lsDict[DROP_ZONE_SLOT_INDEX_KEY] = [NSNumber numberWithInt:dzUnocc.index];
+            }
+
             _dragStart = CGPointZero;
             _draggedEntity = nil;
         }
@@ -272,6 +290,18 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
         VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
         [acomp setAction:action withBlockingMode:YES];
     }
+}
+
+-(void)printDebugInfo
+{
+    for (NSObject* obj in [_longships allKeys])
+    {
+        unsigned int i = [(NSNumber*)obj intValue];
+        NSMutableDictionary* dict = [_longships objectForKey:obj];
+        NSNumber* num = dict[DROP_ZONE_SLOT_INDEX_KEY];
+        NSLog(@"Longship: %d is in drop zone: %d", i, [num intValue]);
+    }
+    NSLog(@"----------------------------");
 }
 
 @end

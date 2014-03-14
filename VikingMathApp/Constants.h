@@ -29,7 +29,7 @@ static NSString* MOBILEBOATNODENAMEPREFIX = @"MOBILE";
 static NSString* USERDATAENTITYIDKEY = @"eid";
 static NSString* USERDATAENTITYISDRAGGINGKEY = @"isDragging";
 static const int BOATSHEDOFFSET = 90;
-static const int DROPZONEOFFSET = 10;
+static const int DROPZONEOFFSET = 20;
 static const int MAXDROPZONESLOTS = 7;
 
 #endif

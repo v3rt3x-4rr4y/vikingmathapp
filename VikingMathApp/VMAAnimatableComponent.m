@@ -44,7 +44,6 @@
 {
     _currentAction = nil;
     _isBlocking = NO;
-    NSLog(@"** actionsDidComplete **");
 }
 
 -(void)tearDown

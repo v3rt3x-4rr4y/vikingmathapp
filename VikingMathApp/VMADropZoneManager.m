@@ -37,11 +37,11 @@
             dz.index = i;
             dz.occupied = NO;
 
-            // build a rect
-            dz.rect = CGRectMake(DROPZONEOFFSET,
-                                 invokingScene.size.height - DROPZONEOFFSET - ((i + 1) * spriteSize.height),
-                                 spriteSize.width + DROPZONEOFFSET,
-                                 spriteSize.height + DROPZONEOFFSET);
+            // build a rect for this drop zone
+            dz.rect = CGRectMake(2 * DROPZONEOFFSET,
+                                 invokingScene.size.height - ((i + 1) * (spriteSize.height + DROPZONEOFFSET)),
+                                 spriteSize.width,
+                                 spriteSize.height);
 
             // build a highlight entity
             dz.entity = [[_appDelegate entityFactory] createDropzoneHighlightMaskForRect:dz.rect withParent:_scene];
