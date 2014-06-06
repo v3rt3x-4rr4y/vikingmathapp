@@ -11,6 +11,8 @@
 #import "Constants.h"
 #import "Physics.h"
 #import "VMALongshipManager.h"
+#import "VMADropZoneManager.h"
+#import "VMAVikingManager.h"
 #import "VMAEntityManager.h"
 #import "VMAEntityFactory.h"
 #import "VMAAnimatableComponent.h"
@@ -19,13 +21,11 @@
 #import "VMATransformableSystem.h"
 #import "VMAAnimatableSystem.h"
 #import "VMARenderableSystem.h"
-#import "VMADropZoneManager.h"
 
 @implementation VMAGroupsActivityBuildScene
 {
     CGRect _longshipDropZone;
     CGRect _boatShedZone;
-    CGFloat _longshipHeight;
 
     SKNode* _backgroundLayer;
     SKSpriteNode* _boatShedNode;
@@ -35,6 +35,7 @@
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
     VMADropZoneManager* _dropZoneManager;
+    VMAVikingManager* _vikingManager;
 
     VMATransformableSystem* _transformableSystem;
     VMAAnimatableSystem* _animatableSystem;
@@ -59,6 +60,7 @@
         _animatableSystem = [[VMAAnimatableSystem alloc] initWithEntityManager:[_appDelegate entityManager]];
         _renderableSystem = [[VMARenderableSystem alloc] initWithEntityManager:[_appDelegate entityManager]];
         _longshipManager = [[VMALongshipManager alloc] initWithScene:self];
+        _vikingManager = [[VMAVikingManager alloc] initWithScene:self];
 
         // Background sprite
         self.backgroundColor = [SKColor whiteColor];
@@ -67,7 +69,7 @@
         _backgroundNode.position = CGPointMake(0, 0);
         [_backgroundLayer addChild:_backgroundNode];
 
-        // Add the ship shed
+        // Add the boat shed
         _boatShedNode = [SKSpriteNode spriteNodeWithImageNamed:BOATSHEDNODENAME];
         _boatShedNode.anchorPoint = CGPointMake(0, 0);
         _boatShedNode.position = CGPointMake(_backgroundNode.size.width - _boatShedNode.size.width - DROPZONEOFFSET, DROPZONEOFFSET);
@@ -86,8 +88,6 @@
 
         // Initialise long ship drop zone (use a temp longship sprite for dimensions)
         SKSpriteNode* tempShip = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
-        _longshipHeight = tempShip.size.height;
-
         _dropZoneManager = [[VMADropZoneManager alloc] initWithScene:self
                                                           spriteSize:CGSizeMake(tempShip.size.width, tempShip.size.height)];
         _longshipDropZone = CGRectZero;
@@ -139,28 +139,28 @@
             {
                 if ([skNode.name hasPrefix:BOATPROWNODENAME])
                 {
-                    // spawn a new longship
-                    VMAEntity* longship = [_longshipManager createLongshipAtLocation:location withParent:self debug:NO];
+                    // we clicked on the boat shed - spawn a new longship
+                    VMAEntity* longship = [_longshipManager createActorAtLocation:location withParent:self debug:NO];
                     if (longship)
                     {
-                        [_longshipManager longshipDragStart:longship
-                                                   location:[skNode position]];
+                        [_longshipManager actorDragStart:longship
+                                                location:[skNode position]];
                     }
                 }
                 else if([skNode.name hasPrefix:BOATNODENAME] && [skNode userData])
                 {
                     // we clicked on an existing longship
-                    [_longshipManager longshipDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
+                    [_longshipManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
                 }
             }
             break;
 
             case VMATouchEventTypeMoved:
             {
-                if ([_longshipManager draggingLongship])
+                if ([_longshipManager draggingActor])
                 {
                     // update location of longship being dragged
-                    [_longshipManager handleLongshipMove:location withEntity:_longshipManager.draggedEntity];
+                    [_longshipManager handleActorMove:location withEntity:_longshipManager.draggedEntity];
 
                     // update drop zone highlight
                     [self handleHighlights];
@@ -170,9 +170,9 @@
 
             case VMATouchEventTypeEnded:
             {
-                if ([_longshipManager draggingLongship])
+                if ([_longshipManager draggingActor])
                 {
-                    [_longshipManager longshipDragStop:(CGPoint)location];
+                    [_longshipManager actorDragStop:(CGPoint)location];
                     [self handleHighlights];
                 }
             }
@@ -187,14 +187,15 @@
 }
 
 #pragma mark UTILITY METHODS
+
 -(VMADropZoneManager*)getDropZoneManager
 {
     return _dropZoneManager;
 }
 
--(CGRect)getDropZoneRect
+-(VMALongshipManager*)getLongshipManager
 {
-    return _longshipDropZone;
+    return _longshipManager;
 }
 
 -(CGRect)getBoatShedRect
@@ -220,7 +221,7 @@
         if (vrcomp)
         {
             VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
-            [_dropZoneManager dropzoneRectIntersectedByRect:[rcomp getSprite].frame];
+            [_dropZoneManager highlightDropzoneIntersectedByRect:[rcomp getSprite].frame];
             rbscomp.isVisible = CGRectIntersectsRect([rcomp getSprite].frame, _boatShedZone);
         }
         else

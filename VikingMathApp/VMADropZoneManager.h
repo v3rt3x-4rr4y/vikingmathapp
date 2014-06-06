@@ -27,11 +27,11 @@
  (if any)
  @param rect the rectangle to test for intersection
  */
--(void)dropzoneRectIntersectedByRect:(CGRect)rect;
+-(void)highlightDropzoneIntersectedByRect:(CGRect)rect;
 
 -(VMADropZone*)rectIntersectsUnoccupiedDropZoneSlot:(CGRect)rect;
 
--(VMADropZone*)pointContainedByOccupiedDropZoneSlot:(CGPoint)point;
+-(VMADropZone*)pointContainedByDropZoneSlot:(CGPoint)point occupied:(BOOL)isOccupied;
 
 -(void)resetAllHighlights;
 

@@ -64,11 +64,11 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
 
 }
 
--(void)animateLongshipFromLocation:(CGPoint)dropPoint
-                        toLocation:(CGPoint)targetPoint
-                        withAction:(SKAction*)action;
+-(void)animateDraggedActorFromLocation:(CGPoint)dropPoint
+                            toLocation:(CGPoint)targetPoint
+                            withAction:(SKAction*)action;
 {
-    if ([self longshipHasBlockingAnimation:_draggedEntity])
+    if ([self actorHasBlockingAnimation:_draggedEntity])
     {
         // longship is already being animated so do nothing
         return;
@@ -84,20 +84,20 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
 
     // animate the mobile longship to its destination and despawn
-    [self setAction:dropAction forLongship:_draggedEntity withBlockingMode:YES];
+    [self setAction:dropAction forActor:_draggedEntity withBlockingMode:YES];
 }
 
--(BOOL)draggingLongship
+-(BOOL)draggingActor
 {
     return _draggedEntity != nil;
 }
 
--(CGRect)draggedLongshipFrame
+-(CGRect)draggedActorFrame
 {
-    return [self longshipFrameForEntity:_draggedEntity];
+    return [self actorFrameForEntity:_draggedEntity];
 }
 
--(CGRect)longshipFrameForEntity:(VMAEntity*)entity
+-(CGRect)actorFrameForEntity:(VMAEntity*)entity
 {
     CGRect retVal = CGRectZero;
     VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
@@ -110,7 +110,7 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return retVal;
 }
 
--(void)removeDraggedLongship
+-(void)removeDraggedActor
 {
     // TODO: check for vikings assigned to this longship and despawn them (return to the pool)
 
@@ -123,7 +123,7 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     [_scene handleHighlights];
 }
 
--(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
+-(VMAEntity*)createActorAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
 {
     // can only create a new longship if we've finished dragging the current longship
     if (_draggedEntity)
@@ -143,10 +143,10 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return longship;
 }
 
--(void)handleLongshipMove:(CGPoint)location withEntity:(VMAEntity*)longship
+-(void)handleActorMove:(CGPoint)location withEntity:(VMAEntity*)actor
 {
     VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
-                                                                   forEntity:longship];
+                                                                   forEntity:actor];
     if (vtcomp)
     {
         VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
@@ -154,7 +154,7 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     }
 }
 
--(void)longshipDragStart:(VMAEntity*)dragEntity location:(CGPoint)location;
+-(void)actorDragStart:(VMAEntity*)dragEntity location:(CGPoint)location;
 {
     // suppress scene updates until entity animations have completed
     if (_actionsCompleted)
@@ -162,8 +162,10 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
         _draggedEntity = dragEntity;
         _dragStart = location;
 
-        // TODO: this longship no longer occupies a drop zone slot - reset its index to -1 in _lonships
-
+        // Actor is being dragged, so if it currently occupies a dropzone, set that dropzone as now being unoccupied so that it
+        // gets highlighted during drag/move operations.
+        VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
+        dzOcc.occupied = NO;
     }
 }
 
@@ -173,27 +175,28 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     [self printDebugInfo];
 }
 
--(void)longshipDragStop:(CGPoint)location;
+-(void)actorDragStop:(CGPoint)location;
 {
     _actionsCompleted = NO;
-    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedLongship) onTarget:self];
+    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedActor) onTarget:self];
     CGRect boatShedRect = [_scene getBoatShedRect];
     CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
     // if drag began at a drop zone...
-    __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByOccupiedDropZoneSlot:_dragStart];
-    VMADropZone* dzUnocc = [[_scene getDropZoneManager] rectIntersectsUnoccupiedDropZoneSlot:[self longshipFrameForEntity:_draggedEntity]];
+    VMADropZone* dzUnocc = [[_scene getDropZoneManager] rectIntersectsUnoccupiedDropZoneSlot:[self actorFrameForEntity:_draggedEntity]];
+    //__block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByOccupiedDropZoneSlot:_dragStart];
+    __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:NO];
     __weak VMALongshipManager* weakSelf = self;
     if (dzOcc != nil)
     {
         // ...test for intersections with boat shed...
-        if (CGRectIntersectsRect(boatShedRect, [self longshipFrameForEntity:_draggedEntity]))
+        if (CGRectIntersectsRect(boatShedRect, [self actorFrameForEntity:_draggedEntity]))
         {
-            [self animateLongshipFromLocation:location
-                                   toLocation:targetLocBoatShed
-                                   withAction:[SKAction runBlock:^
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocBoatShed
+                                       withAction:[SKAction runBlock:^
                                                {
-                                                   [weakSelf removeDraggedLongship];
+                                                   [weakSelf removeDraggedActor];
                                                    dzOcc.occupied = NO;
                                                    [weakSelf actionCompleted];
                                                }]];
@@ -204,9 +207,9 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
         {
             CGPoint targetLocDropZone = CGPointMake(dzUnocc.rect.origin.x + (dzUnocc.rect.size.width / 2),
                                                     dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
-            [self animateLongshipFromLocation:location
-                                   toLocation:targetLocDropZone
-                                   withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocDropZone
+                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
 
             dzOcc.occupied = NO;
             dzUnocc.occupied = YES;
@@ -225,7 +228,9 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
         // ... otherwise animate back to drag start location
         else
         {
-            [self animateLongshipFromLocation:location toLocation:_dragStart withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:_dragStart
+                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
             _dragStart = CGPointZero;
             _draggedEntity = nil;
         }
@@ -240,7 +245,9 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
             CGPoint targetLocDropZone = CGPointMake(dzUnocc.rect.origin.x + (dzUnocc.rect.size.width / 2),
                                                     dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
             dzUnocc.occupied = YES;
-            [self animateLongshipFromLocation:location toLocation:targetLocDropZone withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocDropZone
+                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
 
             // Update dragged longship's drop zone slot index
             NSMutableDictionary* lsDict = [_longships objectForKey:@(_draggedEntity.eid)];
@@ -256,19 +263,19 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
         // ... otherwise animate back to boat shed and despawn
         else
         {
-            [self animateLongshipFromLocation:location
+            [self animateDraggedActorFromLocation:location
                                    toLocation:targetLocBoatShed
                                    withAction:despawnAction];
         }
     }
 }
 
--(void)handleLongshipDrag:(CGPoint)location
+-(void)handleActorDrag:(CGPoint)location
 {
-    [self handleLongshipMove:location withEntity:_draggedEntity];
+    [self handleActorMove:location withEntity:_draggedEntity];
 }
 
--(BOOL)longshipHasBlockingAnimation:(VMAEntity*)entity
+-(BOOL)actorHasBlockingAnimation:(VMAEntity*)entity
 {
     BOOL retVal = NO;
     VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
@@ -281,10 +288,10 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return retVal;
 }
 
--(void)setAction:(SKAction*)action forLongship:(VMAEntity*)longship withBlockingMode:(BOOL)blockMode
+-(void)setAction:(SKAction*)action forActor:(VMAEntity*)actor withBlockingMode:(BOOL)blockMode
 {
     VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
-                                                                   forEntity:longship];
+                                                                   forEntity:actor];
     if (vacomp)
     {
         VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
