@@ -22,10 +22,9 @@ Longships:\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
 \ls1\ilvl0\cf0 \strike \strikec0 {\listtext	\uc0\u9642 	}Build methods to maintain a dictionary of Longship entities in LongshipManager (need to have at least 'add' and 'remove' methods).\
 {\listtext	\uc0\u9642 	}Need away of deleting a 'real' longship entity when it is dragged back to the boat shed.\strike0\striked0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
-\ls1\ilvl0\cf0 \strike \strikec0 {\listtext	\uc0\u9642 	}Need to change drop zone highlight method:\
+\ls1\ilvl0\strike \strikec0 {\listtext	\uc0\u9642 	}Need to change drop zone highlight method:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural
-\ls1\ilvl1\cf0 \strikec0 {\listtext	
+\ls1\ilvl1\cf0 {\listtext	
 \f2 \uc0\u8259 
 \f1 	}Drop zone is divided into a (fixed) number of slots.\
 {\listtext	
@@ -37,7 +36,7 @@ Longships:\
 \f2 \uc0\u8259 
 \f1 	}This will mean:\
 \pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2160\fi-2160\pardirnatural
-\ls1\ilvl2\cf0 \strikec0 {\listtext	
+\ls1\ilvl2\cf0 {\listtext	
 \f2 \uc0\u8259 
 \f1 	}Keeping track of all drop zone slots and whether they are currently occupied\
 {\listtext	
@@ -55,7 +54,8 @@ Longships:\
 Vikings:\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
-\ls3\ilvl0\cf0 {\listtext	\uc0\u9642 	}Drag vikings from gate to boat; same as boats - fall back if not dropped on a boat, otherwise drop on boat.\
+\ls3\ilvl0\cf0 {\listtext	\uc0\u9642 	}NB: Dragged viking is only temporary; it gets spawned on touch start and de-spawned on touch end (whether drag stop ends on a boat, on the scene, or back in the pool). The longships keep a track oh how many vikings have been dropped them, and just render the required number of static viking sprites as child nodes. \
+{\listtext	\uc0\u9642 	}Drag vikings from gate to boat; same as boats - fall back if not dropped on a boat, otherwise drop on boat.\
 {\listtext	\uc0\u9642 	}Assign (map) viking entities to longship entities in longship manager.\
 {\listtext	\uc0\u9642 	}Viking sprites will be children of longship sprites once assigned.\
 {\listtext	\uc0\u9642 	}\

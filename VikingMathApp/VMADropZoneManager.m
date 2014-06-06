@@ -51,15 +51,26 @@
     return self;
 }
 
--(VMADropZone*)pointContainedByOccupiedDropZoneSlot:(CGPoint)point;
+-(VMADropZone*)pointContainedByDropZoneSlot:(CGPoint)point occupied:(BOOL)isOccupied;
 {
     VMADropZone* retVal = nil;
     for (VMADropZone* dz in _dropZones)
     {
-        if (CGRectContainsPoint(dz.rect, point) && dz.occupied == YES)
+        if (CGRectContainsPoint(dz.rect, point))
         {
-            retVal = dz;
-            break;
+            if (isOccupied)
+            {
+                if (dz.occupied == YES)
+                {
+                    retVal = dz;
+                    break;
+                }
+            }
+            else
+            {
+                retVal = dz;
+                break;
+            }
         }
     }
     return retVal;
@@ -80,7 +91,7 @@
     return retVal;
 }
 
--(void)dropzoneRectIntersectedByRect:(CGRect)rect;
+-(void)highlightDropzoneIntersectedByRect:(CGRect)rect;
 {
     [self resetAllHighlights];
     for (VMADropZone* dz in _dropZones)
