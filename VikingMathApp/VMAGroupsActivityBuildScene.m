@@ -31,6 +31,7 @@
     SKSpriteNode* _boatShedNode;
     SKSpriteNode* _boatProwNode;
     SKSpriteNode* _backgroundNode;
+    SKSpriteNode* _vikingNode;
 
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
@@ -92,6 +93,9 @@
                                                           spriteSize:CGSizeMake(tempShip.size.width, tempShip.size.height)];
         _longshipDropZone = CGRectZero;
 
+        // Initialise viking on-point
+        [_vikingManager createActorAtLocation:CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS) withParent:self debug:NO];
+
         [self handleHighlights];
     }
     return self;
@@ -152,12 +156,23 @@
                     // we clicked on an existing longship
                     [_longshipManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
                 }
+                else if([skNode.name hasPrefix:VIKINGNODENAME] && [skNode userData])
+                {
+                    // We clicked on a viking
+                    NSLog(@"Touches began on viking");
+                    [_vikingManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
+                }
             }
             break;
 
             case VMATouchEventTypeMoved:
             {
-                if ([_longshipManager draggingActor])
+                if ([_vikingManager draggingActor])
+                {
+                    // update location of longship being dragged
+                    [_vikingManager handleActorMove:location withEntity:_vikingManager.draggedEntity];
+                }
+                else if ([_longshipManager draggingActor])
                 {
                     // update location of longship being dragged
                     [_longshipManager handleActorMove:location withEntity:_longshipManager.draggedEntity];
@@ -174,6 +189,10 @@
                 {
                     [_longshipManager actorDragStop:(CGPoint)location];
                     [self handleHighlights];
+                }
+                else if ([_vikingManager draggingActor])
+                {
+                    [_vikingManager actorDragStop:(CGPoint)location];
                 }
             }
             break;

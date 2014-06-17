@@ -25,14 +25,15 @@
 #pragma mark PRIVATE METHODS
 
 @interface VMALongshipManager()
--(void)addVikingWithId:(uint32_t)vikingId toLongshipWithId:(uint32_t)longshipId;
--(void)removeVikingWithId:(uint32_t)vikingId;
+-(int)numVikingsOnboardForlongship:(uint32_t)longshipId;
+-(void)incrementVikingsOnboardForlongship:(uint32_t)longshipId;
+-(void)decrementVikingsOnboardForlongship:(uint32_t)longshipId;
 @end
 
 #pragma mark -
 
 static const NSString* DROP_ZONE_SLOT_INDEX_KEY = @"dzSlotIndex";
-static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
+static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
 
 @implementation VMALongshipManager
 {
@@ -54,14 +55,35 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return self;
 }
 
--(void)addVikingWithId:(uint32_t)vikingId toLongshipWithId:(uint32_t)longshipId
+-(int)numVikingsOnboardForlongship:(uint32_t)longshipId
 {
-
+    int retVal = 0;
+    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    if (lsDict)
+    {
+        retVal = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
+    }
+    return retVal;
 }
 
--(void)removeVikingWithId:(uint32_t)vikingId
+-(void)incrementVikingsOnboardForlongship:(uint32_t)longshipId
 {
+    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    if (lsDict)
+    {
+        int val = 1 + [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
+        lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+    }
+}
 
+-(void)decrementVikingsOnboardForlongship:(uint32_t)longshipId
+{
+    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    if (lsDict)
+    {
+        int val = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue] - 1;
+        lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+    }
 }
 
 -(void)animateDraggedActorFromLocation:(CGPoint)dropPoint
@@ -136,8 +158,8 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                                                             name:@""
                                                                            debug:debug];
 
-    NSMutableDictionary* value = [NSMutableDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:0], [NSArray array]]
-                                                                    forKeys:@[DROP_ZONE_SLOT_INDEX_KEY, ASSIGNED_VIKINGS_KEY]];
+    NSMutableDictionary* value = [NSMutableDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:0], [NSNumber numberWithInt:0]]
+                                                                    forKeys:@[DROP_ZONE_SLOT_INDEX_KEY, NUM_ASSIGNED_VIKINGS_KEY]];
 
     [_longships setObject:value forKey:@(longship.eid)];
     return longship;
@@ -172,7 +194,7 @@ static const NSString* ASSIGNED_VIKINGS_KEY = @"assgdViks";
 -(void)actionCompleted
 {
     _actionsCompleted = YES;
-    [self printDebugInfo];
+    //[self printDebugInfo];
 }
 
 -(void)actorDragStop:(CGPoint)location;
