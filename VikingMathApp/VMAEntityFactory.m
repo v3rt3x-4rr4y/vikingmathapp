@@ -74,6 +74,51 @@
     return shipEntity;
 }
 
+-(VMAEntity*)createVikingAtLocation:(CGPoint)location withParent:(SKNode*)parentNode name:(NSString*)name debug:(BOOL)debug;
+{
+    SKSpriteNode* vikingNode = [SKSpriteNode spriteNodeWithImageNamed:VIKINGNODENAME];
+    VMAEntity* vikingEntity = [_entityManager createEntity];
+
+    // make it moveable, renderable, animatable
+    [_entityManager addComponent:[[VMATransformableComponent alloc] initWithLocation:location] toEntity:vikingEntity];
+    [_entityManager addComponent:[[VMARenderableComponent alloc] initWithSprite:vikingNode isVisible:YES] toEntity:vikingEntity];
+    [_entityManager addComponent:[[VMAAnimatableComponent alloc] initWithAction:nil blocksUpdates:NO] toEntity:vikingEntity];
+
+    // sprite node name is set to its entity id
+    vikingNode.name = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, vikingEntity.eid];
+    vikingNode.userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:vikingEntity, USERDATAENTITYIDKEY, @(NO), USERDATAENTITYISDRAGGINGKEY, nil];
+
+    vikingNode.anchorPoint = CGPointMake(0.5, 0.5);
+    vikingNode.position = location;
+    vikingNode.zPosition = CGFLOAT_MAX;
+
+    // make a physics body for the boat prow
+    CGSize contactSize = CGSizeMake(vikingNode.size.width - 40, vikingNode.size.height);
+    vikingNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: contactSize];
+    // prevent movement due to physics
+    vikingNode.physicsBody.dynamic = NO;
+
+    // give the boat prow a physics body category and collision mask:
+    // category = what type of object is this ?
+    // mask = what other types of object should this type of object collide with ?
+    vikingNode.physicsBody.categoryBitMask = VMAPhysicsCategoryLongship;
+    vikingNode.physicsBody.collisionBitMask = VMAPhysicsCategoryViking;
+
+    // set the object categories which should trigger callbacks (begin, end) if they make contact with the viking
+    vikingNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryLongship;
+
+#pragma mark DEBUG CODE
+    //SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    //label.text = vikingNode.name;
+    //label.fontSize = 10.0f;
+    //[vikingNode addChild:label];
+#pragma mark -
+
+    [parentNode addChild:vikingNode];
+
+    return vikingEntity;
+}
+
 -(VMAEntity*)createLongshipForShipShed:(SKSpriteNode*)shipShedNode withParent:(SKNode*)parentNode
 {
     SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];

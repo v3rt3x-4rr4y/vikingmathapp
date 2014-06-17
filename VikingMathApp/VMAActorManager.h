@@ -10,6 +10,8 @@
 #define VikingMathApp_VMAActorManager_h
 
 #import "VMAEntity.h"
+#import "AppDelegate.h"
+#import "VMAGroupsActivityBuildScene.h"
 
 @class SKScene;
 @class SKNode;
