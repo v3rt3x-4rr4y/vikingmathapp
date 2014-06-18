@@ -10,8 +10,13 @@
 #import "VMAEntityFactory.h"
 #import "VMAEntitymanager.h"
 #import "VMATransformableComponent.h"
+#import "VMARenderableComponent.h"
+#import "VMAAnimatableComponent.h"
 #import "VMAComponent.h"
+#import "VMADropZonemanager.h"
 #import "AppDelegate.h"
+#import "Constants.h"
+#import "Physics.h"
 
 @implementation VMAVikingManager
 {
@@ -40,12 +45,17 @@
 
 -(CGRect)draggedActorFrame
 {
-    return CGRectZero;
+    return [self actorFrameForEntity:_draggedEntity];
 }
 
 -(void)removeDraggedActor
 {
-
+    [_vikings removeObjectForKey:@(_draggedEntity.eid)];
+    [[_appDelegate entityManager] removeEntity:_draggedEntity];
+    NSLog(@"Removed viking with ID: %d", _draggedEntity.eid);
+    _actionsCompleted = YES;
+    _dragStart = CGPointZero;
+    _draggedEntity = nil;
 }
 
 -(VMAEntity*)createActorAtLocation:(CGPoint)location withParent:(SKNode*)parent debug:(BOOL)debug
@@ -97,18 +107,130 @@
 
 -(void)actorDragStop:(CGPoint)location
 {
-    _dragStart = CGPointZero;
-    _draggedEntity = nil;
+    _actionsCompleted = NO;
+    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedActor) onTarget:self];
+    CGRect onPointZoneRect = [_scene getOnPointZoneRect];
+    CGPoint targetLocOnPointZone = CGPointMake(VIKINGONPOINTXPOS + 100, VIKINGONPOINTYPOS);
+
+    // if drag began at a longship (ie an occupied drop zone slot)...
+    __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
+    __weak VMAVikingManager* weakSelf = self;
+
+    if (dzOcc != nil)
+    {
+        // ...test for intersections with the viking pool...
+        if ([self actorFrameForEntity:_draggedEntity].origin.x > (VIKINGONPOINTXPOS + 10))
+        {
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocOnPointZone
+                                       withAction:[SKAction runBlock:^
+                                                   {
+                                                       [weakSelf removeDraggedActor];
+                                                       [weakSelf actionCompleted];
+                                                   }]];
+        }
+
+
+        /*      TODO:
+ 
+
+        // ... and longships which have space left onboard...
+        else if (dzUnocc != nil)
+        {
+            CGPoint targetLocDropZone = CGPointMake(dzUnocc.rect.origin.x + (dzUnocc.rect.size.width / 2),
+                                                    dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocDropZone
+                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+
+            dzOcc.occupied = NO;
+            dzUnocc.occupied = YES;
+
+            // Update dragged longship's drop zone slot index
+            NSMutableDictionary* lsDict = [_longships objectForKey:@(_draggedEntity.eid)];
+            if (lsDict)
+            {
+                lsDict[DROP_ZONE_SLOT_INDEX_KEY] = [NSNumber numberWithInt:dzUnocc.index];
+            }
+
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+*/
+
+
+        // ... otherwise animate back to the drag start location (ie the original longship) and de-spawn
+        else
+        {
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:_dragStart
+                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+            _dragStart = CGPointZero;
+            _draggedEntity = nil;
+        }
+    }
+
+    // else if dragstart location intersects the on-point zone...
+    else if (CGRectContainsPoint([_scene getOnPointZoneRect], _dragStart))
+    {
+
+
+        // TODO:...test for intersections with longships which have space left on board
+        if (despawnAction)
+        {
+            // (1) despawn viking (2) increment longship's viking count
+            [self removeDraggedActor];
+        }
+        // ... otherwise animate back to the pool zone and despawn
+        else
+        {
+            [self animateDraggedActorFromLocation:location
+                                       toLocation:targetLocOnPointZone
+                                       withAction:despawnAction];
+        }
+    }
+    else
+    {
+        [self removeDraggedActor];
+    }
+
 }
 
 -(BOOL)actorHasBlockingAnimation:(VMAEntity*)entity
 {
-    return NO;
+    BOOL retVal = NO;
+    VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
+                                                                   forEntity:entity];
+    if (vacomp)
+    {
+        VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
+        retVal = [acomp hasBlockingAnimation];
+    }
+    return retVal;
+}
+
+-(CGRect)actorFrameForEntity:(VMAEntity*)entity
+{
+    CGRect retVal = CGRectZero;
+    VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
+                                                                   forEntity:entity];
+    if (vrcomp)
+    {
+        VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
+        retVal = [rcomp getSprite].frame;
+    }
+    return retVal;
 }
 
 -(void)setAction:(SKAction*)action forActor:(VMAEntity*)actor withBlockingMode:(BOOL)blockMode
 {
-
+    VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
+                                                                   forEntity:actor];
+    if (vacomp)
+    {
+        VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
+        [acomp setAction:action withBlockingMode:YES];
+    }
 }
 
 /**
@@ -122,7 +244,29 @@
                             toLocation:(CGPoint)targetPoint
                             withAction:(SKAction*)action
 {
+    if ([self actorHasBlockingAnimation:_draggedEntity])
+    {
+        // viking is already being animated so do nothing
+        return;
+    }
 
+    // determine action velocity based on distance
+    double distance = sqrt(pow((targetPoint.x - dropPoint.x), 2.0) + pow((targetPoint.y - dropPoint.y), 2.0));
+
+    // build move and despawn actions
+    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
+    moveAction.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
+    SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
+
+    // animate the mobile longship to its destination and despawn
+    [self setAction:dropAction forActor:_draggedEntity withBlockingMode:YES];
+}
+
+-(void)actionCompleted
+{
+    _actionsCompleted = YES;
+    //[self printDebugInfo];
 }
 
 @end
