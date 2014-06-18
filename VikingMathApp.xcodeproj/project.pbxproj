@@ -33,6 +33,8 @@
 		3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7518C097DA007FDE6A /* WinScreen_Background.png */; };
 		3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */; };
 		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
+		3ED7BEC71951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */; };
+		3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */; };
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
 		3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */; };
@@ -122,6 +124,8 @@
 		3E886E7618C097DA007FDE6A /* WinScreen_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WinScreen_Background@2x.png"; sourceTree = "<group>"; };
 		3E886E7B18C09A01007FDE6A /* VMAMainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAMainMenuScene.h; sourceTree = "<group>"; };
 		3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMainMenuScene.m; sourceTree = "<group>"; };
+		3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupVikingsActivity_OnPointZone.png; sourceTree = "<group>"; };
+		3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupVikingsActivity_OnPointZone@2x.png"; sourceTree = "<group>"; };
 		3EE4182F18C7316100D78A64 /* VMAAnimatableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableSystem.h; sourceTree = "<group>"; };
 		3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableSystem.m; sourceTree = "<group>"; };
 		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 		3EEF888318BF9F5100A2E471 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */,
+				3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */,
 				3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */,
 				3EEF6C4918CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png */,
 				3EEF6C3B18CF691100765D7A /* GroupActivity_Hilite-Boat@2x.png */,
@@ -503,6 +509,7 @@
 				3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */,
 				3EE9E856195053C500759E6D /* Description.rtf in Resources */,
 				3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */,
+				3ED7BEC71951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png in Resources */,
 				3EEF6C4A18CF9A5300765D7A /* GroupActivity_Hilite-Shed.png in Resources */,
 				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
 				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,
@@ -516,6 +523,7 @@
 				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,
 				3EEF6C4B18CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png in Resources */,
 				3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */,
+				3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */,
 				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
 				3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */,
 				3E45B11518C0FC8B0098A775 /* GroupActivity_Prow.png in Resources */,

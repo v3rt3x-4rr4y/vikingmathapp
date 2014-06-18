@@ -25,9 +25,7 @@
 #pragma mark PRIVATE METHODS
 
 @interface VMALongshipManager()
--(int)numVikingsOnboardForlongship:(uint32_t)longshipId;
--(void)incrementVikingsOnboardForlongship:(uint32_t)longshipId;
--(void)decrementVikingsOnboardForlongship:(uint32_t)longshipId;
+
 @end
 
 #pragma mark -
@@ -134,11 +132,9 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
 
 -(void)removeDraggedActor
 {
-    // TODO: check for vikings assigned to this longship and despawn them (return to the pool)
-
     [_longships removeObjectForKey:@(_draggedEntity.eid)];
     [[_appDelegate entityManager] removeEntity:_draggedEntity];
-    //NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
+    NSLog(@"Removed longship with ID: %d", _draggedEntity.eid);
     _actionsCompleted = YES;
     _dragStart = CGPointZero;
     _draggedEntity = nil;
@@ -162,6 +158,10 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                                                     forKeys:@[DROP_ZONE_SLOT_INDEX_KEY, NUM_ASSIGNED_VIKINGS_KEY]];
 
     [_longships setObject:value forKey:@(longship.eid)];
+
+    //DEBUG ONLY:
+    [self incrementVikingsOnboardForlongship:longship.eid];
+
     return longship;
 }
 

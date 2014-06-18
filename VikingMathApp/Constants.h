@@ -26,12 +26,13 @@ static NSString* SHEDHILITENODENAME = @"GroupActivity_Hilite-Shed";
 static NSString* BACKGROUND = @"GroupVikingsActivity_Background";
 static NSString* BOATSHEDNODENAME = @"GroupActivity_Shed";
 static NSString* VIKINGNODENAME = @"GroupActivity_Viking";
+static NSString* ONPOINTZONENODENAME = @"GroupVikingsActivity_OnPointZone";
 static NSString* MOBILEBOATNODENAMEPREFIX = @"MOBILE";
 static NSString* USERDATAENTITYIDKEY = @"eid";
 static NSString* USERDATAENTITYISDRAGGINGKEY = @"isDragging";
 static const int BOATSHEDOFFSET = 90;
 static const int DROPZONEOFFSET = 20;
-static const int VIKINGONPOINTXPOS = 750;
+static const int VIKINGONPOINTXPOS = 760;
 static const int VIKINGONPOINTYPOS = 405;
 static const int MAXDROPZONESLOTS = 7;
 

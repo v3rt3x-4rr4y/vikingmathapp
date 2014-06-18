@@ -28,6 +28,7 @@ typedef NS_OPTIONS(uint32_t, VMAPhysicsCategory)
 {
     VMAPhysicsCategoryLongship = 1 << 0, // 0001 = 1
     VMAPhysicsCategoryViking = 1 << 1, // 0010 = 2
+    VMAPhysicsCategoryOnPointZone = 1 << 2, // 0100 = 4
 };
 
 static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC = 2500;

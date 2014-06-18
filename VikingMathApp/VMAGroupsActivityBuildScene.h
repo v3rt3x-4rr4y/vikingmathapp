@@ -13,6 +13,7 @@
 @interface VMAGroupsActivityBuildScene : SKScene
 
 -(CGRect)getBoatShedRect;
+-(CGRect)getOnPointZoneRect;
 -(CGRect)getBoatProwRect;
 -(void)handleHighlights;
 -(VMADropZoneManager*)getDropZoneManager;

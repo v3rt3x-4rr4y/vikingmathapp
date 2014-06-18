@@ -92,7 +92,7 @@
     vikingNode.position = location;
     vikingNode.zPosition = CGFLOAT_MAX;
 
-    // make a physics body for the boat prow
+    // make a physics body for the viking
     CGSize contactSize = CGSizeMake(vikingNode.size.width - 40, vikingNode.size.height);
     vikingNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: contactSize];
     // prevent movement due to physics

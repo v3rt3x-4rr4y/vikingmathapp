@@ -26,12 +26,14 @@
 {
     CGRect _longshipDropZone;
     CGRect _boatShedZone;
+    CGRect _onPointZone;
 
     SKNode* _backgroundLayer;
     SKSpriteNode* _boatShedNode;
     SKSpriteNode* _boatProwNode;
     SKSpriteNode* _backgroundNode;
     SKSpriteNode* _vikingNode;
+    SKSpriteNode* _onPointZoneNode;
 
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
@@ -93,8 +95,16 @@
                                                           spriteSize:CGSizeMake(tempShip.size.width, tempShip.size.height)];
         _longshipDropZone = CGRectZero;
 
-        // Initialise viking on-point
-        [_vikingManager createActorAtLocation:CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS) withParent:self debug:NO];
+        // Initialise viking on-point zone (invisible)
+        _onPointZoneNode = [SKSpriteNode spriteNodeWithImageNamed:ONPOINTZONENODENAME];
+        _onPointZoneNode.anchorPoint = CGPointMake(0.5, 0.5);
+        _onPointZoneNode.position = CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS);
+        _onPointZoneNode.name = ONPOINTZONENODENAME;
+        //CGSize contactSize = CGSizeMake(_onPointZoneNode.size.width, _onPointZoneNode.size.height);
+        //_onPointZoneNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: contactSize];
+        //_onPointZoneNode.physicsBody.dynamic = NO;
+        [_backgroundLayer addChild:_onPointZoneNode];
+        _onPointZone = _onPointZoneNode.frame;
 
         [self handleHighlights];
     }
@@ -153,14 +163,34 @@
                 }
                 else if([skNode.name hasPrefix:BOATNODENAME] && [skNode userData])
                 {
-                    // we clicked on an existing longship
-                    [_longshipManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
+
+                    // If the longship has vikings onboard, longship cannot be moved...
+                    if ([_longshipManager numVikingsOnboardForlongship:((VMAEntity*)[skNode userData][USERDATAENTITYIDKEY]).eid] < 1)
+                    {
+                        // ...but if longship has NO vikings on board it can be moved
+                        [_longshipManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
+                    }
+                    else
+                    {
+                        // ...otherwise spawn a viking at the longship instead.
+                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
+                        if (viking)
+                        {
+                            [_vikingManager actorDragStart:viking
+                                                  location:[skNode position]];
+                        }
+                    }
                 }
-                else if([skNode.name hasPrefix:VIKINGNODENAME] && [skNode userData])
+                // We detected a touch in the viking on-point location
+                else if([skNode.name hasPrefix:ONPOINTZONENODENAME])
                 {
-                    // We clicked on a viking
-                    NSLog(@"Touches began on viking");
-                    [_vikingManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];
+                    // Spawn a viking at the  n-point location.
+                    VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
+                    if (viking)
+                    {
+                        [_vikingManager actorDragStart:viking
+                                              location:[skNode position]];
+                    }
                 }
             }
             break;
@@ -220,6 +250,11 @@
 -(CGRect)getBoatShedRect
 {
     return _boatShedNode.frame;
+}
+
+-(CGRect)getOnPointZoneRect
+{
+    return _onPointZoneNode.frame;
 }
 
 -(CGRect)getBoatProwRect
