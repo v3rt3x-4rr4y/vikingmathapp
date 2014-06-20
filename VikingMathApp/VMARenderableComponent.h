@@ -9,6 +9,7 @@
 #import "VMAComponent.h"
 @class SKSpriteNode;
 @class SKShapeNode;
+@class SKTexture;
 
 @interface VMARenderableComponent : VMAComponent
 
@@ -17,6 +18,7 @@
 -(instancetype)initWithSprite:(SKSpriteNode*)spriteNode isVisible:(BOOL)visible;
 -(instancetype)initWithShape:(SKShapeNode*)shapeNode;
 -(void)updateSpriteNode:(CGPoint)location;
+-(void)updateSpriteTexture:(SKTexture*)texture;
 -(SKSpriteNode*)getSprite;
 -(SKShapeNode*)getShape;
 

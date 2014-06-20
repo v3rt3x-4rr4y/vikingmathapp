@@ -79,6 +79,11 @@
     return _componentsByClass[NSStringFromClass(class)][@(entity.eid)];
 }
 
+- (VMAComponent *)getComponentOfClass:(Class)class forEntityWithId:(uint32_t)entityId
+{
+    return _componentsByClass[NSStringFromClass(class)][@(entityId)];
+}
+
 -(NSArray*)getAllComponentsOfClass:(Class)class
 {
     return [_componentsByClass[NSStringFromClass(class)] allValues];

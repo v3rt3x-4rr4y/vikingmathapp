@@ -10,6 +10,7 @@
 		3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C753218C871C800B4351C /* GroupActivity_mBoat.png */; };
 		3E0C753518C8725400B4351C /* GroupActivity_mBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0C753418C8725400B4351C /* GroupActivity_mBoat@2x.png */; };
 		3E0C753818C877A300B4351C /* VMALongshipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C753718C877A300B4351C /* VMALongshipManager.m */; };
+		3E0D06C819548A3E005F1BBC /* longship.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3E0D06C719548A3E005F1BBC /* longship.atlas */; };
 		3E0F56E118C63C7100567714 /* VMATransformableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E018C63C7100567714 /* VMATransformableComponent.m */; };
 		3E0F56E418C63D2400567714 /* VMATransformableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E318C63D2400567714 /* VMATransformableSystem.m */; };
 		3E0F56E718C64CE200567714 /* VMARenderableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F56E618C64CE200567714 /* VMARenderableComponent.m */; };
@@ -67,8 +68,6 @@
 		3EEF887A18BF787300A2E471 /* VikingMathAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF887918BF787300A2E471 /* VikingMathAppTests.m */; };
 		3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */; };
 		3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */; };
-		3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */; };
-		3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */; };
 		3EEF889218BFAC5400A2E471 /* GroupActivity_Viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */; };
 		3EEF889318BFAC5400A2E471 /* GroupActivity_Viking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */; };
 /* End PBXBuildFile section */
@@ -88,6 +87,7 @@
 		3E0C753418C8725400B4351C /* GroupActivity_mBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_mBoat@2x.png"; sourceTree = "<group>"; };
 		3E0C753618C877A300B4351C /* VMALongshipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMALongshipManager.h; sourceTree = "<group>"; };
 		3E0C753718C877A300B4351C /* VMALongshipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMALongshipManager.m; sourceTree = "<group>"; };
+		3E0D06C719548A3E005F1BBC /* longship.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = longship.atlas; sourceTree = "<group>"; };
 		3E0F56D718C5FF4800567714 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		3E0F56D818C6049E00567714 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3E0F56DF18C63C7100567714 /* VMATransformableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMATransformableComponent.h; sourceTree = "<group>"; };
@@ -171,8 +171,6 @@
 		3EEF887918BF787300A2E471 /* VikingMathAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VikingMathAppTests.m; sourceTree = "<group>"; };
 		3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupVikingsActivity_Background.png; sourceTree = "<group>"; };
 		3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupVikingsActivity_Background@2x.png"; sourceTree = "<group>"; };
-		3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Boat.png; sourceTree = "<group>"; };
-		3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Boat@2x.png"; sourceTree = "<group>"; };
 		3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupActivity_Viking.png; sourceTree = "<group>"; };
 		3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupActivity_Viking@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -387,6 +385,7 @@
 		3EEF888318BF9F5100A2E471 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				3E0D06C719548A3E005F1BBC /* longship.atlas */,
 				3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */,
 				3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */,
 				3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */,
@@ -411,8 +410,6 @@
 				3E886E7018C09692007FDE6A /* LandingScreen_Background.png */,
 				3EEF889018BFAC5400A2E471 /* GroupActivity_Viking.png */,
 				3EEF889118BFAC5400A2E471 /* GroupActivity_Viking@2x.png */,
-				3EEF888C18BFA97500A2E471 /* GroupActivity_Boat.png */,
-				3EEF888D18BFA97500A2E471 /* GroupActivity_Boat@2x.png */,
 				3EEF888418BF9F6D00A2E471 /* GroupVikingsActivity_Background.png */,
 				3EEF888518BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png */,
 			);
@@ -511,13 +508,12 @@
 				3E45B11218C0FAFF0098A775 /* GroupActivity_ShedwBoat@2x.png in Resources */,
 				3ED7BEC71951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png in Resources */,
 				3EEF6C4A18CF9A5300765D7A /* GroupActivity_Hilite-Shed.png in Resources */,
-				3EEF888E18BFA97500A2E471 /* GroupActivity_Boat.png in Resources */,
-				3EEF888F18BFA97500A2E471 /* GroupActivity_Boat@2x.png in Resources */,
 				3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */,
 				3EEF885D18BF787300A2E471 /* Main.storyboard in Resources */,
 				3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */,
 				3E45B11E18C0FF590098A775 /* GroupActivity_Shed@2x.png in Resources */,
 				3EEF6C3E18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png in Resources */,
+				3E0D06C819548A3E005F1BBC /* longship.atlas in Resources */,
 				3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */,
 				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
 				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,

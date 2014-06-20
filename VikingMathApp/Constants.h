@@ -18,7 +18,8 @@ typedef NS_OPTIONS(int, VMATouchEventType)
 };
 
 static NSString* BOATPROWNODENAME = @"GroupActivity_Prow";
-static NSString* BOATNODENAME = @"GroupActivity_Boat";
+static NSString* BOATNODENAME = @"GroupActivity_BoatViking";
+static NSString* BOATTEXTUREATLASNAME = @"longship.atlas";
 static NSString* BOATNODENAMEDEBUG = @"GroupActivity_mBoat";
 static NSString* BOATMASKNODENAME = @"GroupActivity_Mask-Boat";
 static NSString* BOATHILITENODENAME = @"GroupActivity_Hilite-Boat";

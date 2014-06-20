@@ -20,6 +20,15 @@
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
 \f1\fs36 \cf0 \
+20 June 2014\
+# set of textures for longships, with  0 - n vikings onboard.\
+# code to swap textures as number of viking onboard changes.\
+# vikings milling about in the pool (NB: number of vikings must be determined by game parameters at start of game). \
+\
+\
+\
+----------------\
+\
 Longships:\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
@@ -79,7 +88,6 @@ Vikings:\
 {\listtext	\uc0\u9642 	}The longships keep a track of how many vikings have been dropped them. The texture of the longship changes to reflect the number of viking children it has upon it. No need to render static vikings as sprites on top of the longship, should also make for easier touch event interpretation.\
 {\listtext	\uc0\u9642 	}Drag viking from gate to boat; same as boats - fall back to pool if not dropped on a boat (make suitably irritated noises), otherwise drop on boat (make nice triumphant sound).\
 {\listtext	\uc0\u9642 	}Assign (map) viking entities to longship entities in longship manager.\
-{\listtext	\uc0\u9642 	}Viking sprites will be children of longship sprites once assigned.\
 {\listtext	\uc0\u9642 	}Vikings can also be dragged:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural
 \ls4\ilvl1\cf0 {\listtext	
@@ -93,9 +101,7 @@ Vikings:\
 In VMALongshipManager, this is the collection for managing (a) the dropzone index a longship is assigned to (b) the number of vikings onboard a longship (variable is called "_longshipManager"):\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-
-\f0\fs24 \cf0 
-\f1\fs36 \
+\cf0 \
 \
 Doxygen (or Apple-doc style?) comments:\
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
@@ -104,15 +110,13 @@ Doxygen (or Apple-doc style?) comments:\
 \ls5\ilvl0\cf0 {\listtext	\uc0\u9642 	}(todo)\
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 \cf0 \
-\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 Unit Tests:\
+Unit Tests:\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
 \ls6\ilvl0\cf0 {\listtext	\uc0\u9642 	}(todo)\
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 \cf0 \
-\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 GUI Test Automation:\
+GUI Test Automation:\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
 \ls7\ilvl0\cf0 {\listtext	\uc0\u9642 	}(todo)}

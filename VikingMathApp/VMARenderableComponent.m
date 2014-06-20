@@ -46,6 +46,11 @@
     return _skSpriteNode;
 }
 
+-(void)updateSpriteTexture:(SKTexture*)texture
+{
+    _skSpriteNode.texture = texture;
+}
+
 -(SKShapeNode*)getShape
 {
     return _skShapeNode;
