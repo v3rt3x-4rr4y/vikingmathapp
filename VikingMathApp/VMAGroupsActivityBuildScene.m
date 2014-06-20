@@ -90,7 +90,7 @@
         _boatProwNode = [renComp getSprite];
 
         // Initialise long ship drop zone (use a temp longship sprite for dimensions)
-        SKSpriteNode* tempShip = [SKSpriteNode spriteNodeWithImageNamed:BOATNODENAME];
+        SKSpriteNode* tempShip = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@0", BOATNODENAME]];
         _dropZoneManager = [[VMADropZoneManager alloc] initWithScene:self
                                                           spriteSize:CGSizeMake(tempShip.size.width, tempShip.size.height)];
         _longshipDropZone = CGRectZero;

@@ -10,6 +10,7 @@
 
 @class SKNode;
 @class SKSpriteNode;
+@class SKTexture;
 @class VMAEntity;
 @class VMAEntityManager;
 
@@ -24,5 +25,6 @@
 -(VMAEntity*)createHighlightForRect:(CGRect)rect withParent:(SKNode*)parentNode;
 -(VMAEntity*)createDropzoneHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode;
 -(VMAEntity*)createBoatshedHighlightMaskForRect:(CGRect)rect withParent:(SKNode*)parentNode;
+-(SKTexture*)getLongshipTexture:(NSString*)textureName;
 
 @end

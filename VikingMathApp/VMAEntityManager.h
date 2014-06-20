@@ -36,6 +36,8 @@
  */
 - (VMAComponent *)getComponentOfClass:(Class)class forEntity:(VMAEntity*)entity;
 
+- (VMAComponent *)getComponentOfClass:(Class)class forEntityWithId:(uint32_t)entityId;
+
 /** Get a collection of all component objects of the specified class
  @param class the class of the required component object
  @return the requested collection.

@@ -53,15 +53,17 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return self;
 }
 
--(NSMutableDictionary*)dataForLongshipInDropZone:(int)dropzoneIndex
+-(NSMutableArray*)dataForLongshipInDropZone:(int)dropzoneIndex
 {
-    NSMutableDictionary* retVal = nil;
+    NSMutableArray* retVal = nil;
     for (NSObject* obj in [_longships allKeys])
     {
         NSMutableDictionary* dict = [_longships objectForKey:obj];
         if ([(NSNumber*)dict[DROP_ZONE_SLOT_INDEX_KEY] intValue] == dropzoneIndex)
         {
-            retVal = dict;
+            retVal = [NSMutableArray arrayWithCapacity:2];
+            [retVal insertObject:obj atIndex:0];
+            [retVal insertObject:dict atIndex:1];
             break;
         }
     }
@@ -71,10 +73,10 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
 -(int)numVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
 {
     int retVal = -1;
-    NSMutableDictionary* lsDict = [self dataForLongshipInDropZone:dropZoneId];
-    if (lsDict)
+    NSMutableArray* lsArray = [self dataForLongshipInDropZone:dropZoneId];
+    if (lsArray)
     {
-        retVal = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
+        retVal = [(NSNumber*)[lsArray[1] objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
     }
     return retVal;
 }
@@ -92,24 +94,47 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
 
 -(void)incrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
 {
-    NSMutableDictionary* lsDict =  [self dataForLongshipInDropZone:dropZoneId];
-    if (lsDict)
+    NSArray* lsArray = [self dataForLongshipInDropZone:dropZoneId];
+    if (lsArray)
     {
-        int val = 1 + [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
-        lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+        int val = 1 + [(NSNumber*)[lsArray[1] objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
+        lsArray[1][NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+
+        // Update the texture
+        [self updateTexture:val forLongshipWithId:[(NSNumber*)lsArray[0] intValue]];
+
         NSLog(@"Longship in drop zone: %d now has: %d vikings on board", dropZoneId, val);
     }
 }
 
 -(void)decrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
-
 {
-    NSMutableDictionary* lsDict =  [self dataForLongshipInDropZone:dropZoneId];
-    if (lsDict)
+    NSArray* lsArray = [self dataForLongshipInDropZone:dropZoneId];
+    if (lsArray)
     {
-        int val = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue] - 1;
-        lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+        int val = [(NSNumber*)[lsArray[1] objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue] - 1;
+        lsArray[1][NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+
+        // Update the texture
+        [self updateTexture:val forLongshipWithId:[(NSNumber*)lsArray[0] intValue]];
+
         NSLog(@"Longship in drop zone: %d now has: %d vikings on board", dropZoneId, val);
+    }
+}
+
+-(void)updateTexture:(int)value forLongshipWithId:(uint32_t)longshipId
+{
+    SKTexture* tex = [[_appDelegate entityFactory] getLongshipTexture:[NSString stringWithFormat:@"%@%d", BOATNODENAME, value]];
+    if (tex)
+    {
+        // Update the corresponding entity's renderable component
+        VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
+                                                                 forEntityWithId:longshipId];
+        if (vrcomp)
+        {
+            VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
+            [rcomp updateSpriteTexture:tex];
+        }
     }
 }
 

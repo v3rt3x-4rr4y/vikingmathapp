@@ -18,6 +18,7 @@
 @implementation VMAEntityFactory
 {
     VMAEntityManager* _entityManager;
+    SKTextureAtlas* _longshipTextureAtlas;
 }
 
 - (id)initWithEntityManager:(VMAEntityManager*)entityManager
@@ -25,13 +26,26 @@
     if ((self = [super init]))
     {
         _entityManager = entityManager;
+
+        // Initialise longship textures
+        _longshipTextureAtlas = [SKTextureAtlas atlasNamed:BOATTEXTUREATLASNAME];
     }
     return self;
 }
 
+-(SKTexture*)getLongshipTexture:(NSString*)textureName
+{
+    SKTexture* retVal = nil;
+    if (_longshipTextureAtlas)
+    {
+        retVal = [_longshipTextureAtlas textureNamed:textureName];
+    }
+    return retVal;
+}
+
 -(VMAEntity*)createLongshipAtLocation:(CGPoint)location withParent:(SKNode*)parentNode name:(NSString*)name debug:(BOOL)debug;
 {
-    NSString* sprName = debug ? BOATNODENAMEDEBUG: BOATNODENAME;
+    NSString* sprName = debug ? BOATNODENAMEDEBUG: [NSString stringWithFormat:@"%@0", BOATNODENAME];
     SKSpriteNode* shipNode = [SKSpriteNode spriteNodeWithImageNamed:sprName];
     VMAEntity* shipEntity = [_entityManager createEntity];
 
@@ -41,7 +55,7 @@
     [_entityManager addComponent:[[VMAAnimatableComponent alloc] initWithAction:nil blocksUpdates:NO] toEntity:shipEntity];
 
     // sprite node name is set to its entity id
-    shipNode.name = [NSString stringWithFormat:@"%@%@_%d", name, BOATNODENAME, shipEntity.eid];
+    shipNode.name = [NSString stringWithFormat:@"%@%@_%d", name, sprName, shipEntity.eid];
     shipNode.userData = [NSMutableDictionary dictionaryWithObjectsAndKeys:shipEntity, USERDATAENTITYIDKEY, @(NO), USERDATAENTITYISDRAGGINGKEY, nil];
 
     shipNode.anchorPoint = CGPointMake(0.5, 0.5);
