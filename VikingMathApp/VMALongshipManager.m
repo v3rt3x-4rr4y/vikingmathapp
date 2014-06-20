@@ -53,10 +53,25 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return self;
 }
 
--(int)numVikingsOnboardForlongship:(uint32_t)longshipId
+-(NSMutableDictionary*)dataForLongshipInDropZone:(int)dropzoneIndex
 {
-    int retVal = 0;
-    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    NSMutableDictionary* retVal = nil;
+    for (NSObject* obj in [_longships allKeys])
+    {
+        NSMutableDictionary* dict = [_longships objectForKey:obj];
+        if ([(NSNumber*)dict[DROP_ZONE_SLOT_INDEX_KEY] intValue] == dropzoneIndex)
+        {
+            retVal = dict;
+            break;
+        }
+    }
+    return retVal;
+}
+
+-(int)numVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+{
+    int retVal = -1;
+    NSMutableDictionary* lsDict = [self dataForLongshipInDropZone:dropZoneId];
     if (lsDict)
     {
         retVal = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
@@ -64,23 +79,37 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return retVal;
 }
 
--(void)incrementVikingsOnboardForlongship:(uint32_t)longshipId
+-(int)numVikingsOnboardForLongshipWithId:(uint32_t)longshipId
 {
-    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    int retVal = -1;
+    NSMutableDictionary* dict = [_longships objectForKey:@(longshipId)];
+    if (dict)
+    {
+        retVal = [(NSNumber*)dict[NUM_ASSIGNED_VIKINGS_KEY] intValue];
+    }
+    return retVal;
+}
+
+-(void)incrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+{
+    NSMutableDictionary* lsDict =  [self dataForLongshipInDropZone:dropZoneId];
     if (lsDict)
     {
         int val = 1 + [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
         lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+        NSLog(@"Longship in drop zone: %d now has: %d vikings on board", dropZoneId, val);
     }
 }
 
--(void)decrementVikingsOnboardForlongship:(uint32_t)longshipId
+-(void)decrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+
 {
-    NSMutableDictionary* lsDict = [_longships objectForKey:@(longshipId)];
+    NSMutableDictionary* lsDict =  [self dataForLongshipInDropZone:dropZoneId];
     if (lsDict)
     {
         int val = [(NSNumber*)[lsDict objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue] - 1;
         lsDict[NUM_ASSIGNED_VIKINGS_KEY] = [NSNumber numberWithInt:val];
+        NSLog(@"Longship in drop zone: %d now has: %d vikings on board", dropZoneId, val);
     }
 }
 
@@ -160,7 +189,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     [_longships setObject:value forKey:@(longship.eid)];
 
     //DEBUG ONLY:
-    [self incrementVikingsOnboardForlongship:longship.eid];
+    //[self incrementVikingsOnboardForlongship:longship.eid];
 
     return longship;
 }
