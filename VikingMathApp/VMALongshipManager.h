@@ -18,8 +18,9 @@
 @property (strong) VMAEntity* draggedEntity;
 @property (assign) CGPoint dragStart;
 
--(int)numVikingsOnboardForlongship:(uint32_t)longshipId;
--(void)incrementVikingsOnboardForlongship:(uint32_t)longshipId;
--(void)decrementVikingsOnboardForlongship:(uint32_t)longshipId;
+-(int)numVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+-(int)numVikingsOnboardForLongshipWithId:(uint32_t)longshipId;
+-(void)incrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+-(void)decrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
 
 @end

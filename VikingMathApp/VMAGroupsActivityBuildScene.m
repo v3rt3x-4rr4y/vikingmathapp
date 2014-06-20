@@ -165,7 +165,7 @@
                 {
 
                     // If the longship has vikings onboard, longship cannot be moved...
-                    if ([_longshipManager numVikingsOnboardForlongship:((VMAEntity*)[skNode userData][USERDATAENTITYIDKEY]).eid] < 1)
+                    if ([_longshipManager numVikingsOnboardForLongshipWithId:((VMAEntity*)[skNode userData][USERDATAENTITYIDKEY]).eid] < 1)
                     {
                         // ...but if longship has NO vikings on board it can be moved
                         [_longshipManager actorDragStart:[skNode userData][USERDATAENTITYIDKEY] location:[skNode position]];

@@ -35,5 +35,6 @@ static const int DROPZONEOFFSET = 20;
 static const int VIKINGONPOINTXPOS = 760;
 static const int VIKINGONPOINTYPOS = 405;
 static const int MAXDROPZONESLOTS = 7;
+static const int MAXVIKINGSPERLONGSHIP = 5;
 
 #endif
