@@ -21,11 +21,23 @@
 
 \f1\fs36 \cf0 \
 20 June 2014\
-# set of textures for longships, with  0 - n vikings onboard.\
-# code to swap textures as number of viking onboard changes.\
-# vikings milling about in the pool (NB: number of vikings must be determined by game parameters at start of game). \
+\strike \strikec0 # set of textures for longships, with  0 - n vikings onboard.\strike0\striked0 \
+\strike \strikec0 # code to swap textures as number of viking onboard changes.\strike0\striked0 \
+# vikings milling about in the pool.\
+ # At start of level, game params determine number of vikings in pool.\
+ # Vikings are lined-up behind fence. \
+ # At start of level, one viking moves from line-up to on-point position. \
+ #\'a0When viking is dragged from on-point position:\
+  # At start of drag, viking from pool on-point immediately de-spawns, pool count is decremented.\
+ # If viking is dropped away from a boat AND/OR if viking is dragged from boat and dropped back in the pool:\
+  # Viking is added to line-up, viking pool count is incremented, next viking moves to on-point position.\
+ # If viking is dropped on a boat:\
+  # Next viking moves from line-up to on-point position.\
 \
-\
+operations:\
+ # Remove viking from pool (gets taken from on-point position).\
+ # Add viking to pool (gets put into line-up).\
+ # Move viking from line-up to on-point.\
 \
 ----------------\
 \

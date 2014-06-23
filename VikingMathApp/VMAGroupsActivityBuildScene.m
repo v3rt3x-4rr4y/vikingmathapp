@@ -12,6 +12,7 @@
 #import "Physics.h"
 #import "VMALongshipManager.h"
 #import "VMADropZoneManager.h"
+#import "VMAVikingPoolManager.h"
 #import "VMAVikingManager.h"
 #import "VMAEntityManager.h"
 #import "VMAEntityFactory.h"
@@ -39,6 +40,7 @@
     VMALongshipManager* _longshipManager;
     VMADropZoneManager* _dropZoneManager;
     VMAVikingManager* _vikingManager;
+    VMAVikingPoolManager* _poolManager;
 
     VMATransformableSystem* _transformableSystem;
     VMAAnimatableSystem* _animatableSystem;
@@ -106,6 +108,13 @@
         [_backgroundLayer addChild:_onPointZoneNode];
         _onPointZone = _onPointZoneNode.frame;
 
+        // Initialise viking pool
+        CGRect poolBounds = CGRectMake(VIKINGONPOINTXPOS,
+                                       self.frame.origin.y,
+                                       self.frame.size.width - VIKINGONPOINTXPOS,
+                                       self.frame.size.height);
+        _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self numVikings:5 bounds:poolBounds onPoint:_onPointZoneNode.position parentNode:self];
+
         [self handleHighlights];
     }
     return self;
@@ -172,8 +181,7 @@
                     }
                     else
                     {
-                        // ...otherwise spawn a viking at the longship instead.
-                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
+                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:YES];
                         if (viking)
                         {
                             [_vikingManager actorDragStart:viking
@@ -184,12 +192,16 @@
                 // We detected a touch in the viking on-point location
                 else if([skNode.name hasPrefix:ONPOINTZONENODENAME])
                 {
-                    // Spawn a viking at the  n-point location.
-                    VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
-                    if (viking)
+                    // ...otherwise spawn a viking at the longship instead.
+                    if ([[self getPoolManager] numVikingsInPool] > 0)
                     {
-                        [_vikingManager actorDragStart:viking
-                                              location:[skNode position]];
+                        // Spawn a viking at the on-point location.
+                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
+                        if (viking)
+                        {
+                            [_vikingManager actorDragStart:viking
+                                                  location:[skNode position]];
+                        }
                     }
                 }
             }
@@ -245,6 +257,11 @@
 -(VMALongshipManager*)getLongshipManager
 {
     return _longshipManager;
+}
+
+-(VMAVikingPoolManager*)getPoolManager
+{
+    return _poolManager;
 }
 
 -(CGRect)getBoatShedRect

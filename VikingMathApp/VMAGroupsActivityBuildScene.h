@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 @class VMADropZoneManager;
 @class VMALongshipManager;
+@class VMAVikingPoolManager;
 
 @interface VMAGroupsActivityBuildScene : SKScene
 
@@ -18,5 +19,6 @@
 -(void)handleHighlights;
 -(VMADropZoneManager*)getDropZoneManager;
 -(VMALongshipManager*)getLongshipManager;
+-(VMAVikingPoolManager*)getPoolManager;
 
 @end

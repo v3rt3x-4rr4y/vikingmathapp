@@ -16,6 +16,7 @@
 #import "VMAComponent.h"
 #import "VMADropZonemanager.h"
 #import "VMALongshipManager.h"
+#import "VMAVikingPoolManager.h"
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "Physics.h"
@@ -97,8 +98,12 @@
         _draggedEntity = dragEntity;
         _dragStart = location;
 
-        // TODO: Viking is being dragged, so if it is currently onboard a longship, decrement the viking count on that longship.
-
+        // If deag start began at the on-point zone, despwan the on-point viking
+        if (CGRectContainsPoint([_scene getOnPointZoneRect], _dragStart))
+        {
+            // update the viking pool
+            [[_scene getPoolManager] removeVikingFromPool];
+        }
     }
 }
 
@@ -110,7 +115,6 @@
 -(void)actorDragStop:(CGPoint)location
 {
     _actionsCompleted = NO;
-    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedActor) onTarget:self];
     CGPoint targetLocOnPointZone = CGPointMake(VIKINGONPOINTXPOS + 100, VIKINGONPOINTYPOS);
     __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
     __block VMADropZone* dzDrop = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:location occupied:YES];
@@ -124,14 +128,13 @@
         // ...if the dragged viking drag-stop location intersects with the viking pool...
         if ([self actorFrameForEntity:_draggedEntity].origin.x > (VIKINGONPOINTXPOS + 10))
         {
-            // ... decrement the longship viking count...
-
             // ... animate dragged viking to the centre of viking pool and despawn
             [self animateDraggedActorFromLocation:location
                                        toLocation:targetLocOnPointZone
                                        withAction:[SKAction runBlock:^
                                                    {
                                                        [[_scene getLongshipManager] decrementVikingsOnboardForLongshipInDropZone:[dzOcc index]];
+                                                       [[_scene getPoolManager] addVikingToPool];
                                                        [weakSelf removeDraggedActor];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -154,6 +157,7 @@
                                                        {
                                                            [[_scene getLongshipManager] decrementVikingsOnboardForLongshipInDropZone:[dzOcc index]];
                                                            [[_scene getLongshipManager] incrementVikingsOnboardForLongshipInDropZone:[dzDrop index]];
+                                                           [[_scene getPoolManager] advanceVikingToOnPoint];
                                                            [weakSelf removeDraggedActor];
                                                            [weakSelf actionCompleted];
                 }]];
@@ -193,6 +197,7 @@
         {
             // .. if it does, increment longship's viking count and despawn the dragged viking
             [[_scene getLongshipManager] incrementVikingsOnboardForLongshipInDropZone:[dzDrop index]];
+            [[_scene getPoolManager] advanceVikingToOnPoint];
             [self removeDraggedActor];
         }
         // ... otherwise animate the dragged viking back to the pool zone and despawn
@@ -200,7 +205,13 @@
         {
             [self animateDraggedActorFromLocation:location
                                        toLocation:targetLocOnPointZone
-                                       withAction:despawnAction];
+                                       withAction:[SKAction runBlock:^
+                                                   {
+                                                       [weakSelf removeDraggedActor];
+                                                       [[_scene getPoolManager] addVikingToPool];
+                                                       [[_scene getPoolManager] advanceVikingToOnPoint];
+                                                       [weakSelf actionCompleted];
+                                                   }]];
         }
     }
 }

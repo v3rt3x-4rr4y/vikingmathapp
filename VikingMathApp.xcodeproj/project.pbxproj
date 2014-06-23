@@ -36,6 +36,7 @@
 		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
 		3ED7BEC71951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */; };
 		3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */; };
+		3EDBCF371958432E003A80CF /* VMAVikingPoolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBCF361958432E003A80CF /* VMAVikingPoolManager.m */; };
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
 		3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */; };
@@ -126,6 +127,8 @@
 		3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMainMenuScene.m; sourceTree = "<group>"; };
 		3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupVikingsActivity_OnPointZone.png; sourceTree = "<group>"; };
 		3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupVikingsActivity_OnPointZone@2x.png"; sourceTree = "<group>"; };
+		3EDBCF351958432E003A80CF /* VMAVikingPoolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAVikingPoolManager.h; sourceTree = "<group>"; };
+		3EDBCF361958432E003A80CF /* VMAVikingPoolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAVikingPoolManager.m; sourceTree = "<group>"; };
 		3EE4182F18C7316100D78A64 /* VMAAnimatableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableSystem.h; sourceTree = "<group>"; };
 		3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableSystem.m; sourceTree = "<group>"; };
 		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 				3EE753C518D07E430019E7FA /* VMADropZoneManager.m */,
 				3EE753C718D0825F0019E7FA /* VMADropZone.h */,
 				3EE753C818D0825F0019E7FA /* VMADropZone.m */,
+				3EDBCF351958432E003A80CF /* VMAVikingPoolManager.h */,
+				3EDBCF361958432E003A80CF /* VMAVikingPoolManager.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -547,6 +552,7 @@
 				3EE753C918D0825F0019E7FA /* VMADropZone.m in Sources */,
 				3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */,
 				3E45B13518C127980098A775 /* VMASystem.m in Sources */,
+				3EDBCF371958432E003A80CF /* VMAVikingPoolManager.m in Sources */,
 				3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */,
 				3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */,
 				3E45B10E18C0E0CF0098A775 /* VMAMathUtility.m in Sources */,
