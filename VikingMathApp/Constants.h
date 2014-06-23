@@ -37,5 +37,6 @@ static const int VIKINGONPOINTXPOS = 760;
 static const int VIKINGONPOINTYPOS = 405;
 static const int MAXDROPZONESLOTS = 7;
 static const int MAXVIKINGSPERLONGSHIP = 5;
+static const int VIKINGSPRITEHEIGHT = 55;
 
 #endif

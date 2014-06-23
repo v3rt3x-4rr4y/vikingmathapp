@@ -122,10 +122,11 @@
     vikingNode.physicsBody.contactTestBitMask = VMAPhysicsCategoryLongship;
 
 #pragma mark DEBUG CODE
-    //SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
-    //label.text = vikingNode.name;
-    //label.fontSize = 10.0f;
-    //[vikingNode addChild:label];
+    SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    label.text = vikingNode.name;
+    label.fontSize = 12.0f;
+    label.fontColor = [UIColor blackColor];
+    [vikingNode addChild:label];
 #pragma mark -
 
     [parentNode addChild:vikingNode];
