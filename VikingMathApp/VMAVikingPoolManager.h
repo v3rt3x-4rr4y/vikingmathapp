@@ -24,6 +24,6 @@
 -(void)removeVikingFromPool;
 -(void)advanceVikingToOnPoint;
 -(void)layoutVikings:(BOOL)randomise;
--(int)numVikingsInPool;
+-(NSUInteger)numVikingsInPool;
 
 @end
