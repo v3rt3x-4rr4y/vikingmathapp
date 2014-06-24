@@ -103,6 +103,14 @@
         {
             // update the viking pool
             [[_scene getPoolManager] removeVikingFromPool];
+            return;
+        }
+
+        // If drag started at an occupied longship, change the sprite texture to make LIFO viking opaque
+        VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
+        if (dzOcc)
+        {
+            [[_scene getLongshipManager] makeLIFOVikingOpaqeForLongshipInDropZone:[dzOcc index]];
         }
     }
 }

@@ -23,7 +23,7 @@
 -(void)addVikingToPool;
 -(void)removeVikingFromPool;
 -(void)advanceVikingToOnPoint;
--(void)layoutVikings;
+-(void)layoutVikings:(BOOL)randomise;
 -(int)numVikingsInPool;
 
 @end

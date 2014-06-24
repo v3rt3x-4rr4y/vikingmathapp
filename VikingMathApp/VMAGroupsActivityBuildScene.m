@@ -113,7 +113,7 @@
                                        self.frame.origin.y,
                                        self.frame.size.width - VIKINGONPOINTXPOS,
                                        self.frame.size.height);
-        _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self numVikings:5 bounds:poolBounds onPoint:_onPointZoneNode.position parentNode:self];
+        _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self numVikings:20 bounds:poolBounds onPoint:_onPointZoneNode.position parentNode:self];
 
         [self handleHighlights];
     }
