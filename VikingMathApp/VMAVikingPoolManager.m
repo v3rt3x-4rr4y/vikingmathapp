@@ -174,7 +174,7 @@
     return CGPointMake(x, y);
 }
 
--(int)numVikingsInPool
+-(NSUInteger)numVikingsInPool
 {
     return [_vikings count];
 }

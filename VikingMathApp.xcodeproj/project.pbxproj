@@ -36,6 +36,9 @@
 		3E886E7D18C09A01007FDE6A /* VMAMainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */; };
 		3ED7BEC71951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */; };
 		3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */; };
+		3EDB47221959D39B00ECB5CE /* VMAGameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB47211959D39B00ECB5CE /* VMAGameOverScene.m */; };
+		3EDB47251959D71500ECB5CE /* launchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EDB47231959D71500ECB5CE /* launchButton.png */; };
+		3EDB47261959D71500ECB5CE /* launchButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EDB47241959D71500ECB5CE /* launchButton@2x.png */; };
 		3EDBCF371958432E003A80CF /* VMAVikingPoolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBCF361958432E003A80CF /* VMAVikingPoolManager.m */; };
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
@@ -127,6 +130,10 @@
 		3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAMainMenuScene.m; sourceTree = "<group>"; };
 		3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupVikingsActivity_OnPointZone.png; sourceTree = "<group>"; };
 		3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupVikingsActivity_OnPointZone@2x.png"; sourceTree = "<group>"; };
+		3EDB47201959D39B00ECB5CE /* VMAGameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAGameOverScene.h; sourceTree = "<group>"; };
+		3EDB47211959D39B00ECB5CE /* VMAGameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAGameOverScene.m; sourceTree = "<group>"; };
+		3EDB47231959D71500ECB5CE /* launchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchButton.png; sourceTree = "<group>"; };
+		3EDB47241959D71500ECB5CE /* launchButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchButton@2x.png"; sourceTree = "<group>"; };
 		3EDBCF351958432E003A80CF /* VMAVikingPoolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAVikingPoolManager.h; sourceTree = "<group>"; };
 		3EDBCF361958432E003A80CF /* VMAVikingPoolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAVikingPoolManager.m; sourceTree = "<group>"; };
 		3EE4182F18C7316100D78A64 /* VMAAnimatableSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableSystem.h; sourceTree = "<group>"; };
@@ -210,6 +217,8 @@
 				3E886E7C18C09A01007FDE6A /* VMAMainMenuScene.m */,
 				3EEF886118BF787300A2E471 /* VMAGroupsActivityBuildScene.h */,
 				3EEF886218BF787300A2E471 /* VMAGroupsActivityBuildScene.m */,
+				3EDB47201959D39B00ECB5CE /* VMAGameOverScene.h */,
+				3EDB47211959D39B00ECB5CE /* VMAGameOverScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -391,6 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				3E0D06C719548A3E005F1BBC /* longship.atlas */,
+				3EDB47231959D71500ECB5CE /* launchButton.png */,
+				3EDB47241959D71500ECB5CE /* launchButton@2x.png */,
 				3ED7BEC51951CAAC00097F5F /* GroupVikingsActivity_OnPointZone.png */,
 				3ED7BEC61951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png */,
 				3EEF6C4818CF9A5300765D7A /* GroupActivity_Hilite-Shed.png */,
@@ -518,6 +529,7 @@
 				3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */,
 				3E45B11E18C0FF590098A775 /* GroupActivity_Shed@2x.png in Resources */,
 				3EEF6C3E18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png in Resources */,
+				3EDB47251959D71500ECB5CE /* launchButton.png in Resources */,
 				3E0D06C819548A3E005F1BBC /* longship.atlas in Resources */,
 				3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */,
 				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
@@ -527,6 +539,7 @@
 				3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */,
 				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
 				3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */,
+				3EDB47261959D71500ECB5CE /* launchButton@2x.png in Resources */,
 				3E45B11518C0FC8B0098A775 /* GroupActivity_Prow.png in Resources */,
 				3E886E7218C09692007FDE6A /* LandingScreen_Background.png in Resources */,
 			);
@@ -552,6 +565,7 @@
 				3EE753C918D0825F0019E7FA /* VMADropZone.m in Sources */,
 				3E45B12C18C122C50098A775 /* VMAEntityManager.m in Sources */,
 				3E45B13518C127980098A775 /* VMASystem.m in Sources */,
+				3EDB47221959D39B00ECB5CE /* VMAGameOverScene.m in Sources */,
 				3EDBCF371958432E003A80CF /* VMAVikingPoolManager.m in Sources */,
 				3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */,
 				3E45B13818C12AD10098A775 /* VMAHealthSystem.m in Sources */,

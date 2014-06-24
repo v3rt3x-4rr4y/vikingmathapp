@@ -22,6 +22,7 @@
 #import "VMATransformableSystem.h"
 #import "VMAAnimatableSystem.h"
 #import "VMARenderableSystem.h"
+#import "VMAGameOverScene.h"
 
 @implementation VMAGroupsActivityBuildScene
 {
@@ -35,6 +36,7 @@
     SKSpriteNode* _backgroundNode;
     SKSpriteNode* _vikingNode;
     SKSpriteNode* _onPointZoneNode;
+    SKSpriteNode* _launchButton;
 
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
@@ -47,6 +49,8 @@
     VMARenderableSystem* _renderableSystem;
 
     AppDelegate* _appDelegate;
+
+    BOOL _gameOver;
 }
 
 #pragma mark SCENE LIFE CYCLE
@@ -55,6 +59,7 @@
 {
     if (self = [super initWithSize:size])
     {
+        _gameOver = NO;
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
         // Create layer to act as parent
@@ -115,6 +120,13 @@
                                        self.frame.size.height);
         _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self numVikings:20 bounds:poolBounds onPoint:_onPointZoneNode.position parentNode:self];
 
+        // Initialise launch button
+        _launchButton = [SKSpriteNode spriteNodeWithImageNamed:LAUNCHBUTTONNODENAME];
+        _launchButton.anchorPoint = CGPointMake(0.5, 0.5);
+        _launchButton.position = CGPointMake(LAUNCHBUTTONXPOS, LAUNCHBUTTONYPOS);
+        _launchButton.name = LAUNCHBUTTONNODENAME;
+        [_backgroundLayer addChild:_launchButton];
+
         [self handleHighlights];
     }
     return self;
@@ -122,9 +134,23 @@
 
 -(void)update:(CFTimeInterval)currentTime
 {
+    // Check for exit conditions
+    if (_gameOver)
+    {
+        _gameOver = NO;
+        [self gameOver:NO];
+    }
+
     [_transformableSystem update:currentTime];
     [_animatableSystem update:currentTime];
     [_renderableSystem update:currentTime];
+}
+
+-(void)gameOver:(BOOL)didWin
+{
+    SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:self.size won:NO];
+    SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
+    [self.view presentScene:gameOverScene transition:reveal];
 }
 
 #pragma mark TOUCH EVENT HANDLERS
@@ -160,7 +186,12 @@
         {
             case VMATouchEventTypeBegan:
             {
-                if ([skNode.name hasPrefix:BOATPROWNODENAME])
+                if ([skNode.name hasPrefix:LAUNCHBUTTONNODENAME])
+                {
+                    _gameOver = YES;
+                    NSLog(@"LAUNCH!");
+                }
+                else if ([skNode.name hasPrefix:BOATPROWNODENAME])
                 {
                     // we clicked on the boat shed - spawn a new longship
                     VMAEntity* longship = [_longshipManager createActorAtLocation:location withParent:self debug:NO];
