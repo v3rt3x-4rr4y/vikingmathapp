@@ -11,6 +11,7 @@
 #import "VMAEntityManager.h"
 #import "VMAComponent.h"
 #import "VMATransformableComponent.h"
+#import "VMAMathUtility.h"
 #import "AppDelegate.h"
 #import "VMAEntity.h"
 #import "Constants.h"
@@ -54,6 +55,9 @@
 
         // Move one viking from the line-up to the on point location
         [self advanceVikingToOnPoint];
+
+        // Layout the vikings
+        [self layoutVikings:TRUE];
     }
     return self;
 }
@@ -62,8 +66,7 @@
 {
     BOOL empty = [_vikings count] < 1;
     // Initial position is the centre of the pool
-    CGPoint location = CGPointMake(_poolBounds.origin.x + _poolBounds.size.width * 0.5,
-                                   _poolBounds.origin.y + _poolBounds.size.height * 0.5);
+    CGPoint location = [self makeRandomCoords];
 
     // Create a new entity
     VMAEntity* viking = [[_appDelegate entityFactory] createVikingAtLocation:location
@@ -78,10 +81,7 @@
     {
         [self advanceVikingToOnPoint];
     }
-    else
-    {
-        [self layoutVikings];
-    }
+
 }
 
 -(void)removeVikingFromPool
@@ -99,9 +99,6 @@
 
     // Despawn and delete the viking that is currently on-point
     [[_appDelegate entityManager] removeEntity:viking];
-
-    // Update layout of vikings
-    [self layoutVikings];
 }
 
 -(void)advanceVikingToOnPoint
@@ -125,12 +122,9 @@
     NSLog(@"Viking on point will be: %d", [viking eid]);
 
     _onPointViking = viking;
-
-    // Update layout of vikings
-    [self layoutVikings];
 }
 
--(void)layoutVikings
+-(void)layoutVikings:(BOOL)randomise
 {
     // Loop through all vikings and update their positions centred around the centre of the pool rect.
     int index = 0;
@@ -149,14 +143,35 @@
         if (vtcomp)
         {
             float offset = (index * VIKINGSPRITEHEIGHT) + VIKINGSPRITEHEIGHT;
-            CGPoint location = CGPointMake(_poolBounds.origin.x + _poolBounds.size.width * 0.5,
-                                               (_poolBounds.origin.y + _poolBounds.size.height * 0.5) - baseOffset + offset);
+            CGFloat x;
+            CGFloat y;
+            CGPoint location;
+            if (!randomise)
+            {
+                x = _poolBounds.origin.x + _poolBounds.size.width * 0.5,
+                y = (_poolBounds.origin.y + _poolBounds.size.height * 0.5) - baseOffset + offset;
+                location = CGPointMake(x, y);
+            }
+            else
+            {
+                location = [self makeRandomCoords];
+            }
 
             VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
             [tcomp setLocation:location];
         }
         index++;
     }
+}
+
+-(CGPoint)makeRandomCoords
+{
+    CGFloat x = _poolBounds.origin.x + RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.width - VIKINGSPRITEHEIGHT);
+    CGFloat y = _poolBounds.origin.y + [_scene getBoatShedRect].size.height +
+    RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.height -
+                     [_scene getBoatShedRect].size.height -
+                     VIKINGSPRITEHEIGHT);
+    return CGPointMake(x, y);
 }
 
 -(int)numVikingsInPool

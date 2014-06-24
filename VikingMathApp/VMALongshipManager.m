@@ -122,6 +122,28 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     }
 }
 
+-(void)makeLIFOVikingOpaqeForLongshipInDropZone:(int)dropZoneId
+{
+    NSArray* lsArray = [self dataForLongshipInDropZone:dropZoneId];
+    if (lsArray)
+    {
+        int val = [(NSNumber*)[lsArray[1] objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
+        SKTexture* tex = [[_appDelegate entityFactory] getLongshipTexture:[NSString stringWithFormat:@"%@%do", BOATNODENAME, val]];
+        if (tex)
+        {
+            // Update the corresponding entity's renderable component
+            uint32_t longshipId = [(NSNumber*)lsArray[0] intValue];
+            VMAComponent* vrcomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
+                                                                     forEntityWithId:longshipId];
+            if (vrcomp)
+            {
+                VMARenderableComponent* rcomp = (VMARenderableComponent*)vrcomp;
+                [rcomp updateSpriteTexture:tex];
+            }
+        }
+    }
+}
+
 -(void)updateTexture:(int)value forLongshipWithId:(uint32_t)longshipId
 {
     SKTexture* tex = [[_appDelegate entityFactory] getLongshipTexture:[NSString stringWithFormat:@"%@%d", BOATNODENAME, value]];
@@ -260,7 +282,6 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
     // if drag began at a drop zone...
     VMADropZone* dzUnocc = [[_scene getDropZoneManager] rectIntersectsUnoccupiedDropZoneSlot:[self actorFrameForEntity:_draggedEntity]];
-    //__block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByOccupiedDropZoneSlot:_dragStart];
     __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:NO];
     __weak VMALongshipManager* weakSelf = self;
     if (dzOcc != nil)

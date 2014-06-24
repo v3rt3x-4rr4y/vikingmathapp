@@ -22,5 +22,6 @@
 -(int)numVikingsOnboardForLongshipWithId:(uint32_t)longshipId;
 -(void)incrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
 -(void)decrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
+-(void)makeLIFOVikingOpaqeForLongshipInDropZone:(int)dropZoneId;
 
 @end
