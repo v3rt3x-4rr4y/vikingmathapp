@@ -12,6 +12,7 @@
 #import "VMATransformableComponent.h"
 #import "VMARenderableComponent.h"
 #import "VMAAnimatableComponent.h"
+#import "VMAMathUtility.h"
 #import "VMADropZone.h"
 #import "VMAComponent.h"
 #import "VMADropZonemanager.h"
@@ -74,6 +75,14 @@
                                                                           name:@""
                                                                          debug:debug];
 
+    VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
+                                                                   forEntity:viking];
+    if (vtcomp)
+    {
+        VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
+        [tcomp setRotation:DegreesToRadians(90.0f)];
+    }
+
     // setting a placeholder (zero interger value) as the object for now
     [_vikings setObject:[NSNumber numberWithInt:0] forKey:@(viking.eid)];
     return viking;
@@ -110,7 +119,7 @@
         VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
         if (dzOcc)
         {
-            [[_scene getLongshipManager] makeLIFOVikingOpaqeForLongshipInDropZone:[dzOcc index]];
+            [[_scene getLongshipManager] updateLIFOVikingOpacityForLongshipInDropZone:[dzOcc index] opaque:YES];
         }
     }
 }
@@ -190,6 +199,7 @@
                                        toLocation:_dragStart
                                        withAction:[SKAction runBlock:^
                                                    {
+                                                       [[_scene getLongshipManager] updateLIFOVikingOpacityForLongshipInDropZone:[dzOcc index] opaque:NO];
                                                        [weakSelf removeDraggedActor];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -287,7 +297,7 @@
     SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
     SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
 
-    // animate the mobile longship to its destination and despawn
+    // animate the viking to its destination and despawn
     [self setAction:dropAction forActor:_draggedEntity withBlockingMode:YES];
 }
 

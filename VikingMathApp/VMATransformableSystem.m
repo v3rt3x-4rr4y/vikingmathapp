@@ -32,7 +32,7 @@
                 (VMARenderableComponent*) [self.entityManager getComponentOfClass:[VMARenderableComponent class]
                                                                         forEntity:entity];
 
-            [renComp updateSpriteNode:[xformComp location]];
+            [renComp updateSpriteNode:[xformComp location] rotation:[xformComp rotation]];
         }
     }
 }

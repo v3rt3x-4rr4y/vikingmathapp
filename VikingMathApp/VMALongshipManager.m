@@ -53,6 +53,16 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return self;
 }
 
+-(int)numDeployedLongships
+{
+    return [[_longships allKeys] count];
+}
+
+-(NSArray*)deployedLongshipIds
+{
+    return [_longships allKeys];
+}
+
 -(NSMutableArray*)dataForLongshipInDropZone:(int)dropzoneIndex
 {
     NSMutableArray* retVal = nil;
@@ -122,13 +132,15 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     }
 }
 
--(void)makeLIFOVikingOpaqeForLongshipInDropZone:(int)dropZoneId
+-(void)updateLIFOVikingOpacityForLongshipInDropZone:(int)dropZoneId opaque:(BOOL)isOpaque;
 {
     NSArray* lsArray = [self dataForLongshipInDropZone:dropZoneId];
     if (lsArray)
     {
         int val = [(NSNumber*)[lsArray[1] objectForKey:NUM_ASSIGNED_VIKINGS_KEY] intValue];
-        SKTexture* tex = [[_appDelegate entityFactory] getLongshipTexture:[NSString stringWithFormat:@"%@%do", BOATNODENAME, val]];
+        NSString* strOpacity = isOpaque ? @"o" : @"";
+        NSString* name = [NSString stringWithFormat:@"%@%d%@", BOATNODENAME, val, strOpacity];
+        SKTexture* tex = [[_appDelegate entityFactory] getLongshipTexture:name];
         if (tex)
         {
             // Update the corresponding entity's renderable component

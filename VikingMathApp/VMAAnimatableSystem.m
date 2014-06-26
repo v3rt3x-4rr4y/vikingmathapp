@@ -49,7 +49,15 @@
             SKAction* finaliseAction = [SKAction runBlock:^{[animComp actionsDidComplete];}];
 
             SKAction* action = [SKAction sequence:@[componentAction, updateXformAction, finaliseAction]];
-            [[renComp getSprite] runAction:action];
+            NSString* key = [animComp getKey];
+            if (key)
+            {
+                [[renComp getSprite] runAction:action withKey:key];
+            }
+            else
+            {
+                [[renComp getSprite] runAction:action];
+            }
         }
     }
 }

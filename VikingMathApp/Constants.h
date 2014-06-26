@@ -41,5 +41,7 @@ static const int LAUNCHBUTTONYPOS = 80;
 static const int MAXDROPZONESLOTS = 7;
 static const int MAXVIKINGSPERLONGSHIP = 5;
 static const int VIKINGSPRITEHEIGHT = 55;
+static const float VIKING_MOVE_POINTS_PER_SEC = 65;
+static const float VIKING_ROTATE_RADIANS_PER_SEC = 4;
 
 #endif

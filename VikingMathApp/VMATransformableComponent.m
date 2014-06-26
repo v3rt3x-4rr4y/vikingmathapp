@@ -15,6 +15,7 @@
     if ((self = [super init]))
     {
         _location = location;
+        _rotation = 0.0f;
     }
     return self;
 }

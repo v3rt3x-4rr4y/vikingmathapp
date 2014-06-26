@@ -17,7 +17,7 @@
 
 -(instancetype)initWithSprite:(SKSpriteNode*)spriteNode isVisible:(BOOL)visible;
 -(instancetype)initWithShape:(SKShapeNode*)shapeNode;
--(void)updateSpriteNode:(CGPoint)location;
+-(void)updateSpriteNode:(CGPoint)location rotation:(CGFloat)rotation;
 -(void)updateSpriteTexture:(SKTexture*)texture;
 -(SKSpriteNode*)getSprite;
 -(SKShapeNode*)getShape;
