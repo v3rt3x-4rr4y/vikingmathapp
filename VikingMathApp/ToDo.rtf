@@ -20,47 +20,73 @@
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
 \f1\fs36 \cf0 \
-25 June 2014:\
-  - 
-\b General:
-\b0 \
-    + Make On-Point zone flash/highlight if user clicks in viking pool (ie on drag start) to remind user that vikings must be dragged from on-point zone only.\
- \
-  - 
-\b Animations:
-\b0 \
-    + Vikings in pool, milling about.\
-    + Viking on point, aggressive.\
-    + Viking walking from pool to on-point.\
-    + Viking dropped into boat, triumphant\
-    + Viking dropped back to pool boat, disappointed.  ............... by end of Wednesday\
+25 June 2014:  \
 \
-  - 
-\b Sounds:
-\b0 \
-    + Level start (on leaving landing screen)\
-    + Background sounds\
-    + Random vikings in pool sounds (milling about impatient etc)\
-    + Launch button\
-    + Drag viking from on-point / Drag viking from boat \
-    + Drop viking on boat\
-    + Drag viking back to pool\
-    + Drag boat from shed\
-    + Drop boat on shore\
-    + Drag boat from shore\
-    + Drop boat in shed\
-    + Win screen.\
-    + Lose screen.\
+	- 
+\b BuzzOrch: 
+\b0 ..................................................... 
+\i finish by end of Wednesday
+\i0 \
+		\strike \strikec0 + iPad splash screen (looks like XCode bug, see:\strike0\striked0  {\field{\*\fldinst{HYPERLINK "http://www.raywenderlich.com/forums/viewtopic.php?f=2&t=10868"}}{\fldrslt http://www.raywenderlich.com/forums/viewtopic.php?f=2&t=10868}})\
+         \strike \strikec0 + Try and reproduce slide show craziness on music player, then fix it (seems to happen when you start, then stop, the start a different a track part way through the first track).\strike0\striked0 \
+		\strike \strikec0 + Remove / disable NSLog statements\strike0\striked0 \
+\strike \strikec0 		+ Create a new version in iTunes.\
+		+ Check on (1) Ali's iPad (2) Ali's iPhone (3) Alex's iPhone.\
+		+ Create new archive and validate.\
+		+ Upload to iTunes.\strike0\striked0 \
 \
+	- 
+\b General: 
+\b0 ..................................................... 
+\i finish by end of Wednesday
+\i0 \
+\strike \strikec0 		+ Game logic:\
+			* Initialise and store puzzle params (3 x 4s ?, 2 x 3s ?, etc )\
+              * Parse game state from longships to determine win / lose condition.\strike0\striked0 \
+\strike \strikec0     		+ Make On-Point zone flash/highlight if user clicks in viking pool (ie on drag start) to remind user that vikings must be dragged from on-point zone only.\strike0\striked0 \
+ 		\strike \strikec0 + Text in scene displaying game parameters.\strike0\striked0 \
+\
+	- 
+\b Animations: 
+\b0 \
+   		+ Vikings in pool, milling about............................................... 
+\i finish by end of Wednesday
+\i0 \
+		+ Viking on point, aggressive.\
+		+ Viking walking from pool to on-point.\
+		+ Viking dropped into boat, triumphant\
+		+ Viking dropped back to pool boat, disappointed. ..................................................... 
+\i finish by end of Thursday
+\i0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 	- 
+\b Sounds: 
+\b0 ..................................................... 
+\i finish by end of Thursday
+\i0 \
+\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 		+ Level start (on leaving landing screen)\
+		+ Background sounds\
+		+ Random vikings in pool sounds (milling about impatient etc)\
+		+ Launch button\
+		+ Drag viking from on-point / Drag viking from boat \
+		+ Drop viking on boat\
+		+ Drag viking back to pool\
+		+ Drag boat from shed\
+		+ Drop boat on shore\
+		+ Drag boat from shore\
+		+ Drop boat in shed\
+		+ Win screen.\
+		+ Lose screen.\
   - 
 \b Art work:\
-   
-\b0  + For everything ! \
+		
+\b0 + For everything ! \
 \
 24 June 2014:\
 # O/S work by end of week:\
-\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 \strike \strikec0   - 50% opacity for vikings when dragged from longship (restore if drag cancels).\
+\strike \strikec0   - 50% opacity for vikings when dragged from longship (restore if drag cancels).\
    + This will mean a new set of "longships with vikings onboard" sprites.   ...............by end of Tuesday\strike0\striked0 \
 \strike \strikec0   - GO button\
   - Win / Lose screens, retry/end buttons etc ............... by end of Tuesday\strike0\striked0 \
@@ -68,8 +94,7 @@
 20 June 2014:\
 \strike \strikec0 # set of textures for longships, with  0 - n vikings onboard.\strike0\striked0 \
 \strike \strikec0 # code to swap textures as number of viking onboard changes.\strike0\striked0 \
-\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 \strike \strikec0 # vikings milling about in the pool.\
+\strike \strikec0 # vikings milling about in the pool.\
  # At start of level, game params determine number of vikings in pool.\
  # Vikings are lined-up behind fence. \
  # At start of level, one viking moves from line-up to on-point position. \

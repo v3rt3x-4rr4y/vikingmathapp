@@ -7,6 +7,7 @@
 //
 
 #import "VMARenderableComponent.h"
+#import "VMAMathUtility.h"
 #import <SpriteKit/SpriteKit.h>
 
 @implementation VMARenderableComponent
@@ -36,9 +37,10 @@
     return self;
 }
 
--(void)updateSpriteNode:(CGPoint)location
+-(void)updateSpriteNode:(CGPoint)location rotation:(CGFloat)rotation;
 {
     _skSpriteNode.position = location;
+    _skSpriteNode.zRotation = rotation;// - DegreesToRadians(90.0f);
 }
 
 -(SKSpriteNode*)getSprite

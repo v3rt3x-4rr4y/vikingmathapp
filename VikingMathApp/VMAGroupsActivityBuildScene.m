@@ -23,6 +23,7 @@
 #import "VMAAnimatableSystem.h"
 #import "VMARenderableSystem.h"
 #import "VMAGameOverScene.h"
+#import "VMAMathUtility.h"
 
 @implementation VMAGroupsActivityBuildScene
 {
@@ -37,6 +38,7 @@
     SKSpriteNode* _vikingNode;
     SKSpriteNode* _onPointZoneNode;
     SKSpriteNode* _launchButton;
+    SKLabelNode* _gameParamsLabelNode;
 
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
@@ -51,6 +53,9 @@
     AppDelegate* _appDelegate;
 
     BOOL _gameOver;
+    int _gameParamA, _gameParamB;
+    NSTimeInterval _lastUpdateTime;
+    NSTimeInterval _dt; // time elapsed since update was last called
 }
 
 #pragma mark SCENE LIFE CYCLE
@@ -59,6 +64,11 @@
 {
     if (self = [super initWithSize:size])
     {
+        // Initialise game parameters
+        _gameParamA = (int)RandomFloatRange(1, MAXDROPZONESLOTS); // Longships
+        _gameParamB = (int)RandomFloatRange(2, MAXVIKINGSPERLONGSHIP); // Vikings per longship
+        NSLog(@"Longships: %d, vikings per longship: %d", _gameParamA, _gameParamB);
+
         _gameOver = NO;
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
@@ -115,10 +125,14 @@
 
         // Initialise viking pool
         CGRect poolBounds = CGRectMake(VIKINGONPOINTXPOS,
-                                       self.frame.origin.y,
+                                       self.frame.origin.y + _boatShedZone.size.height,
                                        self.frame.size.width - VIKINGONPOINTXPOS,
-                                       self.frame.size.height);
-        _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self numVikings:20 bounds:poolBounds onPoint:_onPointZoneNode.position parentNode:self];
+                                       self.frame.size.height - _boatShedZone.size.height);
+        _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self
+                                                        numVikings: _gameParamA * _gameParamB
+                                                            bounds:poolBounds
+                                                           onPoint:_onPointZoneNode.position
+                                                        parentNode:self];
 
         // Initialise launch button
         _launchButton = [SKSpriteNode spriteNodeWithImageNamed:LAUNCHBUTTONNODENAME];
@@ -127,6 +141,18 @@
         _launchButton.name = LAUNCHBUTTONNODENAME;
         [_backgroundLayer addChild:_launchButton];
 
+
+        // Initialise game parameters label
+        _gameParamsLabelNode = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
+        NSString* plural = _gameParamA > 1 ? @"s" : @"";
+        _gameParamsLabelNode.text = [NSString stringWithFormat:@"make %d group%@ of %d !", _gameParamA, plural, _gameParamB];
+        _gameParamsLabelNode.fontColor = [UIColor blackColor];
+        _gameParamsLabelNode.fontSize = 32.0f;
+        _gameParamsLabelNode.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+        _gameParamsLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        _gameParamsLabelNode.position = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height - 75);
+        [_backgroundLayer addChild:_gameParamsLabelNode];
+
         [self handleHighlights];
     }
     return self;
@@ -134,21 +160,57 @@
 
 -(void)update:(CFTimeInterval)currentTime
 {
+    if (_lastUpdateTime)
+    {
+        _dt = currentTime - _lastUpdateTime;
+    }
+    else
+    {
+        _dt = 0;
+    }
+    _lastUpdateTime = currentTime;
+
     // Check for exit conditions
     if (_gameOver)
     {
         _gameOver = NO;
-        [self gameOver:NO];
+        [self levelExit:[self didWin]];
     }
+
+    [_poolManager updateVikings:_dt];
 
     [_transformableSystem update:currentTime];
     [_animatableSystem update:currentTime];
     [_renderableSystem update:currentTime];
 }
 
--(void)gameOver:(BOOL)didWin
+-(BOOL)didWin
 {
-    SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:self.size won:NO];
+    BOOL retVal = NO;
+    retVal = [_poolManager numVikingsInPool] < 1;
+    if (retVal)
+    {
+        retVal = [_longshipManager numDeployedLongships] == _gameParamA;
+    }
+    if (retVal)
+    {
+        NSArray* longshipIds = [_longshipManager deployedLongshipIds];
+        for (NSObject* obj in longshipIds)
+        {
+            unsigned int i = [(NSNumber*)obj intValue];
+            if ([_longshipManager numVikingsOnboardForLongshipWithId:i] != _gameParamB)
+            {
+                retVal = NO;
+                break;
+            }
+        }
+    }
+    return retVal;
+}
+
+-(void)levelExit:(BOOL)didWin
+{
+    SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:self.size won:didWin];
     SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
     [self.view presentScene:gameOverScene transition:reveal];
 }
@@ -190,6 +252,10 @@
                 {
                     _gameOver = YES;
                     NSLog(@"LAUNCH!");
+                }
+                else if ([touch locationInNode:self].x > VIKINGONPOINTXPOS + 10)
+                {
+                    [self flashOnPointZone];
                 }
                 else if ([skNode.name hasPrefix:BOATPROWNODENAME])
                 {
@@ -332,6 +398,25 @@
             rbscomp.isVisible = NO;
         }
     }
+}
+
+-(void)flashOnPointZone
+{
+    if ([_onPointZoneNode hasActions])
+    {
+        return;
+    }
+    SKAction* coloriseAction = [SKAction colorizeWithColor:[UIColor redColor] colorBlendFactor:0.6f duration:0.1];
+    SKAction* upscaleAction = [SKAction scaleBy:1.1 duration:0.1];
+    SKAction* upScaleColoriseAction = [SKAction group:@[coloriseAction, upscaleAction]];
+    SKAction* downscaleAction = [upscaleAction reversedAction];
+    SKAction* decoloriseAction = [SKAction colorizeWithColor:[UIColor whiteColor] colorBlendFactor:0.6f duration:0.1];
+    SKAction* downScaleDecoloriseAction = [SKAction group:@[decoloriseAction, downscaleAction]];
+    SKAction* action = [SKAction sequence:@[upScaleColoriseAction,
+                                            downScaleDecoloriseAction,
+                                            upScaleColoriseAction,
+                                            downScaleDecoloriseAction]];
+    [_onPointZoneNode runAction:action];
 }
 
 @end

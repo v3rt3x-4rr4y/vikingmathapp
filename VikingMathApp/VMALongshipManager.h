@@ -22,6 +22,8 @@
 -(int)numVikingsOnboardForLongshipWithId:(uint32_t)longshipId;
 -(void)incrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
 -(void)decrementVikingsOnboardForLongshipInDropZone:(int)dropZoneId;
--(void)makeLIFOVikingOpaqeForLongshipInDropZone:(int)dropZoneId;
+-(void)updateLIFOVikingOpacityForLongshipInDropZone:(int)dropZoneId opaque:(BOOL)isOpaque;
+-(int)numDeployedLongships;
+-(NSArray*)deployedLongshipIds;
 
 @end

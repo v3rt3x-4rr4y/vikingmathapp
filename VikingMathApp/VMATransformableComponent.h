@@ -11,7 +11,9 @@
 
 @interface VMATransformableComponent : VMAComponent
 
+@property (assign) CGPoint xformVectorNormalised;
 @property (assign) CGPoint location;
+@property (assign) CGFloat rotation;
 
 -(id)initWithLocation:(CGPoint)theLocation;
 

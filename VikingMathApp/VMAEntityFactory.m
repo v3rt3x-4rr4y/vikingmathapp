@@ -14,6 +14,7 @@
 #import "VMATransformableComponent.h"
 #import "VMARenderableComponent.h"
 #import "VMAAnimatableComponent.h"
+#import "VMAMathUtility.h"
 
 @implementation VMAEntityFactory
 {

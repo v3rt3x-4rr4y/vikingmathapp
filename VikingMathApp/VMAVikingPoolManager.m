@@ -11,6 +11,8 @@
 #import "VMAEntityManager.h"
 #import "VMAComponent.h"
 #import "VMATransformableComponent.h"
+#import "VMAAnimatableComponent.h"
+#import "VMARenderableComponent.h"
 #import "VMAMathUtility.h"
 #import "AppDelegate.h"
 #import "VMAEntity.h"
@@ -18,15 +20,15 @@
 
 @implementation VMAVikingPoolManager
 {
+    SKNode* _parentNode;
+    VMAGroupsActivityBuildScene* _scene;
+    VMAEntity* _onPointViking;
     NSMutableArray* _vikings;
     AppDelegate* _appDelegate;
-    VMAGroupsActivityBuildScene* _scene;
-    BOOL _actionsCompleted;
-    int _maxVikings;
     CGRect _poolBounds;
     CGPoint _onPointLocation;
-    SKNode* _parentNode;
-    VMAEntity* _onPointViking;
+    BOOL _actionsCompleted;
+    int _maxVikings;
 }
 
 -(instancetype)initWithScene:(SKScene*)invokingScene
@@ -54,7 +56,7 @@
         }
 
         // Move one viking from the line-up to the on point location
-        [self advanceVikingToOnPoint];
+        //[self advanceVikingToOnPoint];
 
         // Layout the vikings
         [self layoutVikings:TRUE];
@@ -65,7 +67,6 @@
 -(void)addVikingToPool
 {
     BOOL empty = [_vikings count] < 1;
-    // Initial position is the centre of the pool
     CGPoint location = [self makeRandomCoords];
 
     // Create a new entity
@@ -74,6 +75,20 @@
                                                                         name:@""
                                                                        debug:NO];
 
+    VMATransformableComponent* tcomp = (VMATransformableComponent*)[[_appDelegate entityManager]
+                                                                    getComponentOfClass:[VMATransformableComponent class]
+                                                                    forEntity:viking];
+
+    tcomp.rotation = DegreesToRadians(RandomFloatRange(0.0f, 359.0f));
+    tcomp.xformVectorNormalised = CGPointNormalize(CGPointMake(cosf(tcomp.rotation),
+                                                               sinf(tcomp.rotation)));
+
+    SKAction* wiggleAction = [SKAction rotateByAngle:DegreesToRadians(10.0f) duration:0.1];
+    SKAction* revWiggleAction = [wiggleAction reversedAction];
+    [self setAction:[SKAction repeatActionForever:[SKAction sequence:@[wiggleAction, revWiggleAction]]]
+           forActor:viking withBlockingMode:NO
+             forkey:@""];
+
     // Push it onto the end of collection ([Array addObject])
     [_vikings addObject:viking];
 
@@ -81,7 +96,6 @@
     {
         [self advanceVikingToOnPoint];
     }
-
 }
 
 -(void)removeVikingFromPool
@@ -118,7 +132,10 @@
     {
         VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
         [tcomp setLocation:CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS)];
+        [tcomp setRotation:DegreesToRadians(90.0f)];
     }
+    [self setAction:nil forActor:viking withBlockingMode:NO forkey:@""];
+
     NSLog(@"Viking on point will be: %d", [viking eid]);
 
     _onPointViking = viking;
@@ -146,19 +163,25 @@
             CGFloat x;
             CGFloat y;
             CGPoint location;
+            CGFloat rotation;
             if (!randomise)
             {
                 x = _poolBounds.origin.x + _poolBounds.size.width * 0.5,
                 y = (_poolBounds.origin.y + _poolBounds.size.height * 0.5) - baseOffset + offset;
                 location = CGPointMake(x, y);
+                rotation = 0.0f;
             }
             else
             {
                 location = [self makeRandomCoords];
+                rotation = DegreesToRadians(RandomFloatRange(0.0f, 359.0f));
             }
 
             VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
             [tcomp setLocation:location];
+            [tcomp setRotation:rotation];
+            [tcomp setXformVectorNormalised:CGPointNormalize(CGPointMake(cosf(tcomp.rotation),
+                                                                         sinf(tcomp.rotation)))];
         }
         index++;
     }
@@ -167,16 +190,103 @@
 -(CGPoint)makeRandomCoords
 {
     CGFloat x = _poolBounds.origin.x + RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.width - VIKINGSPRITEHEIGHT);
-    CGFloat y = _poolBounds.origin.y + [_scene getBoatShedRect].size.height +
-    RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.height -
-                     [_scene getBoatShedRect].size.height -
-                     VIKINGSPRITEHEIGHT);
+    CGFloat y = _poolBounds.origin.y + RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.height - VIKINGSPRITEHEIGHT);
     return CGPointMake(x, y);
 }
 
 -(NSUInteger)numVikingsInPool
 {
     return [_vikings count];
+}
+
+-(void)updateVikings:(NSTimeInterval)elapsedTime;
+{
+    // NB: pool rect = _poolBounds
+
+    // Loop through all vikings, update location, rotation and animation
+    for (VMAEntity* viking in _vikings)
+    {
+        // ignore the on-point viking
+        if ([viking isEqual:_onPointViking])
+        {
+            continue;
+        }
+
+        // Get xformable component
+        VMATransformableComponent* tcomp = (VMATransformableComponent*)[[_appDelegate entityManager]
+                                                                        getComponentOfClass:[VMATransformableComponent class]
+                                                                        forEntity:viking];
+
+        // Check for boundary infringements
+        CGPoint loc = [tcomp location];
+        CGPoint xformVector = tcomp.xformVectorNormalised;
+        [self vikingBoundsCheck:&loc xformVector:&xformVector];
+
+        CGPoint xformVectorThisFrame = CGPointMultiplyScalar(xformVector, VIKING_MOVE_POINTS_PER_SEC * elapsedTime);
+        //NSLog(@"move vector this frame: %f, %f",xformVectorThisFrame.x, xformVectorThisFrame.y);
+        //NSLog(@"rotation this frame: %f", RadiansToDegrees(tcomp.rotation));
+
+        // update the location
+        tcomp.location = CGPointAdd(tcomp.location, xformVectorThisFrame);
+
+        CGFloat result = atan2f(xformVectorThisFrame.y, xformVectorThisFrame.x);
+        //NSLog(@"result: %f", result);
+        //NSLog(@"xformVector.x: %f, xformVector.y: %f ", xformVectorThisFrame.x, xformVectorThisFrame.y);
+        CGFloat least = ScalarShortestAngleBetween(tcomp.rotation + DegreesToRadians(90.0f), result);
+        CGFloat rotAmount = (VIKING_ROTATE_RADIANS_PER_SEC * elapsedTime);
+        rotAmount = (fabsf(least) < fabsf(rotAmount) ? fabsf(least):fabsf(rotAmount));
+        rotAmount *= ScalarSign(least);
+        //NSLog(@"rotAmount: %f", RadiansToDegrees(rotAmount));
+        //NSLog(@"Before: %f", RadiansToDegrees(tcomp.rotation));
+        //NSLog(@"After: %f", RadiansToDegrees(tcomp.rotation));
+
+        // update the rotation
+        tcomp.rotation += rotAmount;
+
+        // update the xform vector
+        tcomp.xformVectorNormalised = xformVector;
+    }
+}
+
+- (void)vikingBoundsCheck:(CGPoint*)position xformVector:(CGPoint*)xformVector
+{
+
+    // find the screen bounds
+    CGPoint bottomLeft = _poolBounds.origin;
+    CGPoint topRight = CGPointMake(_poolBounds.origin.x + _poolBounds.size.width, _poolBounds.origin.y + _poolBounds.size.height);
+
+    // check whether zombie has strayed beyond screen bounds, if so bounce off at 90 degrees
+    if (position->x <= bottomLeft.x)
+    {
+        position->x = bottomLeft.x;
+        xformVector->x = -xformVector->x;
+    }
+    if (position->x >= topRight.x)
+    {
+        position->x = topRight.x;
+        xformVector->x = -xformVector->x;
+    }
+    if (position->y <= bottomLeft.y)
+    {
+        position->y = bottomLeft.y;
+        xformVector->y = -xformVector->y;
+    }
+    if (position->y >= topRight.y)
+    {
+        position->y = topRight.y;
+        xformVector->y = -xformVector->y;
+    }
+}
+
+-(void)setAction:(SKAction*)action forActor:(VMAEntity*)actor withBlockingMode:(BOOL)blockMode forkey:(NSString*)key
+{
+    VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
+                                                                   forEntity:actor];
+    if (vacomp)
+    {
+        VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
+        [acomp setAction:action withBlockingMode:blockMode forkey:key];
+    }
 }
 
 @end

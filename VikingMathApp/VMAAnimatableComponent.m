@@ -11,6 +11,7 @@
 @implementation VMAAnimatableComponent
 {
     SKAction* _currentAction;
+    NSString* _key;
     BOOL _isBlocking;
 }
 
@@ -20,6 +21,7 @@
     {
         _currentAction = action;
         _isBlocking = blocking;
+        _key = nil;
     }
     return self;
 }
@@ -29,10 +31,22 @@
     return _isBlocking;
 }
 
--(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking;
+-(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking
 {
     _currentAction = action;
     _isBlocking = blocking;
+}
+
+-(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking forkey:(NSString *)key
+{
+    _currentAction = action;
+    _isBlocking = blocking;
+    _key = key;
+}
+
+-(NSString*)getKey
+{
+    return _key;
 }
 
 -(SKAction*)getAction

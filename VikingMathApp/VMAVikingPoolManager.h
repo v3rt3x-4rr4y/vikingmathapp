@@ -25,5 +25,6 @@
 -(void)advanceVikingToOnPoint;
 -(void)layoutVikings:(BOOL)randomise;
 -(NSUInteger)numVikingsInPool;
+-(void)updateVikings:(NSTimeInterval)elapsedTime;
 
 @end

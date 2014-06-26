@@ -14,7 +14,9 @@
 -(instancetype)initWithAction:(SKAction*)action blocksUpdates:(BOOL)blocking;
 -(BOOL)hasBlockingAnimation;
 -(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking;
+-(void)setAction:(SKAction*)action withBlockingMode:(BOOL)blocking forkey:(NSString*)key;
 -(SKAction*)getAction;
+-(NSString*)getKey;
 -(void)actionsDidComplete;
 
 @end
