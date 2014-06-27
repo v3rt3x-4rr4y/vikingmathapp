@@ -31,7 +31,8 @@ typedef NS_OPTIONS(uint32_t, VMAPhysicsCategory)
     VMAPhysicsCategoryOnPointZone = 1 << 2, // 0100 = 4
 };
 
-static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC = 2500;
+static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC_FAST = 2500;
+static const float TRANSLATE_VELOCITY_PIXELS_PER_SEC_SLOW = 500;
 static const NSTimeInterval DESPAWN_DELAY = 0.05;
 
 #endif

@@ -20,11 +20,12 @@
                      onPoint:(CGPoint)location
                   parentNode:(SKNode*)parent;
 
--(void)addVikingToPool;
+-(void)addVikingToPoolAtLocation:(CGPoint)location;
 -(void)removeVikingFromPool;
 -(void)advanceVikingToOnPoint;
 -(void)layoutVikings:(BOOL)randomise;
 -(NSUInteger)numVikingsInPool;
 -(void)updateVikings:(NSTimeInterval)elapsedTime;
+-(CGPoint)makeRandomPoolCoords;
 
 @end

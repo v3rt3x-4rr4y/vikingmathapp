@@ -17,10 +17,12 @@
 #import "AppDelegate.h"
 #import "VMAEntity.h"
 #import "Constants.h"
+#import "Physics.h"
 
 @implementation VMAVikingPoolManager
 {
     SKNode* _parentNode;
+    SKAction* _vikingWalkCycle;
     VMAGroupsActivityBuildScene* _scene;
     VMAEntity* _onPointViking;
     NSMutableArray* _vikings;
@@ -49,10 +51,26 @@
         _parentNode = parent;
         _onPointViking = nil;
 
+        // instantiate the main viking walk cycle animation
+        NSMutableArray* textures = [NSMutableArray arrayWithCapacity:10];
+        for (int i = 1; i < 4; i++)
+        {
+            NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
+            SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+        for (int i = 4; i >1 ; i--)
+        {
+            NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
+            SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+        _vikingWalkCycle = [SKAction animateWithTextures:textures timePerFrame:0.1];
+
         // Call addVikingToPool "_maxVikings" times
         for (int i = 0; i < _maxVikings; i++)
         {
-            [self addVikingToPool];
+            [self addVikingToPoolAtLocation:CGPointZero];
         }
 
         // Move one viking from the line-up to the on point location
@@ -64,10 +82,13 @@
     return self;
 }
 
--(void)addVikingToPool
+-(void)addVikingToPoolAtLocation:(CGPoint)location;
 {
     BOOL empty = [_vikings count] < 1;
-    CGPoint location = [self makeRandomCoords];
+    if (CGPointEqualToPoint(location, CGPointZero))
+    {
+        location = [self makeRandomPoolCoords];
+    }
 
     // Create a new entity
     VMAEntity* viking = [[_appDelegate entityFactory] createVikingAtLocation:location
@@ -83,14 +104,17 @@
     tcomp.xformVectorNormalised = CGPointNormalize(CGPointMake(cosf(tcomp.rotation),
                                                                sinf(tcomp.rotation)));
 
-    SKAction* wiggleAction = [SKAction rotateByAngle:DegreesToRadians(10.0f) duration:0.1];
-    SKAction* revWiggleAction = [wiggleAction reversedAction];
-    [self setAction:[SKAction repeatActionForever:[SKAction sequence:@[wiggleAction, revWiggleAction]]]
+    SKAction* fwdWiggleAction = [SKAction rotateByAngle:DegreesToRadians(20.0f) duration:0.2f];
+    SKAction* revWiggleAction = [fwdWiggleAction reversedAction];
+    SKAction* wiggleAction  = [SKAction sequence:@[fwdWiggleAction, revWiggleAction]];
+    wiggleAction.timingMode = SKActionTimingEaseInEaseOut;
+    [self setAction:[SKAction repeatActionForever:[SKAction group:@[wiggleAction, _vikingWalkCycle]]]
            forActor:viking withBlockingMode:NO
              forkey:@""];
 
     // Push it onto the end of collection ([Array addObject])
     [_vikings addObject:viking];
+    _onPointViking = [_vikings firstObject];
 
     if (empty)
     {
@@ -100,45 +124,72 @@
 
 -(void)removeVikingFromPool
 {
-    VMAEntity* viking = [_vikings lastObject];
-    if (!viking)
+    if (!_onPointViking)
     {
         NSLog(@"No vikings left to remove");
         return;
     }
-    NSLog(@"Removed viking from pool with id: %d", [viking eid]);
+
+    NSLog(@"Removed viking from pool with id: %d", [_onPointViking eid]);
 
     // Pop the last viking to be added from the collection
-    [_vikings removeObject:viking];
+    [_vikings removeObject:_onPointViking];
 
     // Despawn and delete the viking that is currently on-point
-    [[_appDelegate entityManager] removeEntity:viking];
+    [[_appDelegate entityManager] removeEntity:_onPointViking];
+
+    _onPointViking = [_vikings firstObject];
 }
 
 -(void)advanceVikingToOnPoint
 {
-    // Get a reference to the last viking to be added from the collection ([Array lastObject]).
-    VMAEntity* viking = [_vikings firstObject];
-    if (!viking)
+    // Get a reference to the first viking to be added from the collection
+    if (!_onPointViking)
     {
         NSLog(@"No vikings left in pool!");
         return;
     }
 
+    VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMARenderableComponent class]
+                                                                   forEntity:_onPointViking];
+    if (vacomp)
+    {
+        VMARenderableComponent* acomp = (VMARenderableComponent*)vacomp;
+        [[acomp getSprite] removeAllActions];
+
+        // Reset the texture, as cancelling walk cycle may leave sprite in mid-cycle
+        [[acomp getSprite] setTexture:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"%@_1", VIKINGNODENAME]]];
+    }
+
     // Animate this viking from the line-up to the on-point position
     VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
-                                                                   forEntity:viking];
+                                                                   forEntity:_onPointViking];
     if (vtcomp)
     {
         VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
-        [tcomp setLocation:CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS)];
-        [tcomp setRotation:DegreesToRadians(90.0f)];
+        [self animateViking:_onPointViking
+               FromLocation:[tcomp location]
+                 toLocation:CGPointMake(VIKINGONPOINTXPOS, VIKINGONPOINTYPOS)
+                   withAction:[SKAction rotateToAngle:DegreesToRadians(90.0f) duration:0.4f]];
     }
-    [self setAction:nil forActor:viking withBlockingMode:NO forkey:@""];
+    NSLog(@"Viking on point will be: %d", [_onPointViking eid]);
+}
 
-    NSLog(@"Viking on point will be: %d", [viking eid]);
+-(void)animateViking:(VMAEntity*)entity
+        FromLocation:(CGPoint)dropPoint
+          toLocation:(CGPoint)targetPoint
+            withAction:(SKAction*)action
+{
+    // determine action velocity based on distance
+    double distance = sqrt(pow((targetPoint.x - dropPoint.x), 2.0) + pow((targetPoint.y - dropPoint.y), 2.0));
 
-    _onPointViking = viking;
+    // build move and despawn actions
+    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC_SLOW];
+    moveAction.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction* compositeAction = action ? [SKAction group:@[moveAction, action]] : moveAction;
+
+    // animate the viking to its destination and despawn
+    [self setAction:compositeAction forActor:entity withBlockingMode:YES forkey:@""];
 }
 
 -(void)layoutVikings:(BOOL)randomise
@@ -173,7 +224,7 @@
             }
             else
             {
-                location = [self makeRandomCoords];
+                location = [self makeRandomPoolCoords];
                 rotation = DegreesToRadians(RandomFloatRange(0.0f, 359.0f));
             }
 
@@ -187,7 +238,7 @@
     }
 }
 
--(CGPoint)makeRandomCoords
+-(CGPoint)makeRandomPoolCoords
 {
     CGFloat x = _poolBounds.origin.x + RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.width - VIKINGSPRITEHEIGHT);
     CGFloat y = _poolBounds.origin.y + RandomFloatRange(VIKINGSPRITEHEIGHT, _poolBounds.size.height - VIKINGSPRITEHEIGHT);

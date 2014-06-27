@@ -107,7 +107,7 @@
         _draggedEntity = dragEntity;
         _dragStart = location;
 
-        // If deag start began at the on-point zone, despwan the on-point viking
+        // If drag start began at the on-point zone, despwan the on-point viking
         if (CGRectContainsPoint([_scene getOnPointZoneRect], _dragStart))
         {
             // update the viking pool
@@ -132,7 +132,6 @@
 -(void)actorDragStop:(CGPoint)location
 {
     _actionsCompleted = NO;
-    CGPoint targetLocOnPointZone = CGPointMake(VIKINGONPOINTXPOS + 100, VIKINGONPOINTYPOS);
     __block VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
     __block VMADropZone* dzDrop = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:location occupied:YES];
     int numVikingsTarget = [[_scene getLongshipManager] numVikingsOnboardForLongshipInDropZone:[dzDrop index]];
@@ -147,11 +146,11 @@
         {
             // ... animate dragged viking to the centre of viking pool and despawn
             [self animateDraggedActorFromLocation:location
-                                       toLocation:targetLocOnPointZone
+                                       toLocation:location
                                        withAction:[SKAction runBlock:^
                                                    {
                                                        [[_scene getLongshipManager] decrementVikingsOnboardForLongshipInDropZone:[dzOcc index]];
-                                                       [[_scene getPoolManager] addVikingToPool];
+                                                       [[_scene getPoolManager] addVikingToPoolAtLocation:location];
                                                        [weakSelf removeDraggedActor];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -221,12 +220,13 @@
         // ... otherwise animate the dragged viking back to the pool zone and despawn
         else
         {
+            CGPoint poolCoords = [[_scene getPoolManager] makeRandomPoolCoords];
             [self animateDraggedActorFromLocation:location
-                                       toLocation:targetLocOnPointZone
+                                       toLocation:poolCoords
                                        withAction:[SKAction runBlock:^
                                                    {
                                                        [weakSelf removeDraggedActor];
-                                                       [[_scene getPoolManager] addVikingToPool];
+                                                       [[_scene getPoolManager] addVikingToPoolAtLocation:poolCoords];
                                                        [[_scene getPoolManager] advanceVikingToOnPoint];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -292,7 +292,7 @@
     double distance = sqrt(pow((targetPoint.x - dropPoint.x), 2.0) + pow((targetPoint.y - dropPoint.y), 2.0));
 
     // build move and despawn actions
-    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
+    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC_FAST];
     moveAction.timingMode = SKActionTimingEaseInEaseOut;
     SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
     SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
