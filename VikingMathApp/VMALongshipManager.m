@@ -39,6 +39,8 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     AppDelegate* _appDelegate;
     VMAGroupsActivityBuildScene* _scene;
     BOOL _actionsCompleted;
+    SKAction* _dragSound;
+    SKAction* _dropSound;
 }
 
 -(instancetype)initWithScene:(VMAGroupsActivityBuildScene*)invokingScene
@@ -49,6 +51,8 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
         _longships = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         _actionsCompleted = YES;
+        _dragSound = [SKAction playSoundFileNamed:@"VikingMathApp_Drag.wav" waitForCompletion:NO];
+        _dropSound = [SKAction playSoundFileNamed:@"VikingMathApp_BodyDrop.wav" waitForCompletion:NO];
     }
     return self;
 }
@@ -186,7 +190,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     double distance = sqrt(pow((targetPoint.x - dropPoint.x), 2.0) + pow((targetPoint.y - dropPoint.y), 2.0));
 
     // build move and despawn actions
-    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC];
+    SKAction* moveAction = [SKAction moveTo:targetPoint duration:distance / TRANSLATE_VELOCITY_PIXELS_PER_SEC_FAST];
     moveAction.timingMode = SKActionTimingEaseInEaseOut;
     SKAction* waitAction = [SKAction waitForDuration:DESPAWN_DELAY];
     SKAction* dropAction = action ? [SKAction sequence:@[moveAction, waitAction, action]] : [SKAction sequence:@[moveAction, waitAction]];
@@ -276,6 +280,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
         // gets highlighted during drag/move operations.
         VMADropZone* dzOcc = [[_scene getDropZoneManager] pointContainedByDropZoneSlot:_dragStart occupied:YES];
         dzOcc.occupied = NO;
+        [_scene runAction:_dragSound];
     }
 }
 
@@ -305,6 +310,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                        toLocation:targetLocBoatShed
                                        withAction:[SKAction runBlock:^
                                                {
+                                                   [_scene runAction:_dropSound];
                                                    [weakSelf removeDraggedActor];
                                                    dzOcc.occupied = NO;
                                                    [weakSelf actionCompleted];
@@ -318,7 +324,9 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                                     dzUnocc.rect.origin.y + (dzUnocc.rect.size.height / 2));
             [self animateDraggedActorFromLocation:location
                                        toLocation:targetLocDropZone
-                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+                                       withAction:[SKAction runBlock:^{
+                                                    [weakSelf actionCompleted];
+                                                    [_scene runAction:_dropSound];}]];
 
             dzOcc.occupied = NO;
             dzUnocc.occupied = YES;
@@ -329,7 +337,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
             {
                 lsDict[DROP_ZONE_SLOT_INDEX_KEY] = [NSNumber numberWithInt:dzUnocc.index];
             }
-
+            
             _dragStart = CGPointZero;
             _draggedEntity = nil;
         }
@@ -339,7 +347,9 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
         {
             [self animateDraggedActorFromLocation:location
                                        toLocation:_dragStart
-                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+                                       withAction:[SKAction runBlock:^{
+                                                    [_scene runAction:_dropSound];
+                                                    [weakSelf actionCompleted];}]];
             _dragStart = CGPointZero;
             _draggedEntity = nil;
         }
@@ -356,7 +366,9 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
             dzUnocc.occupied = YES;
             [self animateDraggedActorFromLocation:location
                                        toLocation:targetLocDropZone
-                                       withAction:[SKAction runBlock:^{[weakSelf actionCompleted];}]];
+                                       withAction:[SKAction runBlock:^{
+                                                    [_scene runAction:_dropSound];
+                                                    [weakSelf actionCompleted];}]];
 
             // Update dragged longship's drop zone slot index
             NSMutableDictionary* lsDict = [_longships objectForKey:@(_draggedEntity.eid)];

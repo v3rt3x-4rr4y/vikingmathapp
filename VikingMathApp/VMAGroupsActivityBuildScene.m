@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Spencer Drayton. All rights reserved.
 //
 
+@import AVFoundation;
 #import "VMAGroupsActivityBuildScene.h"
 #import "AppDelegate.h"
 #import "Constants.h"
@@ -51,6 +52,7 @@
     VMARenderableSystem* _renderableSystem;
 
     AppDelegate* _appDelegate;
+    AVAudioPlayer* _bgMusicPlayer;
 
     BOOL _gameOver;
     int _gameParamA, _gameParamB;
@@ -124,10 +126,10 @@
         _onPointZone = _onPointZoneNode.frame;
 
         // Initialise viking pool
-        CGRect poolBounds = CGRectMake(VIKINGONPOINTXPOS,
-                                       self.frame.origin.y + _boatShedZone.size.height,
-                                       self.frame.size.width - VIKINGONPOINTXPOS,
-                                       self.frame.size.height - _boatShedZone.size.height);
+        CGRect poolBounds = CGRectMake(VIKINGONPOINTXPOS + 50,
+                                       self.frame.origin.y + _boatShedZone.size.height + 50,
+                                       self.frame.size.width - VIKINGONPOINTXPOS - 75,
+                                       self.frame.size.height - _boatShedZone.size.height - 75);
         _poolManager = [[VMAVikingPoolManager alloc] initWithScene:self
                                                         numVikings: _gameParamA * _gameParamB
                                                             bounds:poolBounds
@@ -154,6 +156,9 @@
         [_backgroundLayer addChild:_gameParamsLabelNode];
 
         [self handleHighlights];
+
+        // Start the GB music
+        [self playBGMusic:@"VikingMathApp_BG.mp3"];
     }
     return self;
 }
@@ -210,6 +215,7 @@
 
 -(void)levelExit:(BOOL)didWin
 {
+    [_bgMusicPlayer stop];
     SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:self.size won:didWin];
     SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
     [self.view presentScene:gameOverScene transition:reveal];
@@ -417,6 +423,16 @@
                                             upScaleColoriseAction,
                                             downScaleDecoloriseAction]];
     [_onPointZoneNode runAction:action];
+}
+
+-(void)playBGMusic:(NSString*)filename
+{
+    NSError* error;
+    NSURL* bgMusicURL =[[NSBundle mainBundle] URLForResource:filename withExtension:nil];
+    _bgMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:bgMusicURL error:&error];
+    _bgMusicPlayer.numberOfLoops = -1;
+    [_bgMusicPlayer prepareToPlay];
+    [_bgMusicPlayer play];
 }
 
 @end
