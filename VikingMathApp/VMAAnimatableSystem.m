@@ -43,6 +43,7 @@
                     (VMATransformableComponent*) [weakSelf.entityManager getComponentOfClass:[VMATransformableComponent class]
                                                                                forEntity:entity];
                 xformComp.location = [renComp getSprite].position;
+                xformComp.rotation = [renComp getSprite].zRotation;
             }];
 
             // build an action to update the AnimatableComponent so it knows its animations have finished running.
