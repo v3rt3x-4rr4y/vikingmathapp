@@ -25,5 +25,6 @@
 -(void)updateLIFOVikingOpacityForLongshipInDropZone:(int)dropZoneId opaque:(BOOL)isOpaque;
 -(int)numDeployedLongships;
 -(NSArray*)deployedLongshipIds;
+-(void)launchLongships;
 
 @end

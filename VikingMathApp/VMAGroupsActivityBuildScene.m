@@ -40,6 +40,7 @@
     SKSpriteNode* _onPointZoneNode;
     SKSpriteNode* _launchButton;
     SKLabelNode* _gameParamsLabelNode;
+    SKAction* _exitSound;
 
     VMAEntity* _boatshedHighlight;
     VMALongshipManager* _longshipManager;
@@ -143,7 +144,6 @@
         _launchButton.name = LAUNCHBUTTONNODENAME;
         [_backgroundLayer addChild:_launchButton];
 
-
         // Initialise game parameters label
         _gameParamsLabelNode = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
         NSString* plural = _gameParamA > 1 ? @"s" : @"";
@@ -157,7 +157,10 @@
 
         [self handleHighlights];
 
-        // Start the GB music
+        // Initialise sounds
+        _exitSound = [SKAction playSoundFileNamed:@"VikingMathApp_BattleCry.wav" waitForCompletion:YES];
+
+        // Start the BG music
         [self playBGMusic:@"VikingMathApp_BG.mp3"];
     }
     return self;
@@ -216,9 +219,18 @@
 -(void)levelExit:(BOOL)didWin
 {
     [_bgMusicPlayer stop];
-    SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:self.size won:didWin];
-    SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
-    [self.view presentScene:gameOverScene transition:reveal];
+    __weak VMAGroupsActivityBuildScene* weakSelf = self;
+    SKAction* launchBlock = [SKAction runBlock:^
+                           {
+                               [_longshipManager launchLongships];
+                           }];
+    SKAction* block = [SKAction runBlock:^
+                       {
+                           SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:weakSelf.size won:didWin];
+                           SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
+                           [weakSelf.view presentScene:gameOverScene transition:reveal];
+                       }];
+    [self runAction:[SKAction sequence:@[[SKAction group:@[launchBlock, _exitSound]], block]]];
 }
 
 #pragma mark TOUCH EVENT HANDLERS

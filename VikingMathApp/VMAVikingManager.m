@@ -28,6 +28,11 @@
     AppDelegate* _appDelegate;
     VMAGroupsActivityBuildScene* _scene;
     BOOL _actionsCompleted;
+    SKAction* _heySound;
+    SKAction* _huhSound;
+    SKAction* _triumphSound;
+    SKAction* _popSound;
+    SKAction* _thumpSound;
 }
 
 -(instancetype)initWithScene:(VMAGroupsActivityBuildScene*)invokingScene
@@ -38,6 +43,12 @@
         _vikings = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         _actionsCompleted = YES;
+
+        _heySound = [SKAction playSoundFileNamed:@"VikingMathApp_Hey.wav" waitForCompletion:NO];
+        _huhSound = [SKAction playSoundFileNamed:@"VikingMathApp_Huh.wav" waitForCompletion:NO];
+        _triumphSound = [SKAction playSoundFileNamed:@"VikingMathApp_TriumphRoar.wav" waitForCompletion:NO];
+        _popSound = [SKAction playSoundFileNamed:@"VikingMathApp_Pop.wav" waitForCompletion:NO];
+        _thumpSound = [SKAction playSoundFileNamed:@"VikingMathApp_Thump.wav" waitForCompletion:NO];
     }
     return self;
 }
@@ -112,6 +123,7 @@
         {
             // update the viking pool
             [[_scene getPoolManager] removeVikingFromPool];
+            [_scene runAction:_popSound];
             return;
         }
 
@@ -120,6 +132,7 @@
         if (dzOcc)
         {
             [[_scene getLongshipManager] updateLIFOVikingOpacityForLongshipInDropZone:[dzOcc index] opaque:YES];
+            [_scene runAction:_huhSound];
         }
     }
 }
@@ -151,6 +164,7 @@
                                                    {
                                                        [[_scene getLongshipManager] decrementVikingsOnboardForLongshipInDropZone:[dzOcc index]];
                                                        [[_scene getPoolManager] addVikingToPoolAtLocation:location];
+                                                       [_scene runAction:_heySound];
                                                        [weakSelf removeDraggedActor];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -173,6 +187,7 @@
                                                        {
                                                            [[_scene getLongshipManager] decrementVikingsOnboardForLongshipInDropZone:[dzOcc index]];
                                                            [[_scene getLongshipManager] incrementVikingsOnboardForLongshipInDropZone:[dzDrop index]];
+                                                           [_scene runAction:_thumpSound];
                                                            [[_scene getPoolManager] advanceVikingToOnPoint];
                                                            [weakSelf removeDraggedActor];
                                                            [weakSelf actionCompleted];
@@ -185,6 +200,7 @@
                                            toLocation:_dragStart
                                            withAction:[SKAction runBlock:^
                                                        {
+                                                           [_scene runAction:_thumpSound];
                                                            [weakSelf removeDraggedActor];
                                                            [weakSelf actionCompleted];
                                                        }]];
@@ -199,6 +215,7 @@
                                        withAction:[SKAction runBlock:^
                                                    {
                                                        [[_scene getLongshipManager] updateLIFOVikingOpacityForLongshipInDropZone:[dzOcc index] opaque:NO];
+                                                       [_scene runAction:_thumpSound];
                                                        [weakSelf removeDraggedActor];
                                                        [weakSelf actionCompleted];
                                                    }]];
@@ -214,6 +231,7 @@
         {
             // .. if it does, increment longship's viking count and despawn the dragged viking
             [[_scene getLongshipManager] incrementVikingsOnboardForLongshipInDropZone:[dzDrop index]];
+            [_scene runAction:_triumphSound];
             [[_scene getPoolManager] advanceVikingToOnPoint];
             [self removeDraggedActor];
         }
@@ -227,6 +245,7 @@
                                                    {
                                                        [weakSelf removeDraggedActor];
                                                        [[_scene getPoolManager] addVikingToPoolAtLocation:poolCoords];
+                                                       [_scene runAction:_heySound];
                                                        [[_scene getPoolManager] advanceVikingToOnPoint];
                                                        [weakSelf actionCompleted];
                                                    }]];

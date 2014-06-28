@@ -274,22 +274,15 @@
         [self vikingBoundsCheck:&loc xformVector:&xformVector];
 
         CGPoint xformVectorThisFrame = CGPointMultiplyScalar(xformVector, VIKING_MOVE_POINTS_PER_SEC * elapsedTime);
-        //NSLog(@"move vector this frame: %f, %f",xformVectorThisFrame.x, xformVectorThisFrame.y);
-        //NSLog(@"rotation this frame: %f", RadiansToDegrees(tcomp.rotation));
 
         // update the location
         tcomp.location = CGPointAdd(tcomp.location, xformVectorThisFrame);
 
         CGFloat result = atan2f(xformVectorThisFrame.y, xformVectorThisFrame.x);
-        //NSLog(@"result: %f", result);
-        //NSLog(@"xformVector.x: %f, xformVector.y: %f ", xformVectorThisFrame.x, xformVectorThisFrame.y);
         CGFloat least = ScalarShortestAngleBetween(tcomp.rotation + DegreesToRadians(90.0f), result);
         CGFloat rotAmount = (VIKING_ROTATE_RADIANS_PER_SEC * elapsedTime);
         rotAmount = (fabsf(least) < fabsf(rotAmount) ? fabsf(least):fabsf(rotAmount));
         rotAmount *= ScalarSign(least);
-        //NSLog(@"rotAmount: %f", RadiansToDegrees(rotAmount));
-        //NSLog(@"Before: %f", RadiansToDegrees(tcomp.rotation));
-        //NSLog(@"After: %f", RadiansToDegrees(tcomp.rotation));
 
         // update the rotation
         tcomp.rotation += rotAmount;
