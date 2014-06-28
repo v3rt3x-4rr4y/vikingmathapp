@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		3E05C899195D788300F7F6C1 /* viking.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C898195D788300F7F6C1 /* viking.atlas */; };
 		3E05C89B195DDB1C00F7F6C1 /* VikingMathApp_BG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C89A195DDB1C00F7F6C1 /* VikingMathApp_BG.mp3 */; };
-		3E05C8A4195E087900F7F6C1 /* VikingMathApp_AngryGrowl.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C89C195E087900F7F6C1 /* VikingMathApp_AngryGrowl.wav */; };
 		3E05C8A5195E087900F7F6C1 /* VikingMathApp_BodyDrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C89D195E087900F7F6C1 /* VikingMathApp_BodyDrop.wav */; };
 		3E05C8A6195E087900F7F6C1 /* VikingMathApp_Drag.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C89E195E087900F7F6C1 /* VikingMathApp_Drag.wav */; };
-		3E05C8A7195E087900F7F6C1 /* VikingMathApp_Drums.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C89F195E087900F7F6C1 /* VikingMathApp_Drums.wav */; };
 		3E05C8A8195E087900F7F6C1 /* VikingMathApp_Huh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C8A0195E087900F7F6C1 /* VikingMathApp_Huh.wav */; };
 		3E05C8A9195E087900F7F6C1 /* VikingMathApp_Launch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C8A1195E087900F7F6C1 /* VikingMathApp_Launch.wav */; };
 		3E05C8AA195E087900F7F6C1 /* VikingMathApp_Pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E05C8A2195E087900F7F6C1 /* VikingMathApp_Pop.wav */; };
@@ -54,6 +52,16 @@
 		3EE4183118C7316100D78A64 /* VMAAnimatableSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183018C7316100D78A64 /* VMAAnimatableSystem.m */; };
 		3EE4183418C732B200D78A64 /* VMAAnimatableComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */; };
 		3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */; };
+		3EE5C906195F06A10009DA19 /* VikingMathApp_Creak.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C905195F06A10009DA19 /* VikingMathApp_Creak.wav */; };
+		3EE5C908195F0AAF0009DA19 /* VikingMathApp_AngryGrowl.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C907195F0AAF0009DA19 /* VikingMathApp_AngryGrowl.wav */; };
+		3EE5C90A195F0D8F0009DA19 /* VikingMathApp_Hey.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C909195F0D8F0009DA19 /* VikingMathApp_Hey.wav */; };
+		3EE5C90C195F12880009DA19 /* VikingMathApp_Thump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C90B195F12880009DA19 /* VikingMathApp_Thump.wav */; };
+		3EE5C90E195F17BC0009DA19 /* VikingMathApp_Fanfare.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C90D195F17BC0009DA19 /* VikingMathApp_Fanfare.wav */; };
+		3EE5C910195F18760009DA19 /* VikingMathApp_Drums.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C90F195F18760009DA19 /* VikingMathApp_Drums.wav */; };
+		3EE5C912195F1E360009DA19 /* VikingMathApp_Aww.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C911195F1E360009DA19 /* VikingMathApp_Aww.wav */; };
+		3EE5C914195F24B50009DA19 /* VikingMathApp_BattleCry.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C913195F24B50009DA19 /* VikingMathApp_BattleCry.wav */; };
+		3EE5C917195F26FE0009DA19 /* VikingMathApp_Win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C915195F26FE0009DA19 /* VikingMathApp_Win.wav */; };
+		3EE5C918195F26FE0009DA19 /* VikingMathApp_Charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EE5C916195F26FE0009DA19 /* VikingMathApp_Charge.wav */; };
 		3EE753C618D07E430019E7FA /* VMADropZoneManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE753C518D07E430019E7FA /* VMADropZoneManager.m */; };
 		3EE753C918D0825F0019E7FA /* VMADropZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE753C818D0825F0019E7FA /* VMADropZone.m */; };
 		3EE9E856195053C500759E6D /* Description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3EE9E855195053C500759E6D /* Description.rtf */; };
@@ -98,10 +106,8 @@
 /* Begin PBXFileReference section */
 		3E05C898195D788300F7F6C1 /* viking.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = viking.atlas; sourceTree = "<group>"; };
 		3E05C89A195DDB1C00F7F6C1 /* VikingMathApp_BG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = VikingMathApp_BG.mp3; sourceTree = "<group>"; };
-		3E05C89C195E087900F7F6C1 /* VikingMathApp_AngryGrowl.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_AngryGrowl.wav; sourceTree = "<group>"; };
 		3E05C89D195E087900F7F6C1 /* VikingMathApp_BodyDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_BodyDrop.wav; sourceTree = "<group>"; };
 		3E05C89E195E087900F7F6C1 /* VikingMathApp_Drag.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Drag.wav; sourceTree = "<group>"; };
-		3E05C89F195E087900F7F6C1 /* VikingMathApp_Drums.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Drums.wav; sourceTree = "<group>"; };
 		3E05C8A0195E087900F7F6C1 /* VikingMathApp_Huh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Huh.wav; sourceTree = "<group>"; };
 		3E05C8A1195E087900F7F6C1 /* VikingMathApp_Launch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Launch.wav; sourceTree = "<group>"; };
 		3E05C8A2195E087900F7F6C1 /* VikingMathApp_Pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Pop.wav; sourceTree = "<group>"; };
@@ -161,6 +167,16 @@
 		3EE4183218C732B200D78A64 /* VMAAnimatableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMAAnimatableComponent.h; sourceTree = "<group>"; };
 		3EE4183318C732B200D78A64 /* VMAAnimatableComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMAAnimatableComponent.m; sourceTree = "<group>"; };
 		3EE5A47618CA4D64003DE6B0 /* ToDo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ToDo.rtf; sourceTree = "<group>"; };
+		3EE5C905195F06A10009DA19 /* VikingMathApp_Creak.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Creak.wav; sourceTree = "<group>"; };
+		3EE5C907195F0AAF0009DA19 /* VikingMathApp_AngryGrowl.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_AngryGrowl.wav; sourceTree = "<group>"; };
+		3EE5C909195F0D8F0009DA19 /* VikingMathApp_Hey.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Hey.wav; sourceTree = "<group>"; };
+		3EE5C90B195F12880009DA19 /* VikingMathApp_Thump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Thump.wav; sourceTree = "<group>"; };
+		3EE5C90D195F17BC0009DA19 /* VikingMathApp_Fanfare.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Fanfare.wav; sourceTree = "<group>"; };
+		3EE5C90F195F18760009DA19 /* VikingMathApp_Drums.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Drums.wav; sourceTree = "<group>"; };
+		3EE5C911195F1E360009DA19 /* VikingMathApp_Aww.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Aww.wav; sourceTree = "<group>"; };
+		3EE5C913195F24B50009DA19 /* VikingMathApp_BattleCry.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_BattleCry.wav; sourceTree = "<group>"; };
+		3EE5C915195F26FE0009DA19 /* VikingMathApp_Win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Win.wav; sourceTree = "<group>"; };
+		3EE5C916195F26FE0009DA19 /* VikingMathApp_Charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VikingMathApp_Charge.wav; sourceTree = "<group>"; };
 		3EE753C418D07E430019E7FA /* VMADropZoneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMADropZoneManager.h; sourceTree = "<group>"; };
 		3EE753C518D07E430019E7FA /* VMADropZoneManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMADropZoneManager.m; sourceTree = "<group>"; };
 		3EE753C718D0825F0019E7FA /* VMADropZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMADropZone.h; sourceTree = "<group>"; };
@@ -333,11 +349,19 @@
 		3E45B12618C1205F0098A775 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				3E05C89C195E087900F7F6C1 /* VikingMathApp_AngryGrowl.wav */,
+				3EE5C915195F26FE0009DA19 /* VikingMathApp_Win.wav */,
+				3EE5C916195F26FE0009DA19 /* VikingMathApp_Charge.wav */,
+				3EE5C913195F24B50009DA19 /* VikingMathApp_BattleCry.wav */,
+				3EE5C911195F1E360009DA19 /* VikingMathApp_Aww.wav */,
+				3EE5C90F195F18760009DA19 /* VikingMathApp_Drums.wav */,
+				3EE5C90D195F17BC0009DA19 /* VikingMathApp_Fanfare.wav */,
+				3EE5C90B195F12880009DA19 /* VikingMathApp_Thump.wav */,
+				3EE5C909195F0D8F0009DA19 /* VikingMathApp_Hey.wav */,
+				3EE5C907195F0AAF0009DA19 /* VikingMathApp_AngryGrowl.wav */,
+				3EE5C905195F06A10009DA19 /* VikingMathApp_Creak.wav */,
 				3E05C8AC195E0F2A00F7F6C1 /* VikingMathApp_Drag_lo.wav */,
 				3E05C89D195E087900F7F6C1 /* VikingMathApp_BodyDrop.wav */,
 				3E05C89E195E087900F7F6C1 /* VikingMathApp_Drag.wav */,
-				3E05C89F195E087900F7F6C1 /* VikingMathApp_Drums.wav */,
 				3E05C8A0195E087900F7F6C1 /* VikingMathApp_Huh.wav */,
 				3E05C8A1195E087900F7F6C1 /* VikingMathApp_Launch.wav */,
 				3E05C8A2195E087900F7F6C1 /* VikingMathApp_Pop.wav */,
@@ -536,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EEF885418BF787300A2E471 /* InfoPlist.strings in Resources */,
+				3EE5C914195F24B50009DA19 /* VikingMathApp_BattleCry.wav in Resources */,
 				3E0C753518C8725400B4351C /* GroupActivity_mBoat@2x.png in Resources */,
 				3E886E7118C09692007FDE6A /* LandingScreen_Background@2x.png in Resources */,
 				3EEF6C3A18CF687100765D7A /* GroupActivity_Mask-Boat.png in Resources */,
@@ -543,9 +568,11 @@
 				3EEF886718BF787300A2E471 /* Images.xcassets in Resources */,
 				3E05C8A6195E087900F7F6C1 /* VikingMathApp_Drag.wav in Resources */,
 				3E886E7718C097DA007FDE6A /* LoseScreen_Background.png in Resources */,
+				3EE5C912195F1E360009DA19 /* VikingMathApp_Aww.wav in Resources */,
 				3E45B11D18C0FF590098A775 /* GroupActivity_Shed.png in Resources */,
 				3E05C8A8195E087900F7F6C1 /* VikingMathApp_Huh.wav in Resources */,
 				3EEF888618BF9F6D00A2E471 /* GroupVikingsActivity_Background.png in Resources */,
+				3EE5C906195F06A10009DA19 /* VikingMathApp_Creak.wav in Resources */,
 				3EEF6C3918CF687100765D7A /* GroupActivity_Hilite-Boat.png in Resources */,
 				3EE5A47718CA4D64003DE6B0 /* ToDo.rtf in Resources */,
 				3E05C8AD195E0F2A00F7F6C1 /* VikingMathApp_Drag_lo.wav in Resources */,
@@ -557,27 +584,32 @@
 				3E886E7A18C097DA007FDE6A /* WinScreen_Background@2x.png in Resources */,
 				3EEF885D18BF787300A2E471 /* Main.storyboard in Resources */,
 				3E0C753318C871C800B4351C /* GroupActivity_mBoat.png in Resources */,
-				3E05C8A7195E087900F7F6C1 /* VikingMathApp_Drums.wav in Resources */,
 				3E05C8AA195E087900F7F6C1 /* VikingMathApp_Pop.wav in Resources */,
 				3E45B11E18C0FF590098A775 /* GroupActivity_Shed@2x.png in Resources */,
 				3EEF6C3E18CF691100765D7A /* GroupActivity_Mask-Boat@2x.png in Resources */,
+				3EE5C90A195F0D8F0009DA19 /* VikingMathApp_Hey.wav in Resources */,
 				3EDB47251959D71500ECB5CE /* launchButton.png in Resources */,
+				3EE5C910195F18760009DA19 /* VikingMathApp_Drums.wav in Resources */,
 				3E05C8AB195E087900F7F6C1 /* VikingMathApp_TriumphRoar.wav in Resources */,
 				3E0D06C819548A3E005F1BBC /* longship.atlas in Resources */,
 				3E45B11118C0FAFF0098A775 /* GroupActivity_ShedwBoat.png in Resources */,
 				3E886E7818C097DA007FDE6A /* LoseScreen_Background@2x.png in Resources */,
 				3E886E7918C097DA007FDE6A /* WinScreen_Background.png in Resources */,
 				3EEF6C4B18CF9A5300765D7A /* GroupActivity_Hilite-Shed@2x.png in Resources */,
+				3EE5C918195F26FE0009DA19 /* VikingMathApp_Charge.wav in Resources */,
 				3E05C899195D788300F7F6C1 /* viking.atlas in Resources */,
 				3ED7BEC81951CAAC00097F5F /* GroupVikingsActivity_OnPointZone@2x.png in Resources */,
+				3EE5C90E195F17BC0009DA19 /* VikingMathApp_Fanfare.wav in Resources */,
 				3EEF888718BF9F6D00A2E471 /* GroupVikingsActivity_Background@2x.png in Resources */,
+				3EE5C917195F26FE0009DA19 /* VikingMathApp_Win.wav in Resources */,
 				3E05C8A9195E087900F7F6C1 /* VikingMathApp_Launch.wav in Resources */,
+				3EE5C908195F0AAF0009DA19 /* VikingMathApp_AngryGrowl.wav in Resources */,
 				3E45B11618C0FC8B0098A775 /* GroupActivity_Prow@2x.png in Resources */,
 				3E05C8A5195E087900F7F6C1 /* VikingMathApp_BodyDrop.wav in Resources */,
 				3EDB47261959D71500ECB5CE /* launchButton@2x.png in Resources */,
+				3EE5C90C195F12880009DA19 /* VikingMathApp_Thump.wav in Resources */,
 				3E45B11518C0FC8B0098A775 /* GroupActivity_Prow.png in Resources */,
 				3E886E7218C09692007FDE6A /* LandingScreen_Background.png in Resources */,
-				3E05C8A4195E087900F7F6C1 /* VikingMathApp_AngryGrowl.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

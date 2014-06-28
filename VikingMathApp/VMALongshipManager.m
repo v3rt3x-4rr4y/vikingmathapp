@@ -41,6 +41,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     BOOL _actionsCompleted;
     SKAction* _dragSound;
     SKAction* _dropSound;
+    SKAction* _creakSound;
 }
 
 -(instancetype)initWithScene:(VMAGroupsActivityBuildScene*)invokingScene
@@ -53,13 +54,14 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
         _actionsCompleted = YES;
         _dragSound = [SKAction playSoundFileNamed:@"VikingMathApp_Drag.wav" waitForCompletion:NO];
         _dropSound = [SKAction playSoundFileNamed:@"VikingMathApp_BodyDrop.wav" waitForCompletion:NO];
+        _creakSound = [SKAction playSoundFileNamed:@"VikingMathApp_Creak.wav" waitForCompletion:NO];
     }
     return self;
 }
 
 -(int)numDeployedLongships
 {
-    return [[_longships allKeys] count];
+    return (int)[[_longships allKeys] count];
 }
 
 -(NSArray*)deployedLongshipIds
@@ -293,7 +295,6 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
 -(void)actorDragStop:(CGPoint)location;
 {
     _actionsCompleted = NO;
-    SKAction* despawnAction = [SKAction performSelector:@selector(removeDraggedActor) onTarget:self];
     CGRect boatShedRect = [_scene getBoatShedRect];
     CGPoint targetLocBoatShed = CGPointMake(boatShedRect.origin.x + BOATSHEDOFFSET,
                                             (boatShedRect.origin.y + (boatShedRect.size.height / 2)));
@@ -310,7 +311,7 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
                                        toLocation:targetLocBoatShed
                                        withAction:[SKAction runBlock:^
                                                {
-                                                   [_scene runAction:_dropSound];
+                                                   [_scene runAction:_creakSound];
                                                    [weakSelf removeDraggedActor];
                                                    dzOcc.occupied = NO;
                                                    [weakSelf actionCompleted];
@@ -386,7 +387,12 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
         {
             [self animateDraggedActorFromLocation:location
                                    toLocation:targetLocBoatShed
-                                   withAction:despawnAction];
+                                       withAction:[SKAction runBlock:^
+                                                   {
+                                                       [_scene runAction:_creakSound];
+                                                       [weakSelf removeDraggedActor];
+                                                       [weakSelf actionCompleted];
+                                                   }]];
         }
     }
 }
@@ -409,14 +415,42 @@ static const NSString* NUM_ASSIGNED_VIKINGS_KEY = @"assgdViks";
     return retVal;
 }
 
--(void)setAction:(SKAction*)action forActor:(VMAEntity*)actor withBlockingMode:(BOOL)blockMode
+-(void)setAction:(SKAction*)action forActorWithId:(uint32_t)id withBlockingMode:(BOOL)blockMode
 {
     VMAComponent* vacomp = [[_appDelegate entityManager] getComponentOfClass:[VMAAnimatableComponent class]
-                                                                   forEntity:actor];
+                                                                   forEntityWithId:id];
     if (vacomp)
     {
         VMAAnimatableComponent* acomp = (VMAAnimatableComponent*)vacomp;
         [acomp setAction:action withBlockingMode:YES];
+    }
+}
+
+-(void)setAction:(SKAction*)action forActor:(VMAEntity*)actor withBlockingMode:(BOOL)blockMode
+{
+    [self setAction:action forActorWithId:actor.eid withBlockingMode:blockMode];
+}
+
+-(void)launchLongships
+{
+    CGFloat xOffscreen = -200.0f;
+    int index = 1;
+    for (NSObject* obj in [_longships allKeys])
+    {
+        unsigned int i = [(NSNumber*)obj intValue];
+        VMAComponent* vtcomp = [[_appDelegate entityManager] getComponentOfClass:[VMATransformableComponent class]
+                                                                       forEntityWithId:i];
+        if (vtcomp)
+        {
+            VMATransformableComponent* tcomp = (VMATransformableComponent*)vtcomp;
+            SKAction* moveAction = [SKAction moveTo:CGPointMake(xOffscreen, tcomp.location.y) duration:0.5];
+            moveAction.timingMode = SKActionTimingEaseInEaseOut;
+            SKAction* waitAction = [SKAction waitForDuration:0.1f * index];
+
+            // animate the mobile longship to its destination and despawn
+            [self setAction:[SKAction sequence:@[waitAction, moveAction]] forActorWithId:i withBlockingMode:YES];
+            index++;
+        }
     }
 }
 
