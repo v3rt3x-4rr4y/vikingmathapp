@@ -30,7 +30,7 @@
     BOOL _actionsCompleted;
     SKAction* _heySound;
     SKAction* _huhSound;
-    SKAction* _triumphSound;
+    NSArray* _growlSounds;
     SKAction* _popSound;
     SKAction* _thumpSound;
 }
@@ -43,10 +43,13 @@
         _vikings = [NSMutableDictionary dictionary];
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         _actionsCompleted = YES;
-
+        _growlSounds = [NSArray arrayWithObjects:
+                        [SKAction playSoundFileNamed:@"VikingMathApp_Growl1.wav" waitForCompletion:NO],
+                        [SKAction playSoundFileNamed:@"VikingMathApp_Growl2.wav" waitForCompletion:NO],
+                        [SKAction playSoundFileNamed:@"VikingMathApp_Growl3.wav" waitForCompletion:NO],
+                        nil];
         _heySound = [SKAction playSoundFileNamed:@"VikingMathApp_Hey.wav" waitForCompletion:NO];
         _huhSound = [SKAction playSoundFileNamed:@"VikingMathApp_Huh.wav" waitForCompletion:NO];
-        _triumphSound = [SKAction playSoundFileNamed:@"VikingMathApp_TriumphRoar.wav" waitForCompletion:NO];
         _popSound = [SKAction playSoundFileNamed:@"VikingMathApp_Pop.wav" waitForCompletion:NO];
         _thumpSound = [SKAction playSoundFileNamed:@"VikingMathApp_Thump.wav" waitForCompletion:NO];
     }
@@ -231,7 +234,7 @@
         {
             // .. if it does, increment longship's viking count and despawn the dragged viking
             [[_scene getLongshipManager] incrementVikingsOnboardForLongshipInDropZone:[dzDrop index]];
-            [_scene runAction:_triumphSound];
+            [_scene runAction:_growlSounds[arc4random_uniform(3)]];
             [[_scene getPoolManager] advanceVikingToOnPoint];
             [self removeDraggedActor];
         }
