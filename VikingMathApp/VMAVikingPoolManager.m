@@ -53,18 +53,31 @@
 
         // instantiate the main viking walk cycle animation
         NSMutableArray* textures = [NSMutableArray arrayWithCapacity:10];
-        for (int i = 1; i < 4; i++)
+        for (int i = 1; i <= 3; i++)
         {
             NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
             SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
             [textures addObject:texture];
         }
-        for (int i = 4; i >1 ; i--)
+        for (int i = 3; i >= 1 ; i--)
         {
             NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
             SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
             [textures addObject:texture];
         }
+        for (int i = 4; i <= 5; i++)
+        {
+            NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
+            SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+        for (int i = 5; i >= 4 ; i--)
+        {
+            NSString* textureName = [NSString stringWithFormat:@"%@_%d", VIKINGNODENAME, i];
+            SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+
         _vikingWalkCycle = [SKAction animateWithTextures:textures timePerFrame:0.1];
 
         // Call addVikingToPool "_maxVikings" times
