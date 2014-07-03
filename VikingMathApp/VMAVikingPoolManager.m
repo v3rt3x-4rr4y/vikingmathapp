@@ -117,11 +117,7 @@
     tcomp.xformVectorNormalised = CGPointNormalize(CGPointMake(cosf(tcomp.rotation),
                                                                sinf(tcomp.rotation)));
 
-    SKAction* fwdWiggleAction = [SKAction rotateByAngle:DegreesToRadians(20.0f) duration:0.2f];
-    SKAction* revWiggleAction = [fwdWiggleAction reversedAction];
-    SKAction* wiggleAction  = [SKAction sequence:@[fwdWiggleAction, revWiggleAction]];
-    wiggleAction.timingMode = SKActionTimingEaseInEaseOut;
-    [self setAction:[SKAction repeatActionForever:[SKAction group:@[wiggleAction, _vikingWalkCycle]]]
+    [self setAction:[SKAction repeatActionForever:_vikingWalkCycle]
            forActor:viking withBlockingMode:NO
              forkey:@""];
 
