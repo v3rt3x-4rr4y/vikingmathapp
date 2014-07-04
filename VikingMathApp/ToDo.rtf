@@ -1,7 +1,8 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf200
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Verdana;\f2\fnil\fcharset0 LucidaGrande;
 }
-{\colortbl;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;\red147\green147\blue147;\red147\green147\blue147;\red147\green147\blue147;
+}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid1\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid3\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid1}
 {\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid101\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
 {\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid201\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid202\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid3}
@@ -20,21 +21,8 @@
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
 \f1\fs36 \cf0 \
-25 June 2014:  \
-\
-	- 
-\b BuzzOrch: 
-\b0 ..................................................... 
-\i finish by end of Wednesday
-\i0 \
-		\strike \strikec0 + iPad splash screen (looks like XCode bug, see:\strike0\striked0  {\field{\*\fldinst{HYPERLINK "http://www.raywenderlich.com/forums/viewtopic.php?f=2&t=10868"}}{\fldrslt http://www.raywenderlich.com/forums/viewtopic.php?f=2&t=10868}})\
-         \strike \strikec0 + Try and reproduce slide show craziness on music player, then fix it (seems to happen when you start, then stop, the start a different a track part way through the first track).\strike0\striked0 \
-		\strike \strikec0 + Remove / disable NSLog statements\strike0\striked0 \
-\strike \strikec0 		+ Create a new version in iTunes.\
-		+ Check on (1) Ali's iPad (2) Ali's iPhone (3) Alex's iPhone.\
-		+ Create new archive and validate.\
-		+ Upload to iTunes.\strike0\striked0 \
-\
+04 July 2014:\
+  \
 	- 
 \b General: 
 \b0 ..................................................... 
@@ -44,30 +32,34 @@
 			* Initialise and store puzzle params (3 x 4s ?, 2 x 3s ?, etc )\
               * Parse game state from longships to determine win / lose condition.\strike0\striked0 \
 \strike \strikec0     		+ Make On-Point zone flash/highlight if user clicks in viking pool (ie on drag start) to remind user that vikings must be dragged from on-point zone only.\strike0\striked0 \
- 		\strike \strikec0 + Text in scene displaying game parameters.\strike0\striked0 \
-\
+ 		\strike \strikec0 + Text in scene displaying game parameters.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 		\strike0\striked0 + Highlight longship when viking is dragged over it (if there is space left on board).\
+		+ Highlight pool when viking is dragged back to it.\
+\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
 	- 
 \b Animations: 
 \b0 \
    		+ \strike \strikec0 Vikings in pool, milling about.\strike0\striked0 .............................................. 
 \i finish by end of Wednesday
 \i0 \
-		+ Viking on point, aggressive.\
+		
+\i \cf2 + Viking on point, aggressive.
+\i0 \cf0 \
 		+ \strike \strikec0 Viking walking from pool to on-point.\strike0\striked0 \
-		+ Viking dropped into boat, triumphant\
-		+ Viking dropped back to pool boat, disappointed. ..................................................... 
-\i finish by end of Thursday
-\i0 \
+\cf3 		
+\i \cf4 + Viking dropped into boat, triumphant\
+		+ Viking dropped back to pool boat, disappointed. 
+\i0 \cf0 \
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 \cf0 	- 
-\b Sounds: 
-\b0 ..................................................... 
-\i finish by end of Thursday
-\i0 \
+\b Sounds:
+\b0 \
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 		+ Level start (on leaving landing screen)\
-		\strike \strikec0 + Background sounds\strike0\striked0 \
+\cf0 \strike \strikec0 		+ Level start (on leaving landing screen)\
+		+ Background sounds\
 		+ Random vikings in pool sounds (milling about impatient etc)\
 		+ Launch button\
 		+ Drag viking from on-point / Drag viking from boat \
@@ -78,34 +70,34 @@
 		+ Drag boat from shore\
 		+ Drop boat in shed\
 		+ Win screen.\
-		+ Lose screen.\
+		+ Lose screen.\strike0\striked0 \
+		+ Viking rushed to on-point location.\
+		+ Sails unfurling\
   	- 
 \b Art work:\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
 
 \b0 \cf0 		+ Splash Screen\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-\cf0 		+ Level 1 landing page\
+		+ Level 1 landing page\
 	 	+ Level background (sea, shoreside, field area, fence, huts, etc - check www for typical images)\
-\strike \strikec0 		- Vikings: .......... google images: "viking game character"\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 \strike \strikec0 		- Vikings: .......... google images: "viking game character"\
   			- Static\
   			- Walk cycle \strike0\striked0 ...........done\
 		+ Longship\
   			- Empty\
-  			- With x vikings\
+  			- With x, x+1, .., x+n, vikings\
 		+ Longship highlight\
 		+ Boat shed\
 		+ Boat Shed highlight\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-\cf0 		+ On-Point zone\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-\cf0 		+ Screen border\
+		+ On-Point zone\
+		+ Screen border\
 		+ Game parameters background (flag or scroll, etc ?)\
 		+ Launch button\
 		+ Win screen\
 		+ Lose screen\
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 \
+\cf0 		+ Sails (animated unfurling at end of stage when leaving)\
 24 June 2014:\
 # O/S work by end of week:\
 \strike \strikec0   - 50% opacity for vikings when dragged from longship (restore if drag cancels).\
