@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong) VMAEntityManager* entityManager;
 @property (strong) VMAEntityFactory* entityFactory;
+#
 
 @end
