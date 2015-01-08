@@ -140,7 +140,7 @@
         // Initialise launch button
         _launchButton = [SKSpriteNode spriteNodeWithImageNamed:LAUNCHBUTTONNODENAME];
         _launchButton.anchorPoint = CGPointMake(0.5, 0.5);
-        _launchButton.position = CGPointMake(LAUNCHBUTTONXPOS, LAUNCHBUTTONYPOS);
+        _launchButton.position = CGPointMake(_backgroundNode.size.width - _launchButton.size.width / 2, LAUNCHBUTTONYPOS);
         _launchButton.name = LAUNCHBUTTONNODENAME;
         [_backgroundLayer addChild:_launchButton];
 
@@ -296,7 +296,7 @@
                     }
                     else
                     {
-                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:YES];
+                        VMAEntity* viking = [_vikingManager createActorAtLocation:location withParent:self debug:NO];
                         if (viking)
                         {
                             [_vikingManager actorDragStart:viking

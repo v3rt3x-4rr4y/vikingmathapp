@@ -158,7 +158,7 @@
     if (dzOcc != nil && numVikings > 0)
     {
         // ...if the dragged viking drag-stop location intersects with the viking pool...
-        if ([self actorFrameForEntity:_draggedEntity].origin.x > (VIKINGONPOINTXPOS + 10))
+        if ([self actorFrameForEntity:_draggedEntity].origin.x > (VIKINGONPOINTXPOS - 50))
         {
             // ... animate dragged viking to the centre of viking pool and despawn
             [self animateDraggedActorFromLocation:location
