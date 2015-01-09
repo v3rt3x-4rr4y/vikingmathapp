@@ -95,7 +95,7 @@
         // Add the boat shed
         _boatShedNode = [SKSpriteNode spriteNodeWithImageNamed:BOATSHEDNODENAME];
         _boatShedNode.anchorPoint = CGPointMake(0, 0);
-        _boatShedNode.position = CGPointMake(_backgroundNode.size.width - _boatShedNode.size.width - DROPZONEOFFSET, DROPZONEOFFSET);
+        _boatShedNode.position = CGPointMake(_backgroundNode.size.width - _boatShedNode.size.width - 125.0 - DROPZONEOFFSET, DROPZONEOFFSET);
         [_backgroundLayer addChild:_boatShedNode];
 
         // Initialise boat shed highlight
