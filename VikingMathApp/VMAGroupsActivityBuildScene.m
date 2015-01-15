@@ -140,7 +140,7 @@
         // Initialise launch button
         _launchButton = [SKSpriteNode spriteNodeWithImageNamed:LAUNCHBUTTONNODENAME];
         _launchButton.anchorPoint = CGPointMake(0.5, 0.5);
-        _launchButton.position = CGPointMake(_backgroundNode.size.width - _launchButton.size.width / 2, LAUNCHBUTTONYPOS);
+        _launchButton.position = CGPointMake(_backgroundNode.size.width - 15.0 - _launchButton.size.width / 2, LAUNCHBUTTONYPOS);
         _launchButton.name = LAUNCHBUTTONNODENAME;
         [_backgroundLayer addChild:_launchButton];
 
