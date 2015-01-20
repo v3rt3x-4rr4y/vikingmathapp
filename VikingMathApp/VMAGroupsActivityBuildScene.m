@@ -56,6 +56,7 @@
     AVAudioPlayer* _bgMusicPlayer;
 
     BOOL _gameOver;
+    BOOL _exiting;
     int _gameParamA, _gameParamB;
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt; // time elapsed since update was last called
@@ -73,6 +74,7 @@
         NSLog(@"Longships: %d, vikings per longship: %d", _gameParamA, _gameParamB);
 
         _gameOver = NO;
+        _exiting = NO;
         _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
         // Create layer to act as parent
@@ -99,7 +101,11 @@
         [_backgroundLayer addChild:_boatShedNode];
 
         // Initialise boat shed highlight
-        _boatshedHighlight = [[_appDelegate entityFactory] createBoatshedHighlightMaskForRect:_boatShedNode.frame withParent:self];
+        CGRect hiliteFrame = CGRectMake(_boatShedNode.frame.origin.x - 5,
+                                        _boatShedNode.frame.origin.y + 5,
+                                        _boatShedNode.frame.size.width,
+                                        _boatShedNode.frame.size.height);
+        _boatshedHighlight = [[_appDelegate entityFactory] createBoatshedHighlightMaskForRect:hiliteFrame withParent:self];
         _boatShedZone = _boatShedNode.frame;
 
         // Add the ship prow (drag source)
@@ -181,8 +187,8 @@
     // Check for exit conditions
     if (_gameOver)
     {
-        _gameOver = NO;
         [self levelExit:[self didWin]];
+        _gameOver = NO;
     }
 
     [_poolManager updateVikings:_dt];
@@ -218,19 +224,29 @@
 
 -(void)levelExit:(BOOL)didWin
 {
+    if (_exiting)
+    {
+        return;
+    }
+    _exiting = YES;
     [_bgMusicPlayer stop];
     __weak VMAGroupsActivityBuildScene* weakSelf = self;
     SKAction* launchBlock = [SKAction runBlock:^
-                           {
+                             {
                                [_longshipManager launchLongships];
-                           }];
-    SKAction* block = [SKAction runBlock:^
-                       {
-                           SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:weakSelf.size won:didWin];
-                           SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
-                           [weakSelf.view presentScene:gameOverScene transition:reveal];
-                       }];
-    [self runAction:[SKAction sequence:@[[SKAction group:@[launchBlock, _exitSound]], block]]];
+                             }];
+    SKAction* gameOverBlock = [SKAction runBlock:^
+                               {
+                                   SKScene* gameOverScene = [[VMAGameOverScene alloc] initWithSize:weakSelf.size won:didWin];
+                                   SKTransition* reveal = [SKTransition flipHorizontalWithDuration:0.5];
+                                   [weakSelf.view presentScene:gameOverScene transition:reveal];
+                               }];
+    SKAction* completionBlock = [SKAction runBlock:^
+                                 {
+                                     _exiting = NO;
+                                 }];
+
+    [self runAction:[SKAction sequence:@[[SKAction group:@[launchBlock, _exitSound]], gameOverBlock, completionBlock]]];
 }
 
 #pragma mark TOUCH EVENT HANDLERS
@@ -268,10 +284,18 @@
             {
                 if ([skNode.name hasPrefix:LAUNCHBUTTONNODENAME])
                 {
+                    // animate launch button
+                    SKSpriteNode* launchButton = (SKSpriteNode*)skNode;
+                    SKTexture* tex = [SKTexture textureWithImageNamed:LAUNCHBUTTONPRESSEDNODENAME];
+                    if (tex)
+                    {
+                        [launchButton setTexture:tex];
+                    }
                     _gameOver = YES;
                     NSLog(@"LAUNCH!");
                 }
-                else if ([touch locationInNode:self].x > VIKINGONPOINTXPOS + 10)
+                else if ([touch locationInNode:self].x > VIKINGONPOINTXPOS + 10 &&
+                         [touch locationInNode:self].y > LAUNCHBUTTONYPOS + _launchButton.size.height / 2.0)
                 {
                     [self flashOnPointZone];
                 }
@@ -350,6 +374,15 @@
                 else if ([_vikingManager draggingActor])
                 {
                     [_vikingManager actorDragStop:(CGPoint)location];
+                }
+                else if ([skNode.name hasPrefix:LAUNCHBUTTONNODENAME])
+                {
+                    SKSpriteNode* launchButton = (SKSpriteNode*)skNode;
+                    SKTexture* tex = [SKTexture textureWithImageNamed:LAUNCHBUTTONNODENAME];
+                    if (tex)
+                    {
+                        [launchButton setTexture:tex];
+                    }
                 }
             }
             break;

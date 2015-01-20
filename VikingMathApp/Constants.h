@@ -29,6 +29,7 @@ static NSString* BOATSHEDNODENAME = @"GroupActivity_Shed";
 static NSString* VIKINGNODENAME = @"GroupActivity_Viking";
 static NSString* ONPOINTZONENODENAME = @"GroupVikingsActivity_OnPointZone";
 static NSString* LAUNCHBUTTONNODENAME = @"launchButton";
+static NSString* LAUNCHBUTTONPRESSEDNODENAME = @"launchButton_pressed";
 static NSString* MOBILEBOATNODENAMEPREFIX = @"MOBILE";
 static NSString* USERDATAENTITYIDKEY = @"eid";
 static NSString* USERDATAENTITYISDRAGGINGKEY = @"isDragging";
